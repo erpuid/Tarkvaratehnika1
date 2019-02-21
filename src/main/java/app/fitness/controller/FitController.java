@@ -29,7 +29,7 @@ public class FitController {
 
     @CrossOrigin(origins = "http://localhost:9000")
     @PostMapping("api/workouts")
-    public Workout saveWorkout(@RequestBody @Valid Workout workout) {
+    public Workout saveWorkout(@RequestBody Workout workout) {
         System.out.println(workout);
         return dao.saveWorkout(workout);
     }
