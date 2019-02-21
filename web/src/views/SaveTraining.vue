@@ -10,6 +10,18 @@
             <input type="submit" name="Submit"/>
         </form>
     </div>
+    <div class="saveexercise">
+        <form id="exercise-form" method="post" @submit.prevent="">
+            <label>Exercise name</label>
+            <input type="text" name="exerciseName" v-model="exerciseName"/>
+            <label>Sets</label>
+            <input type="text" name="sets" v-model="sets"/>
+            <label>Repetitions</label>
+            <input type="text" name="repetitions" v-model="repetitions"/>
+            <label>Weight used</label>
+            <input type="text" name="weightUsed" v-model="weightUsed"/>
+        </form>
+    </div>
     
 </template>
 
