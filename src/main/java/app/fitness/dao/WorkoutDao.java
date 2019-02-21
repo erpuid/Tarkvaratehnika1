@@ -31,9 +31,13 @@ public class WorkoutDao {
         ));
     }
 
-    public List <Workout> findAll() {
-        //Workout workout = new Workout(1L, "Chest", new java.sql.Date(System.currentTimeMillis()));
-        return new ArrayList<>();
+    public List <Workout> findAllWorkouts() {
+        String sql = "select * from workout";
+        return template.query(sql, (rs, rowNum) -> new Workout(
+                rs.getLong("id"),
+                rs.getString("workoutType"),
+                rs.getString("date")
+        ));
     }
 
     public Workout saveWorkout(Workout workout) {
