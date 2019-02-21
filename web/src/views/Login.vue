@@ -12,16 +12,16 @@
         </form>
         <h1>If you don't have an account...</h1>
         <form @submit="SignupForm" method="post">
-            <label>First name </label>
+            <label>First name: </label>
             <input type="text" name="firstName" v-model="firstname" />
             <br>
-            <label>Last name </label>
+            <label>Last name: </label>
             <input type="text" name="lastName" v-model="lastname" />
             <br>
-            <label>Email </label>
+            <label>Email: </label>
             <input type="email" name="signUpEmail" v-model="signemail" />
             <br>
-            <label>Password </label>
+            <label>Password: </label>
             <input type="password" name="signUpPass" v-model="signPassword" />
             <br>
             <input type="submit" name="signSubmit" value="Confirm" />

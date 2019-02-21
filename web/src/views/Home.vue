@@ -1,6 +1,7 @@
 <template>
     <div class="home">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <h1>Welcome to YourFitness!</h1>
+        <p>This app helps you get fit and keeps track of your trainings</p>
     </div>
 </template>
 
@@ -17,5 +18,5 @@ export default {
 </script>
 
 <style scoped>
-
+    
 </style>
