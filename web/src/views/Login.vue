@@ -1,13 +1,30 @@
 <template>
     <div class="login">
-        <form @submit="CheckForm" method="post">
-            <label>Email</label>
+        <h1>Login</h1>
+        <form @submit="LoginForm" method="post">
+            <label>Email </label>
             <input type="email" name="email" v-model="email" />
             <br/>
-            <label>Password</label>
+            <label>Password </label>
             <input type="password" name="password" v-model="password">
             <br/>
             <input type="submit" name="submit" value="Submit" />
+        </form>
+        <h1>If you don't have an account...</h1>
+        <form @submit="SignupForm" method="post">
+            <label>First name </label>
+            <input type="text" name="firstName" v-model="firstname" />
+            <br>
+            <label>Last name </label>
+            <input type="text" name="lastName" v-model="lastname" />
+            <br>
+            <label>Email </label>
+            <input type="email" name="signUpEmail" v-model="signemail" />
+            <br>
+            <label>Password </label>
+            <input type="password" name="signUpPass" v-model="signPassword" />
+            <br>
+            <input type="submit" name="signSubmit" value="Confirm" />
         </form>
     </div>
 </template>
@@ -17,7 +34,7 @@
     export default {
         name: 'login',
         methods: {
-            CheckForm: function (e) {
+            LoginForm: function (e) {
                 if (this.email && this.password) {
                     return true;
                 }
@@ -32,6 +49,10 @@
                 }
 
                 e.preventDefault();
+            },
+
+            SignupForm: function (e) {
+
             }
         }
     }
