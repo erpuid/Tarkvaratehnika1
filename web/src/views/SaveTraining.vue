@@ -63,13 +63,6 @@
                 })
                     .then(response => console.log(response))
                 this.exercises = [];
-                /*axios
-                    .get('http://localhost:8080/api/workouts', {
-                        headers: {
-                            'Access-Control-Allow-Origin': '*'
-                        }
-                    })
-                    .then(response => console.log(response.data))*/
             },
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));

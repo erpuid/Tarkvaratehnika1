@@ -11,6 +11,7 @@
     import About from './views/About.vue';
     import Login from './views/Login.vue';
     import SaveTraining from './views/SaveTraining.vue';
+    import WorkoutHistory from './views/WorkoutHistory.vue';
 
     export default {
         name: 'app',
@@ -19,7 +20,8 @@
             Home,
             About,
             Login,
-            SaveTraining
+            SaveTraining,
+            WorkoutHistory
         }
     }
 </script>

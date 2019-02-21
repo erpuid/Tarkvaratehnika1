@@ -28,6 +28,11 @@ export default new Router({
         path: '/savetraining',
         name: 'savetraining',
         component: () => import('./views/SaveTraining.vue')
+    },
+    {
+        path: '/history',
+        name: 'workouthistory',
+        component: () => import('./views/WorkoutHistory.vue')
     }
   ]
 })
