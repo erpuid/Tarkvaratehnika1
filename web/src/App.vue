@@ -1,27 +1,41 @@
 <template>
   <div id="app">
-    <Skills />
+    <Header />
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Skills from './components/Skills.vue'
+    import Header from './components/layout/Header';
+    import Home from './views/Home.vue';
+    import About from './views/About.vue';
+    import Login from './views/Login.vue';
+    import SaveTraining from './views/SaveTraining.vue';
 
-export default {
-  name: 'Skills',
-  components: {
-    Skills
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            Header,
+            Home,
+            About,
+            Login,
+            SaveTraining
+        }
+    }
 </script>
 
+
+
+
+
+
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;*/
+  }
 </style>

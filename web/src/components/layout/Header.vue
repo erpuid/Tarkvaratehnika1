@@ -1,0 +1,32 @@
+<template>
+    <header class="header">
+        <h1>YourFitness – better life starts here</h1>
+        <div id="nav">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/about">About</router-link> |
+            <router-link to="/login">Login</router-link> |
+            <router-link to="/savetraining">Save Training</router-link>
+        </div>
+    </header>
+</template>
+
+<script>
+    export default {
+        name: 'Header'
+    }
+</script>
+
+<style scoped>
+    .header {
+        background: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .header a {
+        color: #fff;
+        padding-right: 5px;
+        text-decoration: none;
+    }
+</style>
