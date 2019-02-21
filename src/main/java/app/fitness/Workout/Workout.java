@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.sql.Date;
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -21,16 +19,5 @@ public class Workout {
     @NonNull
     private String date;
 
-    /*
-    public Workout(Date date) {
-        this.date = date;
-    }
-
-    public Workout(long l, String upper, Date date) {
-        this.id = l;
-        workoutType = upper;
-        this.date = date;
-    }
-    */
-    //private ArrayList<Exercise> exercises;
+    private List<Exercise> exercises;
 }
