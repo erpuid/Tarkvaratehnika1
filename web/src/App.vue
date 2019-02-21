@@ -10,6 +10,7 @@
     import Home from './views/Home.vue';
     import About from './views/About.vue';
     import Login from './views/Login.vue';
+    import SaveTraining from './views/SaveTraining.vue';
 
     export default {
         name: 'app',
@@ -17,7 +18,8 @@
             Header,
             Home,
             About,
-            Login
+            Login,
+            SaveTraining
         }
     }
 </script>
