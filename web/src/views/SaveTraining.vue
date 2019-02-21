@@ -9,6 +9,28 @@
             <br>
             <input type="submit" name="Submit"/>
         </form>
+
+        <form id="add-workout" @submit.prevent="addExercise">
+            <label>Add exercise</label>
+            <input type="text" name="exerciseName" v-model="exercise.exerciseName"/>
+            <br>
+            <label>Sets</label>
+            <input type="text" name="exerciseSets" v-model="exercise.exerciseSets"/>
+            <br>
+            <label>Repetitions</label>
+            <input type="text" name="exerciseRepetitions" v-model="exercise.exerciseRepetitions"/>
+            <br>
+            <label>Weight</label>
+            <input type="text" name="exerciseWeight" v-model="exercise.exerciseWeight"/>
+            <br>
+            <input type="submit" name="addExercise"/>
+        </form>
+
+        <ul>
+            <li v-for="exercise in exercises">
+                {{exercise}}
+            </li>
+        </ul>
     </div>
     
 </template>
@@ -20,14 +42,19 @@
         data: function() {
             return {
                 workoutType: '',
-                date: ''
+                date: '',
+                exercise: {
+                    exerciseName: '',
+                    exerciseSets: '',
+                    exerciseRepetitions: '',
+                    exerciseWeight: ''
+                },
+                exercises: []
             }
         },
         datatype: 'json',
         methods: {
             processForm: function() {
-                console.log(this.workoutType);
-                console.log(JSON.stringify({workoutType: this.workoutType, date: this.date}));
                 alert('Processing!');
                 axios
                     .post('http://localhost:8080/api/workouts', {
@@ -42,11 +69,21 @@
                         }
                     })
                     .then(response => console.log(response.data))*/
+            },
+            addExercise: function() {
+                this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
+
             }
         }
     }
 </script>
 
 <style scoped>
+    * {
+        margin: 5px;
+    }
 
+    ul {
+        float: right;
+    }
 </style>
