@@ -5,7 +5,7 @@
             <input type="text" name="workoutType" v-model="workoutType"/>
             <br>
             <label>Date</label>
-            <input type="text" name="date" v-model="date"/>
+            <input type="date" name="date" v-model="date"/>
             <br>
             <input type="submit" name="Submit"/>
         </form>
@@ -15,13 +15,13 @@
             <input type="text" name="exerciseName" v-model="exercise.exerciseName"/>
             <br>
             <label>Sets</label>
-            <input type="text" name="exerciseSets" v-model="exercise.exerciseSets"/>
+            <input type="number" name="exerciseSets" v-model="exercise.sets"/>
             <br>
             <label>Repetitions</label>
-            <input type="text" name="exerciseRepetitions" v-model="exercise.exerciseRepetitions"/>
+            <input type="number" name="exerciseRepetitions" v-model="exercise.repetitions"/>
             <br>
             <label>Weight</label>
-            <input type="text" name="exerciseWeight" v-model="exercise.exerciseWeight"/>
+            <input type="number" name="exerciseWeight" v-model="exercise.weight"/>
             <br>
             <input type="submit" name="addExercise"/>
         </form>
@@ -32,19 +32,6 @@
             </li>
         </ul>
     </div>
-    <div class="saveexercise">
-        <form id="exercise-form" method="post" @submit.prevent="">
-            <label>Exercise name</label>
-            <input type="text" name="exerciseName" v-model="exerciseName"/>
-            <label>Sets</label>
-            <input type="text" name="sets" v-model="sets"/>
-            <label>Repetitions</label>
-            <input type="text" name="repetitions" v-model="repetitions"/>
-            <label>Weight used</label>
-            <input type="text" name="weightUsed" v-model="weightUsed"/>
-        </form>
-    </div>
-    
 </template>
 
 <script>
@@ -57,9 +44,9 @@
                 date: '',
                 exercise: {
                     exerciseName: '',
-                    exerciseSets: '',
-                    exerciseRepetitions: '',
-                    exerciseWeight: ''
+                    sets: '',
+                    repetitions: '',
+                    weight: ''
                 },
                 exercises: []
             }
@@ -71,9 +58,11 @@
                 axios
                     .post('http://localhost:8080/api/workouts', {
                     workoutType: this.workoutType,
-                    date: this.date
+                    date: this.date,
+                    exercises: this.exercises
                 })
                     .then(response => console.log(response))
+                this.exercises = [];
                 /*axios
                     .get('http://localhost:8080/api/workouts', {
                         headers: {
@@ -84,6 +73,7 @@
             },
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
+                this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.weight = '';
 
             }
         }
