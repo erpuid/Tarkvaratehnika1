@@ -2,27 +2,35 @@ package app.fitness.Workout;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
+import java.sql.Date;
 
-@Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Workout {
-    private enum workoutTypeEnum{
-        CHEST, SHOULDER, ARMS,BACK, LEGS, UPPER, LOWER, PUSH, PULL
-    }
 
-    @Id
-    @GeneratedValue
     private Long id;
     @NonNull
-    private String workoutType ;
-    private Date date;
+    private String workoutType;
+    @NonNull
+    private String date;
 
+    /*
+    public Workout(Date date) {
+        this.date = date;
+    }
+
+    public Workout(long l, String upper, Date date) {
+        this.id = l;
+        workoutType = upper;
+        this.date = date;
+    }
+    */
     //private ArrayList<Exercise> exercises;
 }

@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Exercise {
 
     @NonNull
