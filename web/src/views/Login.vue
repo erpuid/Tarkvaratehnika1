@@ -8,7 +8,7 @@
             <label>Password </label>
             <input type="password" name="password" v-model="password">
             <br/>
-            <input type="submit" name="submit" value="Submit" />
+            <input type="submit" class="submit" name="submit" value="Submit" />
         </form>
         <h1>If you don't have an account...</h1>
         <form @submit="SignupForm" method="post">
@@ -24,7 +24,7 @@
             <label>Password: </label>
             <input type="password" name="signUpPass" v-model="signPassword" />
             <br>
-            <input type="submit" name="signSubmit" value="Confirm" />
+            <input type="submit" class="submit" name="signSubmit" value="Confirm" />
         </form>
     </div>
 </template>
@@ -59,6 +59,27 @@
 </script>
 
 <style scoped>
+    .login {
+        font-family: 'Oswald', sans-serif;
+    }
+
+    .submit {
+        font-weight: bold;
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        height: 35px;
+        width: 70px;
+        padding-right: 5px;
+        padding-left: 5px;
+        background-color: #ccffcc;
+        border-color: #66ff66;
+    }
+
+    .submit:hover {
+        background-color: #66ff66;
+        border-color: #66ff66;
+    }
+
     * {
         margin-top: 10px;
     }

@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <h1>Welcome to YourFitness!</h1>
-        <p>This app helps you get fit and keeps track of your trainings</p>
+        <h1 class="heading">Welcome to YourFitness!</h1>
+        <p class="text">This app helps you get fit and keeps track of your trainings</p>
     </div>
 </template>
 
@@ -18,5 +18,17 @@ export default {
 </script>
 
 <style scoped>
-    
+    .home {
+        font-family: 'Oswald', sans-serif;
+    }
+
+    .text {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .heading {
+        text-align: center;
+    }
+
 </style>

@@ -34,5 +34,7 @@
 </script>
 
 <style scoped>
-
+    .workouthistory {
+        font-family: 'Oswald', sans-serif;
+    }
 </style>
