@@ -18,16 +18,26 @@
 </script>
 
 <style scoped>
+
     .header {
-        background: #333;
-        color: #fff;
+        font-family: 'Righteous', cursive;
+        background: #99ebff;
+        color: #000000;
         text-align: center;
         padding: 10px;
+        font-weight: normal;
     }
 
     .header a {
-        color: #fff;
-        padding-right: 5px;
+        color: #262626;
+        padding: 5px;
         text-decoration: none;
+        font-weight: bold;
+    }
+
+    .header a:hover {
+        color: #fff;
+        background: black;
+
     }
 </style>
