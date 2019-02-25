@@ -2,18 +2,14 @@ package app.fitness.dao;
 
 import app.fitness.Workout.Exercise;
 import app.fitness.Workout.Workout;
-import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 public class WorkoutDao {
@@ -36,7 +32,7 @@ public class WorkoutDao {
 
 
     public List<Workout> findAllWorkouts() {
-        String sql = "select * from workout";
+        String sql = "select * from workout order by date desc";
         return template.query(sql, (rs, rowNum) -> new Workout(
                 rs.getLong("id"),
                 rs.getString("workoutType"),
