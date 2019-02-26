@@ -1,6 +1,18 @@
 <template>
     <div class="workouthistory">
-        {{history}}
+        <h1>Workout history</h1>
+        <div v-for="h in history" id="workout">
+                <span>Id: {{h.id}} </span>
+                <span>Workout type: {{h.workoutType}} </span>
+                <span>Date: {{h.date}}</span>
+            <div v-for="exercise in h.exercises" style="margin-left: 2ex;" id="exercise">
+                <span>Name: {{exercise.exerciseName}} </span>
+                <span>Sets: {{exercise.sets}} </span>
+                <span>Repetitions: {{exercise.repetitions}} </span>
+                <span>Weight: {{exercise.weight}}</span>
+            </div>
+            <br>
+        </div>
     </div>
 </template>
 
@@ -11,7 +23,7 @@
         name: "WorkoutHistory",
         data: function() {
             return {
-                history: ''
+                history: []
             }
         },
         methods: {
@@ -24,6 +36,7 @@
                     })
                     .then(response => {
                         this.history = response.data;
+                        console.log(this.history);
                     })
             }
         },

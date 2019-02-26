@@ -1,16 +1,6 @@
 <template>
     <div class="savetraining">
-        <h3>Add new workout</h3>
-        <form id="training-form" method="post" @submit.prevent="processForm">
-            <label>Workout type</label>
-            <input type="text" name="workoutType" v-model="workoutType"/>
-            <br>
-            <label>Date</label>
-            <input type="date" name="date" v-model="date"/>
-            <br>
-            <input type="submit" class="submit" name="Submit" value="Submit"/>
-        </form>
-        <h3>Add new exercise</h3>
+        <h3>Add new exercise to workout</h3>
         <form id="add-workout" @submit.prevent="addExercise">
             <label>Add exercise</label>
             <input type="text" name="exerciseName" v-model="exercise.exerciseName"/>
@@ -24,9 +14,18 @@
             <label>Weight</label>
             <input type="number" name="exerciseWeight" v-model="exercise.weight"/>
             <br>
-            <input type="submit" class="submit" name="addExercise" value="Submit"/>
+            <input type="submit" class="submit" name="addExercise" value="Add"/>
         </form>
-
+        <h3>Add new workout</h3>
+        <form id="training-form" method="post" @submit.prevent="processForm">
+            <label>Workout type</label>
+            <input type="text" name="workoutType" v-model="workoutType"/>
+            <br>
+            <label>Date</label>
+            <input type="date" name="date" v-model="date"/>
+            <br>
+            <input type="submit" class="submit" name="Submit" value="Submit workout"/>
+        </form>
         <ul>
             <li v-for="exercise in exercises">
                 {{exercise}}
@@ -83,10 +82,7 @@
         font-weight: bold;
         font-family: 'Oswald', sans-serif;
         font-size: 16px;
-        height: 35px;
-        width: 70px;
-        padding-right: 5px;
-        padding-left: 5px;
+        padding: 5px;
         background-color: #ccffcc;
         border-color: #66ff66;
     }
