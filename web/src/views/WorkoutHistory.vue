@@ -2,7 +2,7 @@
     <div class="workouthistory">
         <h1>Workout history</h1>
         <ul>
-            <li v-for="h in history" id="workout">
+            <li v-for="h in newHistory" id="workout">
                     <span>Workout type: {{h.workoutType}} </span>
                     <span>Date: {{h.date}}</span>
                 <div v-for="exercise in h.exercises" style="margin-left: 2ex;" id="exercise">
@@ -14,6 +14,21 @@
                 <br>
             </li>
         </ul>
+
+        <form id="workout-search" @submit.prevent="workoutSearch">
+            <label>Search by:</label>
+            <input type="radio" name="searchType" value="type" v-model="searchType"/>Workout Type
+            <br>
+            <input type="radio" name="searchType" value="date" v-model="searchType"/>Date (YYYY-MM-DD)
+            <br>
+            <input type="radio" name="searchType" value="exerciseName" v-model="searchType"/>Exercise Name
+            <br>
+            <label>Search</label>
+            <input v-if="this.searchType === 'date'" type="date" name="searchField" v-model="searchField"/>
+            <input v-else-if="this.searchType === 'workoutType'" type="text" name="searchField" v-model="searchField"/>
+            <input v-else-if="this.searchType === 'exerciseName'" type="text" name="searchField" v-model="searchField"/>
+            <input type="submit" class="submit" name="search" value="Search"/>
+        </form>
     </div>
 </template>
 
@@ -24,21 +39,48 @@
         name: "WorkoutHistory",
         data: function() {
             return {
-                history: []
+                history: [],
+                searchType: '',
+                searchField: '',
+                newHistory: []
             }
         },
         methods: {
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/workouts', {
-                        headers: {
-                            'Access-Control-Allow-Origin': '*'
-                        }
-                    })
+                    .get('http://localhost:8080/api/workouts')
                     .then(response => {
                         this.history = response.data;
-                        console.log(this.history);
+                        this.newHistory = this.history;
                     })
+            },
+            workoutSearch: function() {
+                this.newHistory = [];
+                if (this.searchField === "") {
+                    this.newHistory = this.history;
+                } else if (this.searchType === "type") {
+                    for (var i = 0; i < this.history.length; i++) {
+                        if (this.history[i].workoutType === this.searchField) {
+                            this.newHistory.push(this.history[i]);
+                        }
+                    }
+                } else if (this.searchType === "date") {
+                    for (var i = 0; i < this.history.length; i++) {
+                        if (this.history[i].date === this.searchField) {
+                            this.newHistory.push(this.history[i]);
+                        }
+                    }
+                } else if (this.searchType === "exerciseName") {
+                    for (var i = 0; i < this.history.length; i++) {
+                        for (var j = 0; j< this.history[i].exercises.length; j++) {
+                            if (this.history[i].exercises[j].exerciseName === this.searchField) {
+                                this.newHistory.push(this.history[i]);
+                                break;
+                            }
+                        }
+
+                    }
+                }
             }
         },
         created: function() {

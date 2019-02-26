@@ -29,6 +29,7 @@
         <ul>
             <li v-for="exercise in exercises">
                 {{exercise}}
+                <button v-on:click="removeExercise(exercises.indexOf(exercise))">Remove</button>
             </li>
         </ul>
     </div>
@@ -54,7 +55,6 @@
         datatype: 'json',
         methods: {
             processForm: function() {
-                alert('Processing!');
                 axios
                     .post('http://localhost:8080/api/workouts', {
                     workoutType: this.workoutType,
@@ -63,11 +63,15 @@
                 })
                     .then(response => console.log(response))
                 this.exercises = [];
+                this.workoutType = this.date = '';
             },
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
                 this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.weight = '';
 
+            },
+            removeExercise: function(exercise) {
+                this.exercises.splice(exercise, 1);
             }
         }
     }
