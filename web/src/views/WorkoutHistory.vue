@@ -24,8 +24,8 @@
             <br>
             <input type="radio" name="searchType" value="exerciseName" v-model="searchType"/>Exercise Name
             <br>
-            <input v-if="this.searchType === 'date'" type="date" name="searchField" v-model="searchField"/>
-            <input v-else-if="this.searchType === 'workoutType'" type="text" name="searchField" v-model="searchField"/>
+            <input v-if="this.searchType === 'type'" type="text" name="searchField" v-model="searchField"/>
+            <input v-else-if="this.searchType === 'date'" type="date" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'exerciseName'" type="text" name="searchField" v-model="searchField"/>
             <input type="submit" class="submit" name="search" value="Search"/>
         </form>
