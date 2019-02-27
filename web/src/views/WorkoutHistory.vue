@@ -3,12 +3,12 @@
         <h1>Workout history</h1>
         <ul>
             <li v-for="h in newHistory" id="workout">
-                    <span>Workout type: {{h.workoutType}} </span>
+                    <span>Workout type: {{h.workoutType}}, </span>
                     <span>Date: {{h.date}}</span>
                 <div v-for="exercise in h.exercises" style="margin-left: 2ex;" id="exercise">
-                    <span>Name: {{exercise.exerciseName}} </span>
-                    <span>Sets: {{exercise.sets}} </span>
-                    <span>Repetitions: {{exercise.repetitions}} </span>
+                    <span>Name: {{exercise.exerciseName}}, </span>
+                    <span>Sets: {{exercise.sets}}, </span>
+                    <span>Repetitions: {{exercise.repetitions}}, </span>
                     <span>Weight: {{exercise.weight}}</span>
                 </div>
                 <br>
@@ -17,13 +17,13 @@
 
         <form id="workout-search" @submit.prevent="workoutSearch">
             <label>Search by:</label>
+            <br>
             <input type="radio" name="searchType" value="type" v-model="searchType"/>Workout Type
             <br>
             <input type="radio" name="searchType" value="date" v-model="searchType"/>Date (YYYY-MM-DD)
             <br>
             <input type="radio" name="searchType" value="exerciseName" v-model="searchType"/>Exercise Name
             <br>
-            <label>Search</label>
             <input v-if="this.searchType === 'date'" type="date" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'workoutType'" type="text" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'exerciseName'" type="text" name="searchField" v-model="searchField"/>
@@ -92,5 +92,19 @@
 <style scoped>
     .workouthistory {
         font-family: 'Oswald', sans-serif;
+    }
+
+    .submit {
+        font-weight: bold;
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        padding: 5px;
+        background-color: #ccffcc;
+        border-color: #66ff66;
+    }
+
+    .submit:hover {
+        background-color: #66ff66;
+        border-color: #66ff66;
     }
 </style>

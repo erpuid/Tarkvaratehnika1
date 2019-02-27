@@ -2,29 +2,43 @@
     <div class="login">
         <h1>Login</h1>
         <form @submit="LoginForm" method="post">
-            <label>Email </label>
-            <input type="email" name="email" v-model="email" />
-            <br/>
-            <label>Password </label>
-            <input type="password" name="password" v-model="password">
-            <br/>
-            <input type="submit" class="submit" name="submit" value="Submit" />
+            <table>
+                <tr>
+                    <td><label>Email: </label></td>
+                    <td><input type="email" name="email" v-model="email" /></td>
+                </tr>
+                <tr>
+                    <td><label>Password: </label></td>
+                    <td><input type="password" name="password" v-model="password"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="submit" value="Submit" /></td>
+                </tr>
+            </table>
         </form>
         <h1>If you don't have an account...</h1>
         <form @submit="SignupForm" method="post">
-            <label>First name: </label>
-            <input type="text" name="firstName" v-model="firstname" />
-            <br>
-            <label>Last name: </label>
-            <input type="text" name="lastName" v-model="lastname" />
-            <br>
-            <label>Email: </label>
-            <input type="email" name="signUpEmail" v-model="signemail" />
-            <br>
-            <label>Password: </label>
-            <input type="password" name="signUpPass" v-model="signPassword" />
-            <br>
-            <input type="submit" class="submit" name="signSubmit" value="Confirm" />
+            <table>
+                <tr>
+                    <td><label>First name: </label></td>
+                    <td><input type="text" name="firstName" v-model="firstname" /></td>
+                </tr>
+                <tr>
+                    <td><label>Last name: </label></td>
+                    <td><input type="text" name="lastName" v-model="lastname" /></td>
+                </tr>
+                <tr>
+                    <td><label>Email: </label></td>
+                    <td><input type="email" name="signUpEmail" v-model="signemail" /></td>
+                </tr>
+                <tr>
+                    <td><label>Password: </label></td>
+                    <td><input type="password" name="signUpPass" v-model="signPassword" /></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="signSubmit" value="Confirm" /></td>
+                </tr>
+            </table>
         </form>
     </div>
 </template>

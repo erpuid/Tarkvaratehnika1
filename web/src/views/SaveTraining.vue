@@ -1,37 +1,57 @@
 <template>
-    <div class="savetraining">
+    <div class="saveTraining">
         <h3>Add new exercise to workout</h3>
-        <form id="add-workout" @submit.prevent="addExercise">
-            <label>Add exercise</label>
-            <input type="text" name="exerciseName" v-model="exercise.exerciseName"/>
-            <br>
-            <label>Sets</label>
-            <input type="number" name="exerciseSets" v-model="exercise.sets"/>
-            <br>
-            <label>Repetitions</label>
-            <input type="number" name="exerciseRepetitions" v-model="exercise.repetitions"/>
-            <br>
-            <label>Weight</label>
-            <input type="number" name="exerciseWeight" v-model="exercise.weight"/>
-            <br>
-            <input type="submit" class="submit" name="addExercise" value="Add"/>
+        <form id="add-workout" class="workoutClass" @submit.prevent="addExercise">
+            <table>
+                <tr>
+                    <td><label>Add exercise</label></td>
+                    <td><input type="text" name="exerciseName" v-model="exercise.exerciseName"/></td>
+                </tr>
+                <tr>
+                    <td><label>Sets</label></td>
+                    <td><input type="number" name="exerciseSets" v-model="exercise.sets"/></td>
+                </tr>
+                <tr>
+                    <td><label>Repetitions</label></td>
+                    <td><input type="number" name="exerciseRepetitions" v-model="exercise.repetitions"/></td>
+                </tr>
+                <tr>
+                    <td><label>Weight</label></td>
+                    <td><input type="number" name="exerciseWeight" v-model="exercise.weight"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="addExercise" value="Add"/></td>
+                </tr>
+            </table>
+            <span class="exerciseData">
+                <ol>
+                    <li v-for="exercise in exercises">
+                        <span>Name: {{exercise.exerciseName}},</span>
+                        <span>sets: {{exercise.sets}},</span>
+                        <span>repetitions: {{exercise.repetitions}},</span>
+                        <span>weight: {{exercise.weight}}</span>
+                        <button v-on:click="removeExercise(exercises.indexOf(exercise))" class="remove">Remove</button>
+                        <br>
+                    </li>
+                </ol>
+            </span>
         </form>
-        <h3>Add new workout</h3>
         <form id="training-form" method="post" @submit.prevent="processForm">
-            <label>Workout type</label>
-            <input type="text" name="workoutType" v-model="workoutType"/>
-            <br>
-            <label>Date</label>
-            <input type="date" name="date" v-model="date"/>
-            <br>
-            <input type="submit" class="submit" name="Submit" value="Submit workout"/>
+            <h3>Add new workout</h3>
+            <table>
+                <tr>
+                    <td><label>Workout type</label></td>
+                    <td><input type="text" name="workoutType" v-model="workoutType"/></td>
+                </tr>
+                <tr>
+                    <td><label>Date</label></td>
+                    <td><input type="date" name="date" v-model="date"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
+                </tr>
+            </table>
         </form>
-        <ul>
-            <li v-for="exercise in exercises">
-                {{exercise}}
-                <button v-on:click="removeExercise(exercises.indexOf(exercise))">Remove</button>
-            </li>
-        </ul>
     </div>
 </template>
 
@@ -78,8 +98,17 @@
 </script>
 
 <style scoped>
-    .savetraining {
+    .saveTraining {
         font-family: 'Oswald', sans-serif;
+    }
+
+    .exerciseData {
+        display: inline-block;
+    }
+
+    .workoutClass {
+        display: flex;
+        flex-direction: row;
     }
 
     .submit {
@@ -96,11 +125,23 @@
         border-color: #66ff66;
     }
 
+    .remove {
+        background-color: #ff8080;
+        border-color: #ff0000;
+        font-weight: bold;
+    }
+
+    .remove:hover {
+        background-color: #ff0000;
+        border-color: #ff0000;
+        color: white;
+    }
+
     * {
         margin: 5px;
     }
 
     ul {
-        float: right;
+        text-align: center;
     }
 </style>
