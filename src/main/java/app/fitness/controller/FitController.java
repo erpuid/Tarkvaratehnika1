@@ -42,10 +42,13 @@ public class FitController {
     public List<WorkoutPlan> getAllWorkoutPlans() {
         WorkoutPlan plan = new WorkoutPlan();
         plan.setPlanName("Test Plan");
+        WorkoutPlan plan2 = new WorkoutPlan();
+        plan2.setPlanName("Test Plan 2");
         List<Workout> workouts = new ArrayList<>();
         workouts.add(this.findById(1L));
         workouts.add(this.findById(2L));
         plan.setWorkouts(workouts);
-        return Arrays.asList(plan);
+        plan2.setWorkouts(workouts);
+        return Arrays.asList(plan, plan2);
     }
 }
