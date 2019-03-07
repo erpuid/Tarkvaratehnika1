@@ -1,12 +1,10 @@
-package app.fitness.Workout;
+package app.fitness.entities;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
-import javax.persistence.Entity;
 
 @Data
 @AllArgsConstructor

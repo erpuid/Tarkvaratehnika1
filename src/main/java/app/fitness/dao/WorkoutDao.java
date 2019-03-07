@@ -1,7 +1,7 @@
 package app.fitness.dao;
 
-import app.fitness.Workout.Exercise;
-import app.fitness.Workout.Workout;
+import app.fitness.entities.Exercise;
+import app.fitness.entities.Workout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -21,7 +21,7 @@ public class WorkoutDao {
     public Workout findById(Long id) {
         System.out.println("ID: " + id);
         String sql = "select * from workout where id=?";
-        //return new Workout(1L, "Upper", new java.sql.Date(System.currentTimeMillis()));
+        //return new entities(1L, "Upper", new java.sql.Date(System.currentTimeMillis()));
         return template.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> new Workout(
                 rs.getLong("id"),
                 rs.getString("workoutType"),

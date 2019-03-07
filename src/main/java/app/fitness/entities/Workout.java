@@ -1,4 +1,4 @@
-package app.fitness.Workout;
+package app.fitness.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

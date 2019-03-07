@@ -1,7 +1,7 @@
 package app.fitness.controller;
 
 
-import app.fitness.Workout.Workout;
+import app.fitness.entities.Workout;
 import app.fitness.dao.WorkoutDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
