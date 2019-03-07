@@ -52,6 +52,12 @@
                 </tr>
             </table>
         </form>
+        <form>
+            <select v-model="selected">
+                <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.workoutType}}</option>
+            </select>
+            <p>{{this.selected}}</p>
+        </form>
     </div>
 </template>
 
@@ -69,7 +75,9 @@
                     repetitions: '',
                     weight: ''
                 },
-                exercises: []
+                exercises: [],
+                workoutPlans: [],
+                selected: ''
             }
         },
         datatype: 'json',
@@ -92,7 +100,17 @@
             },
             removeExercise: function(exercise) {
                 this.exercises.splice(exercise, 1);
+            },
+            getAllData: function() {
+                axios
+                    .get('http://localhost:8080/api/workouts')
+                    .then(response => {
+                        this.workoutPlans = response.data;
+                    })
             }
+        },
+        created: function() {
+            this.getAllData()
         }
     }
 </script>

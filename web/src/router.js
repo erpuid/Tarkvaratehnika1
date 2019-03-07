@@ -34,6 +34,11 @@ export default new Router({
         path: '/history',
         name: 'workouthistory',
         component: () => import('./views/WorkoutHistory.vue')
+    },
+    {
+        path: '/createworkout',
+        name: 'createworkout',
+        component: () => import('./views/CreateWorkout.vue')
     }
   ]
 })

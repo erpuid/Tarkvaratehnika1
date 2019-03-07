@@ -6,7 +6,8 @@
             <router-link to="/about">About</router-link> |
             <router-link to="/login">Login</router-link> |
             <router-link to="/savetraining">Save Training</router-link> |
-            <router-link to="/history">Workout History</router-link>
+            <router-link to="/history">Workout History</router-link> |
+            <router-link to="/createworkout">Create Workout</router-link>
         </div>
     </header>
 </template>
