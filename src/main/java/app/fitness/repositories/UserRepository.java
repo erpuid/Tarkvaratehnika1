@@ -1,0 +1,8 @@
+package app.fitness.repositories;
+
+import app.fitness.Entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User,Long> {
+    User findByUsername(String username);
+}
