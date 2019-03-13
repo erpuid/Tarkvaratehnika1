@@ -54,7 +54,7 @@
         </form>
         <form>
             <select v-model="selected">
-                <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.workoutType}}</option>
+                <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.planName}}</option>
             </select>
             <p>{{this.selected}}</p>
         </form>
@@ -84,7 +84,7 @@
         methods: {
             processForm: function() {
                 axios
-                    .post('http://localhost:8080/api/workouts', {
+                    .post('http://localhost:8080/api/workout', {
                     workoutType: this.workoutType,
                     date: this.date,
                     exercises: this.exercises
@@ -103,7 +103,7 @@
             },
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/workouts')
+                    .get('http://localhost:8080/api/plan')
                     .then(response => {
                         this.workoutPlans = response.data;
                     })

@@ -48,13 +48,12 @@ public class WorkoutService {
 
     @PostMapping("api/workouts")
     public Workout saveWorkout(@RequestBody Workout workout) {
-        /*
-        for (Exercise ex: workout.getExercises())
-            ex.setWorkout(workout);
-        */
-        exerciseRepository.saveAll(workout.getExercises());
-        exerciseRepository.setWorkoutId(workout.getId());
         System.out.println(workout.getExercises());
+        for (Exercise ex: workout.getExercises()) {
+            ex.setWorkout(workout);
+            //System.out.println(saved.getId());
+        }
+        //System.out.println(exerciseRepository.setWorkoutId(workout.getId()));
         return workoutRepository.save(workout);
     }
 

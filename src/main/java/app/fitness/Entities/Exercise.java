@@ -26,5 +26,4 @@ public class Exercise {
     private Workout workout;
 
     public Exercise(){}
-
 }

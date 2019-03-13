@@ -18,7 +18,7 @@ public class Workout {
     private String workoutType;
     private String date;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "workout")
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "workout")
     private List<Exercise> exercises = new ArrayList<>();
 
     public Workout() {}
