@@ -27,15 +27,11 @@ public class WorkoutService {
 
     @GetMapping("api/workouts")
     public List<Workout> getAllWorkouts(){
-        System.out.println("Siin");
-        //List<Workout> workouts = workoutRepository.findAll();
-        //System.out.println(workouts.toString());
         return workoutRepository.findAll();
     }
 
     @GetMapping("api/workouts/{id}")
     public Optional<Workout> getWorkoutById(@PathVariable Long id){
-        //Optional<Workout> workout = workoutRepository.findById(id);
         return workoutRepository.findById(id);
     }
 
@@ -51,9 +47,7 @@ public class WorkoutService {
         System.out.println(workout.getExercises());
         for (Exercise ex: workout.getExercises()) {
             ex.setWorkout(workout);
-            //System.out.println(saved.getId());
         }
-        //System.out.println(exerciseRepository.setWorkoutId(workout.getId()));
         return workoutRepository.save(workout);
     }
 
