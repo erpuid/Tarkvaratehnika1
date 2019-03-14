@@ -66,9 +66,9 @@
                     <td><label>Date</label></td>
                     <td><input type="date" name="date" v-model="date"/></td>
                 </tr>
-                <div v-if="this.index < this.selectedWorkout.exercises.length - 1">
+                <div v-if="this.index < this.selectedWorkout.planExercises.length">
                 <tr>
-                    <td><label>{{this.selectedWorkout.exercises[this.index].exerciseName}}</label></td>
+                    <td><label>{{this.selectedWorkout.planExercises[this.index].exerciseName}}</label></td>
                 </tr>
                 <tr>
                     <td><label>Sets</label></td>
@@ -123,6 +123,7 @@
                     repetitions: '',
                     weight: ''
                 },
+                planExercises: [],
                 exercises: [],
                 workoutPlans: [],
                 selectedPlan: '',
@@ -146,9 +147,11 @@
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
                 this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.weight = '';
-                if (this.index < this.selectedWorkout.exercises.length - 1) {
-                    this.updateExercise();
+                if (this.index < this.selectedWorkout.planExercises.length) {
                     this.index++;
+                    if (this.index < this.selectedWorkout.planExercises.length - 1) {
+                        this.updateExercise();
+                    }
                 }
             },
             removeExercise: function(exercise) {
@@ -156,15 +159,15 @@
             },
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/workoutplan')
+                    .get('http://localhost:8080/api/plan')
                     .then(response => {
                         this.workoutPlans = response.data;
                     })
             },
             updateExercise: function() {
-                this.exercise.exerciseName = this.selectedWorkout.exercises[this.index].exerciseName;
-                this.exercise.sets = this.selectedWorkout.exercises[this.index].sets;
-                this.exercise.repetitions = this.selectedWorkout.exercises[this.index].repetitions;
+                this.exercise.exerciseName = this.selectedWorkout.planExercises[this.index].exerciseName;
+                this.exercise.sets = this.selectedWorkout.planExercises[this.index].sets;
+                this.exercise.repetitions = this.selectedWorkout.planExercises[this.index].repetitions;
                 this.exercise.weight = '';
 
                 /*if (this.index >= this.selectedWorkout.exercises.length - 1) {
