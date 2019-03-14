@@ -147,11 +147,9 @@
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
                 this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.weight = '';
+                this.index++;
                 if (this.index < this.selectedWorkout.planExercises.length) {
-                    this.index++;
-                    if (this.index < this.selectedWorkout.planExercises.length - 1) {
-                        this.updateExercise();
-                    }
+                    this.updateExercise();
                 }
             },
             removeExercise: function(exercise) {
