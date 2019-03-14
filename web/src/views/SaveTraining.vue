@@ -1,6 +1,6 @@
 <template>
     <div class="saveTraining">
-        <h3>Add new exercise to workout</h3>
+        <!--<h3>Add new exercise to workout</h3>
         <form id="add-workout" class="workoutClass" @submit.prevent="addExercise">
             <table>
                 <tr>
@@ -51,13 +51,61 @@
                     <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
                 </tr>
             </table>
+        </form>-->
+        <select v-model="selectedPlan">
+            <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.planName}}</option>
+        </select>
+        <br>
+        <select v-model="selectedWorkout" @change="updateExercise" v-if="this.selectedPlan">
+            <option v-for="workout in this.selectedPlan.workouts" v-bind:value="workout">{{workout.workoutName}}</option>
+        </select>
+
+        <form id="add-workout" class="workoutClass" @submit.prevent v-if="this.selectedWorkout">
+            <table>
+                <tr>
+                    <td><label>Date</label></td>
+                    <td><input type="date" name="date" v-model="date"/></td>
+                </tr>
+                <div v-if="this.index < this.selectedWorkout.exercises.length - 1">
+                <tr>
+                    <td><label>{{this.selectedWorkout.exercises[this.index].exerciseName}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Sets</label></td>
+                    <td><input type="number" name="exerciseSets" v-model="exercise.sets"/></td>
+                </tr>
+                <tr>
+                    <td><label>Repetitions</label></td>
+                    <td><input type="number" name="exerciseRepetitions" v-model="exercise.repetitions"/></td>
+                </tr>
+                <tr>
+                    <td><label>Weight</label></td>
+                    <td><input type="number" name="exerciseWeight" v-model="exercise.weight"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="addExercise" value="Add" @click="addExercise"/></td>
+                </tr>
+                </div>
+                <tr v-if="this.exercises.length > 0">
+                    <td><input type="submit" class="submit" name="submitAll" value="Submit all" @click="processForm"/></td>
+                </tr>
+            </table>
         </form>
-        <form>
-            <select v-model="selected">
-                <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.workoutType}}</option>
-            </select>
-            <p>{{this.selected}}</p>
-        </form>
+        <!--<form @submit.prevent="processForm">
+            <input type="submit" class="submit" name="submitAll" value="Submit all"/>
+        </form>-->
+        <span class="exerciseData">
+            <ol>
+                <li v-for="exercise in exercises">
+                    <span>Name: {{exercise.exerciseName}},</span>
+                    <span>sets: {{exercise.sets}},</span>
+                    <span>repetitions: {{exercise.repetitions}},</span>
+                    <span>weight: {{exercise.weight}}</span>
+                    <button v-on:click="removeExercise(exercises.indexOf(exercise))" class="remove">Remove</button>
+                    <br>
+                </li>
+            </ol>
+        </span>
     </div>
 </template>
 
@@ -67,7 +115,7 @@
         name: "SaveTraining",
         data: function() {
             return {
-                workoutType: '',
+                workoutName: '',
                 date: '',
                 exercise: {
                     exerciseName: '',
@@ -77,7 +125,9 @@
                 },
                 exercises: [],
                 workoutPlans: [],
-                selected: ''
+                selectedPlan: '',
+                selectedWorkout: '',
+                index: 0
             }
         },
         datatype: 'json',
@@ -85,28 +135,41 @@
             processForm: function() {
                 axios
                     .post('http://localhost:8080/api/workouts', {
-                    workoutType: this.workoutType,
+                    workoutName: this.selectedWorkout.workoutName,
                     date: this.date,
                     exercises: this.exercises
                 })
                     .then(response => console.log(response))
                 this.exercises = [];
-                this.workoutType = this.date = '';
+                this.workoutName = this.date = '';
             },
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
                 this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.weight = '';
-
+                if (this.index < this.selectedWorkout.exercises.length - 1) {
+                    this.updateExercise();
+                    this.index++;
+                }
             },
             removeExercise: function(exercise) {
                 this.exercises.splice(exercise, 1);
             },
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/workouts')
+                    .get('http://localhost:8080/api/workoutplan')
                     .then(response => {
                         this.workoutPlans = response.data;
                     })
+            },
+            updateExercise: function() {
+                this.exercise.exerciseName = this.selectedWorkout.exercises[this.index].exerciseName;
+                this.exercise.sets = this.selectedWorkout.exercises[this.index].sets;
+                this.exercise.repetitions = this.selectedWorkout.exercises[this.index].repetitions;
+                this.exercise.weight = '';
+
+                /*if (this.index >= this.selectedWorkout.exercises.length - 1) {
+                    this.index = 0;
+                }*/
             }
         },
         created: function() {

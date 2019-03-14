@@ -24,7 +24,7 @@ public class WorkoutDao {
         //return new Workout(1L, "Upper", new java.sql.Date(System.currentTimeMillis()));
         return template.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> new Workout(
                 rs.getLong("id"),
-                rs.getString("workoutType"),
+                rs.getString("workoutName"),
                 rs.getString("date"),
                 getExercises(id)
         ));
@@ -35,19 +35,19 @@ public class WorkoutDao {
         String sql = "select * from workout order by date desc";
         return template.query(sql, (rs, rowNum) -> new Workout(
                 rs.getLong("id"),
-                rs.getString("workoutType"),
+                rs.getString("workoutName"),
                 rs.getString("date"),
                 getExercises(rs.getLong("id"))
         ));
     }
 
     public Workout saveWorkout(Workout workout) {
-        String sql = "insert into workout (id, workouttype, date) values (next value for seq1, ?, ?)";
+        String sql = "insert into workout (id, workoutname, date) values (next value for seq1, ?, ?)";
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
         System.out.println(template);
         template.update(conn -> {
             PreparedStatement ps = conn.prepareStatement(sql, new String[] {"id"});
-            ps.setString(1, workout.getWorkoutType());
+            ps.setString(1, workout.getWorkoutName());
             ps.setString(2, workout.getDate());
             return ps;
         }, holder);

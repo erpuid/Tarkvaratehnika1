@@ -14,7 +14,7 @@ public class Workout {
 
     private Long id;
     @NonNull
-    private String workoutType;
+    private String workoutName;
     @NonNull
     private String date;
 

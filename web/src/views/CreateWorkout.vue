@@ -15,8 +15,8 @@
         <form id="training-form" method="post" @submit.prevent="saveWorkoutName" v-if="displayPlan === true && displayWorkout === false">
             <table>
                 <tr>
-                    <td><label>Workout type</label></td>
-                    <td><input type="text" name="workoutType" v-model="workoutType"/></td>
+                    <td><label>Workout name</label></td>
+                    <td><input type="text" name="workoutName" v-model="workoutName"/></td>
                 </tr>
                 <tr>
                     <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
@@ -74,7 +74,7 @@
                 displayPlan: false,
                 displayWorkout: false,
                 planName: '',
-                workoutType: '',
+                workoutName: '',
                 exercise: {
                     exerciseName: '',
                     sets: '',
@@ -94,7 +94,7 @@
                     })
                     .then(response => console.log(response))
                 this.exercises = [];
-                this.workoutType = this.date = '';
+                this.workoutName = this.date = '';
             },
             savePlanName: function() {
                 if (this.planName !== '') {
@@ -102,7 +102,7 @@
                 }
             },
             saveWorkoutName: function() {
-                if (this.workoutType !== '') {
+                if (this.workoutName !== '') {
                     this.displayWorkout = true;
                 }
             },
@@ -112,7 +112,7 @@
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
                 this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.weight = '';
-                this.workouts.push({workoutType: this.workoutType, exercises: this.exercises});
+                this.workouts.push({workoutName: this.workoutName, exercises: this.exercises});
                 console.log(this.workouts)
             }
         }

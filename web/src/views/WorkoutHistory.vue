@@ -3,7 +3,7 @@
         <h1>Workout history</h1>
         <ul>
             <li v-for="h in newHistory" id="workout">
-                    <span>Workout type: {{h.workoutType}}, </span>
+                    <span>Workout Name: {{h.workoutName}}, </span>
                     <span>Date: {{h.date}}</span>
                 <div v-for="exercise in h.exercises" style="margin-left: 2ex;" id="exercise">
                     <span>Name: {{exercise.exerciseName}}, </span>
@@ -18,7 +18,7 @@
         <form id="workout-search" @submit.prevent="workoutSearch">
             <label>Search by:</label>
             <br>
-            <input type="radio" name="searchType" value="type" v-model="searchType"/>Workout Type
+            <input type="radio" name="searchType" value="type" v-model="searchType"/>Workout Name
             <br>
             <input type="radio" name="searchType" value="date" v-model="searchType"/>Date (YYYY-MM-DD)
             <br>
@@ -60,7 +60,7 @@
                     this.newHistory = this.history;
                 } else if (this.searchType === "type") {
                     for (var i = 0; i < this.history.length; i++) {
-                        if (this.history[i].workoutType === this.searchField) {
+                        if (this.history[i].workoutName === this.searchField) {
                             this.newHistory.push(this.history[i]);
                         }
                     }
