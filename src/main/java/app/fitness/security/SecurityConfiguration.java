@@ -6,6 +6,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -30,11 +34,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/logout").permitAll()
                 .anyRequest() .authenticated()
                 .and()
                 .formLogin()
                 .successHandler(new CustomAuthenticationSuccessHandler())
-                .failureHandler(new CustomAuthenticationFailureHandler());
+                .failureHandler(new CustomAuthenticationFailureHandler())
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 
     @Bean

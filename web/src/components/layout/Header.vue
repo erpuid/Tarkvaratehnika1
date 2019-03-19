@@ -19,6 +19,7 @@
                         <li><router-link to="/savetraining">Save Training</router-link></li>
                         <li><router-link to="/history">Workout History</router-link></li>
                         <li><router-link to="/createworkout">Create Workout</router-link></li>
+                        <button v-on:click="logout">Log out</button>
                     </ul>
                 </nav>
                 <div class="header_right top_align d-flex flex-row align-items-center justify-content-start">
@@ -60,3 +61,23 @@
         </div>
     </div>
 </template>
+
+<script>
+    import {AUTH_LOGOUT} from "../../store/constants";
+
+
+    export default {
+        name: 'logout',
+        methods: {
+            logout: function () {
+                this.$store.dispatch(AUTH_LOGOUT)
+                    .then(() => {
+                        this.$router.push('/login')
+                    })
+            }
+        },
+    }
+</script>
+
+
+

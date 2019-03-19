@@ -1,4 +1,4 @@
-import {AUTH_REQUEST} from "../constants";
+import {AUTH_LOGOUT, AUTH_REQUEST} from "../constants";
 import axios from "axios";
 
 const state = { user: localStorage.getItem('user') || '' };
@@ -11,6 +11,13 @@ const actions = {
     [AUTH_REQUEST]: ({commit, dispatch}, user) => {
         return new Promise((resolve, reject) => {
             commit(AUTH_REQUEST, user);
+            resolve()
+        })
+    },
+    [AUTH_LOGOUT]: ({commit, dispatch}) => {
+        return new Promise((resolve, reject) => {
+            commit(AUTH_LOGOUT);
+            localStorage.removeItem('user'); // clear your user's token from localstorage
             resolve()
         })
     }
@@ -39,6 +46,15 @@ const mutations = {
         }).catch(error => {
             state.user = '';
             localStorage.removeItem('user');
+        });
+    },
+
+    [AUTH_LOGOUT]: () => {
+        axios.get('http://localhost:8080/logout').then(response => {
+            localStorage.removeItem('user'); // clear your user's token from localstorage
+            getters.isAuthenticated(false);
+            state.user = '';
+            localStorage.username = '';
         });
     }
 };
