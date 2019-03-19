@@ -1,4 +1,4 @@
-package app.fitness.Entities;
+package app.fitness.entities;
 
 import lombok.*;
 
