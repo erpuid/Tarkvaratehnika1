@@ -115,6 +115,7 @@
         name: "SaveTraining",
         data: function() {
             return {
+                userName: '',
                 workoutName: '',
                 date: '',
                 exercise: {
@@ -136,11 +137,12 @@
             processForm: function() {
                 axios
                     .post('http://localhost:8080/api/workouts', {
+                    userName: localStorage.username,
                     workoutName: this.selectedWorkout.workoutName,
                     date: this.date,
                     exercises: this.exercises
                 })
-                    .then(response => console.log(response))
+                    .then(response => console.log(response));
                 this.exercises = [];
                 this.workoutName = this.date = '';
             },

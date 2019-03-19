@@ -1,8 +1,9 @@
 package app.fitness.services;
 
-import app.fitness.Entities.PlanExercise;
-import app.fitness.Entities.PlanWorkout;
-import app.fitness.Entities.WorkoutPlan;
+
+import app.fitness.entities.PlanExercise;
+import app.fitness.entities.PlanWorkout;
+import app.fitness.entities.WorkoutPlan;
 import app.fitness.repositories.WorkoutPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

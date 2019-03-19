@@ -1,6 +1,6 @@
 package app.fitness.repositories;
 
-import app.fitness.Entities.Workout;
+import app.fitness.entities.Workout;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

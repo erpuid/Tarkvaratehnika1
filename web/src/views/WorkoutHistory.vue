@@ -42,13 +42,17 @@
                 history: [],
                 searchType: '',
                 searchField: '',
-                newHistory: []
+                newHistory: [],
+                username: ''
             }
         },
         methods: {
             getAllData: function() {
+                console.log(this.username);
+                this.username = localStorage.username;
+                console.log(this.username);
                 axios
-                    .get('http://localhost:8080/api/workouts')
+                    .get('http://localhost:8080/api/workouts/'+this.username)
                     .then(response => {
                         this.history = response.data;
                         this.newHistory = this.history;

@@ -1,73 +1,71 @@
 <template>
     <div class="login">
         <h1>Login</h1>
-        <form @submit="LoginForm" method="post">
-            <table>
-                <tr>
-                    <td><label>Email: </label></td>
-                    <td><input type="email" name="email" v-model="email" /></td>
-                </tr>
-                <tr>
-                    <td><label>Password: </label></td>
-                    <td><input type="password" name="password" v-model="password"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" class="submit" name="submit" value="Submit" /></td>
-                </tr>
-            </table>
+        <form id="login" v-on:submit.prevent="login">
+            <input type='text' placeholder='username' v-model='username'>
+            <input type='password' placeholder='password' v-model='password'>
+            <button class="ui primary button">
+                Submit
+            </button>
         </form>
-        <h1>If you don't have an account...</h1>
-        <form @submit="SignupForm" method="post">
-            <table>
-                <tr>
-                    <td><label>First name: </label></td>
-                    <td><input type="text" name="firstName" v-model="firstname" /></td>
-                </tr>
-                <tr>
-                    <td><label>Last name: </label></td>
-                    <td><input type="text" name="lastName" v-model="lastname" /></td>
-                </tr>
-                <tr>
-                    <td><label>Email: </label></td>
-                    <td><input type="email" name="signUpEmail" v-model="signemail" /></td>
-                </tr>
-                <tr>
-                    <td><label>Password: </label></td>
-                    <td><input type="password" name="signUpPass" v-model="signPassword" /></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" class="submit" name="signSubmit" value="Confirm" /></td>
-                </tr>
-            </table>
-        </form>
+        <!--<h1>If you don't have an account...</h1>-->
+        <!--<form @submit="SignupForm" method="post">-->
+        <!--<table>-->
+        <!--<tr>-->
+        <!--<td><label>First name: </label></td>-->
+        <!--<td><input type="text" name="firstName" v-model="firstName" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td><label>Last name: </label></td>-->
+        <!--<td><input type="text" name="lastName" v-model="lastName" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td><label>Email: </label></td>-->
+        <!--<td><input type="email" name="signUpEmail" v-model="signEmail" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td><label>Password: </label></td>-->
+        <!--<td><input type="password" name="signUpPass" v-model="signPassword" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td><input type="submit" class="submit" name="signSubmit" value="Confirm" /></td>-->
+        <!--</tr>-->
+        <!--</table>-->
+        <!--</form>-->
     </div>
 </template>
 
 <script>
-
+    import {AUTH_REQUEST} from "../store/constants";
     export default {
         name: 'login',
-        methods: {
-            LoginForm: function (e) {
-                if (this.email && this.password) {
-                    return true;
-                }
-
-                this.errors = [];
-
-                if (!this.email) {
-                    this.errors.push('Email required.');
-                }
-                if (!this.password) {
-                    this.errors.push('Password required.');
-                }
-
-                e.preventDefault();
-            },
-
-            SignupForm: function (e) {
-
+        data() {
+            return {
+                username: '',
+                password: ''
             }
+        },
+        methods: {
+            login() {
+                // if (this.username && this.password) {
+                //     return true;
+                // }
+                //
+                // this.errors = [];
+                //
+                // if (!this.username) {
+                //     this.errors.push('Username required.');
+                // }
+                // if (!this.password) {
+                //     this.errors.push('Password required.');
+                // }
+
+                const { username, password } = this;
+                this.$store.dispatch(AUTH_REQUEST, {username, password}).then(() => {
+                        this.$router.push('/about');
+                    }
+                )
+            },
         }
     }
 </script>

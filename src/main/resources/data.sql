@@ -1,4 +1,4 @@
-insert into workout values (next value for seq1,'Testuser', 'pull',
+insert into workout values (next value for seq1,'user', 'pull',
 '2019-02-23' );
 
 insert into exercise values (next value for exseq, 'Bench', 3, 5, 100, 1);
@@ -6,7 +6,7 @@ insert into exercise values (next value for exseq, 'Overhead press', 3, 8, 40, 1
 insert into exercise values (next value for exseq, 'Incline dumbbell press', 3, 8, 26, 1);
 insert into exercise values (next value for exseq, 'Triceps pushdown', 3, 12, 20, 1);
 
-insert into workout values (next value for seq1,'Testuser', 'push',
+insert into workout values (next value for seq1,'user', 'push',
 '2019-02-25' );
 
 insert into exercise values (next value for exseq, 'Pull ups', 3, 8, 0, 2);
@@ -15,7 +15,7 @@ insert into exercise values (next value for exseq, 'Face pull', 3, 12, 15, 2);
 insert into exercise values (next value for exseq, 'Barbell curl', 3, 10, 30, 2);
 
 
-insert into workout values (next value for seq1,'Testuser', 'legs',
+insert into workout values (next value for seq1,'user', 'legs',
 CURRENT_DATE );
 
 insert into exercise values (next value for exseq, 'Squat', 3, 8, 100, 3);

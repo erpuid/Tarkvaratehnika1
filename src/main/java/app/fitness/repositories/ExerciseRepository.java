@@ -1,6 +1,6 @@
 package app.fitness.repositories;
 
-import app.fitness.Entities.Exercise;
+import app.fitness.entities.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

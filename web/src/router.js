@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import store from './store'
+import login from './views/Login'
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -41,4 +43,17 @@ export default new Router({
         component: () => import('./views/CreateWorkout.vue')
     }
   ]
-})
+});
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/login'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = store.getters.isAuthenticated;
+
+    if (authRequired && !loggedIn) {
+        return next('/login');
+    }
+    next();
+});
+
+export default router;

@@ -1,19 +1,15 @@
 package app.fitness.services;
 
 
-import app.fitness.Entities.Exercise;
-import app.fitness.Entities.Workout;
-import app.fitness.Entities.WorkoutPlan;
+import app.fitness.entities.Exercise;
+import app.fitness.entities.Workout;
 import app.fitness.repositories.ExerciseRepository;
 import app.fitness.repositories.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RestController
@@ -30,10 +26,13 @@ public class WorkoutService {
         return workoutRepository.findAll();
     }
 
-    @GetMapping("api/workouts/{id}")
-    public Optional<Workout> getWorkoutById(@PathVariable Long id){
-        return workoutRepository.findById(id);
+    @GetMapping("api/workouts/{username}")
+    public List<Workout> getWorkoutById(@PathVariable String username){
+        System.out.println(username);
+        return workoutRepository.findAllByUserName(username);
     }
+
+
 
 
     @GetMapping("api/exercises")
@@ -44,7 +43,7 @@ public class WorkoutService {
 
     @PostMapping("api/workouts")
     public Workout saveWorkout(@RequestBody Workout workout) {
-        System.out.println(workout.getExercises());
+        System.out.println(workout.getUserName());
         for (Exercise ex: workout.getExercises()) {
             ex.setWorkout(workout);
         }
