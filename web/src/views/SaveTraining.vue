@@ -136,7 +136,7 @@
         methods: {
             processForm: function() {
                 axios
-                    .post('http://localhost:8080/api/workouts', {
+                    .post('http://localhost:8080/api/workouts?access_token='+localStorage.getItem('token'), {
                     userName: localStorage.username,
                     workoutName: this.selectedWorkout.workoutName,
                     date: this.date,
@@ -159,7 +159,7 @@
             },
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/plan')
+                    .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = response.data;
                     })

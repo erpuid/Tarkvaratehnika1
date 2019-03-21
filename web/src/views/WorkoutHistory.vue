@@ -52,7 +52,7 @@
                 this.username = localStorage.username;
                 console.log(this.username);
                 axios
-                    .get('http://localhost:8080/api/workouts/'+this.username)
+                    .get('http://localhost:8080/api/workouts/'+this.username+'?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.history = response.data;
                         this.newHistory = this.history;

@@ -37,6 +37,10 @@ insert into plan_Exercise values (5, 'Cable row', 3, 6, 2);
 insert into plan_Exercise values (6, 'Biceps', 3, 8, 2);
 
 insert into users values (1, 'user', '$2a$10$j1nr6I1As0cj9K2sOeLB8uUjohs.pKvfTvQY.7z3p2MpfGoicgCJu');
+insert into roles values (1, 'USER');
+insert into users_roles values (1, 1, 1);
 
+insert into users values (2, 'user2', '$2a$10$j1nr6I1As0cj9K2sOeLB8uUjohs.pKvfTvQY.7z3p2MpfGoicgCJu');
+insert into users_roles values (2, 2, 1);
 
 

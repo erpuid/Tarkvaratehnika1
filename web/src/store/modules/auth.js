@@ -1,10 +1,10 @@
 import {AUTH_LOGOUT, AUTH_REQUEST} from "../constants";
 import axios from "axios";
 
-const state = { user: localStorage.getItem('user') || '' };
+const state = { token: localStorage.getItem('token') || '' };
 
 const getters = {
-    isAuthenticated: state => !!state.user
+    isAuthenticated: state => !!state.token
 };
 
 const actions = {
@@ -18,6 +18,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit(AUTH_LOGOUT);
             localStorage.removeItem('user'); // clear your user's token from localstorage
+            localStorage.removeItem('username');
             resolve()
         })
     }
@@ -41,8 +42,11 @@ const mutations = {
             headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
             data: params
         }).then(response => {
-            console.log(response);
-            localStorage.setItem("token", response.data.access_token)
+            console.log(response.data.access_token);
+            console.log(response.data);
+            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('user', user);
+            localStorage.setItem('username', user.username);
         });
         /*
         axios.post('http://localhost:8080/login', data, {
@@ -67,7 +71,7 @@ const mutations = {
     },
 
     [AUTH_LOGOUT]: () => {
-        axios.get('http://localhost:8080/logout').then(response => {
+        axios.get('http://localhost:8080/logout/'+localStorage.getItem('token')).then(response => {
             localStorage.removeItem('user'); // clear your user's token from localstorage
             getters.isAuthenticated(false);
             state.user = '';

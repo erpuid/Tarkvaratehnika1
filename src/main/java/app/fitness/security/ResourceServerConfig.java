@@ -6,10 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
-/**
- *The @EnableResourceServer annotation adds a filter of type OAuth2AuthenticationProcessingFilter automatically
- *to the Spring Security filter chain.
- */
+
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -17,12 +14,23 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin().disable()
+                .cors().and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/register","/login").permitAll()
-                .antMatchers("/api/**").authenticated()
-                .antMatchers(HttpMethod.DELETE , "/post/**").hasAuthority("ROLE_ADMIN");
+                .antMatchers("/login").permitAll()
+                .antMatchers("/logout/**").permitAll()
+                .anyRequest() .authenticated()
+                .and()
+                .formLogin()
+                .successHandler(new CustomAuthenticationSuccessHandler())
+                .failureHandler(new CustomAuthenticationFailureHandler())
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
+        /*.authorizeRequests()
+                .antMatchers("/", "/register","/login").permitAll()
+                .antMatchers("/api/**").authenticated();*/
+
     }
-
-
 }
