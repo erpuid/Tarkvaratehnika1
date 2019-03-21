@@ -52,8 +52,8 @@ router.beforeEach((to, from, next) => {
     console.log("authRequire: " + authRequired);
     const loggedIn = store.getters.isAuthenticated;
     console.log("loggedIn: " + loggedIn);
-
-    if (authRequired && !loggedIn) {
+    console.log(localStorage.getItem('token'));
+    if (authRequired && localStorage.getItem('token') === null) {
         return next('/login');
     }
     next();

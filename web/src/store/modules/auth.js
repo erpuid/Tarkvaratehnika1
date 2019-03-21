@@ -17,8 +17,6 @@ const actions = {
     [AUTH_LOGOUT]: ({commit, dispatch}) => {
         return new Promise((resolve, reject) => {
             commit(AUTH_LOGOUT);
-            localStorage.removeItem('user'); // clear your user's token from localstorage
-            localStorage.removeItem('username');
             resolve()
         })
     }
@@ -26,12 +24,7 @@ const actions = {
 
 const mutations = {
     [AUTH_REQUEST]: (state, user) => {
-        let data = 'username='+user.username+'&password='+user.password;
-        let headers = {
-            'Content-type': 'application/x-www-form-urlencoded'
-        };
-
-        var params = new URLSearchParams();
+        const params = new URLSearchParams();
         params.append('grant_type', 'password');
         params.append('username', user.username);
         params.append('password',user.password);
@@ -45,37 +38,14 @@ const mutations = {
             console.log(response.data.access_token);
             console.log(response.data);
             localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('user', user);
             localStorage.setItem('username', user.username);
         });
-        /*
-        axios.post('http://localhost:8080/login', data, {
-            headers: headers,
-            /*auth:{
-                username: this.username,
-                password: this.password
-            }
-        }).then(response => {
-            console.log(JSON.stringify(user));
-            state.user = user;
-            localStorage.setItem('user', user);
-            localStorage.setItem('token', response.data.access_token);
-            localStorage.username = user.username;
-            console.log(user.username + "peale sättimist");
-
-        }).catch(error => {
-            state.user = '';
-            localStorage.removeItem('user');
-        });
-        */
     },
 
     [AUTH_LOGOUT]: () => {
         axios.get('http://localhost:8080/logout/'+localStorage.getItem('token')).then(response => {
-            localStorage.removeItem('user'); // clear your user's token from localstorage
-            getters.isAuthenticated(false);
-            state.user = '';
-            localStorage.username = '';
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
         });
     }
 };

@@ -86,7 +86,7 @@
                         planName: this.planName,
                         workouts: this.workouts
                     })
-                    .then(response => console.log(response))
+                    .then(response => console.log(response));
                 this.planExercises = [];
                 this.workoutName = this.date = '';
             },

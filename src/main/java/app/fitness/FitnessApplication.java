@@ -50,8 +50,9 @@ public class FitnessApplication {
 
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository repository, UserService userService) throws Exception {
-        if (repository.count()==0)
-            userService.save(new User("admin", "password", Arrays.asList(new Role("USER"), new Role("ADMIN"))));
+
+        //if (repository.count()==0)
+        //    userService.save(new User("admin", "password", Arrays.asList(new Role("USER"), new Role("ADMIN"))));
         builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
     }
 

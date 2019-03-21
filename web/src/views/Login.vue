@@ -8,41 +8,51 @@
                 Submit
             </button>
         </form>
-        <!--<h1>If you don't have an account...</h1>-->
-        <!--<form @submit="SignupForm" method="post">-->
-        <!--<table>-->
-        <!--<tr>-->
-        <!--<td><label>First name: </label></td>-->
-        <!--<td><input type="text" name="firstName" v-model="firstName" /></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td><label>Last name: </label></td>-->
-        <!--<td><input type="text" name="lastName" v-model="lastName" /></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td><label>Email: </label></td>-->
-        <!--<td><input type="email" name="signUpEmail" v-model="signEmail" /></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td><label>Password: </label></td>-->
-        <!--<td><input type="password" name="signUpPass" v-model="signPassword" /></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td><input type="submit" class="submit" name="signSubmit" value="Confirm" /></td>-->
-        <!--</tr>-->
-        <!--</table>-->
-        <!--</form>-->
+        <h1>If you don't have an account</h1>
+        <h2> {{errorMessage}}</h2>
+        <form id="register" v-on:submit.prevent="register">
+        <table>
+        <tr>
+        <td><label>Username: </label></td>
+        <td><input type="text" name="username" v-model="regUsername" /></td>
+        </tr>
+        <tr>
+        <td><label>Password: </label></td>
+        <td><input type="text" name="password" v-model="password" /></td>
+        </tr>
+        <tr>
+        <tr>
+        <td><label>Confirm Password: </label></td>
+        <td><input type="text" name="confirmPass" v-model="confirmPass" /></td>
+        </tr>
+        <tr>
+        <td><button class="ui primary button">
+            Submit
+        </button> </td>
+        </tr>
+        </table>
+        </form>
     </div>
 </template>
 
 <script>
     import {AUTH_REQUEST} from "../store/constants";
+    import axios from "axios";
+
     export default {
         name: 'login',
         data() {
             return {
                 username: '',
-                password: ''
+                password: '',
+                regUsername: '',
+                regPassword: '',
+                confirmPass: '',
+                errorMessage: '',
+                user: {
+                    userName: '',
+                    password: '',
+                }
             }
         },
         methods: {
@@ -66,6 +76,22 @@
                     }
                 )
             },
+            register() {
+                if (this.password === this.confirmPass) {
+                    this.user.userName = this.regUsername;
+                    this.user.password =  this.password;
+                    const data = JSON.stringify({UserReg: this.user});
+                    console.log(data);
+                    axios.post('http://localhost:8080/register', {
+                        data
+                    }).then(response => {
+                        console.log(response);
+                        this.errorMessage = response;
+                    });
+                } else {
+                    this.errorMessage = 'Passwords do not match!'
+                }
+            }
         }
     }
 </script>
