@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import store from './store'
 import login from './views/Login'
+import auth from "./store/modules/auth";
 
 Vue.use(Router);
 
@@ -48,7 +49,9 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login'];
     const authRequired = !publicPages.includes(to.path);
+    console.log("authRequire: " + authRequired);
     const loggedIn = store.getters.isAuthenticated;
+    console.log("loggedIn: " + loggedIn);
 
     if (authRequired && !loggedIn) {
         return next('/login');

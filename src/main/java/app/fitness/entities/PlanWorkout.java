@@ -1,7 +1,6 @@
 package app.fitness.entities;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -18,12 +17,12 @@ public class PlanWorkout {
     private String workoutName;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "planWorkout")
-    private List<PlanExercise> planExercises;
+    private List<app.fitness.entities.PlanExercise> planExercises;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="workout_plan_id", nullable=false)
-    private WorkoutPlan workoutPlan;
+    private app.fitness.entities.WorkoutPlan workoutPlan;
 
     public PlanWorkout(){}
 
