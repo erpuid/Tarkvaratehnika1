@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Data
 @Entity
 public class Role {
@@ -13,9 +14,7 @@ public class Role {
     @Id
     @GeneratedValue
     private Long id;
-    String name;
-
-    Role() {}
+    private String name;
 
     public Role(String name) {
         this.name = name;

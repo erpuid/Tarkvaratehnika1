@@ -30,16 +30,32 @@ const mutations = {
             'Content-type': 'application/x-www-form-urlencoded'
         };
 
+        var params = new URLSearchParams();
+        params.append('grant_type', 'password');
+        params.append('username', user.username);
+        params.append('password',user.password);
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/oauth/token',
+            auth: {username: 'my-trusted-client', password: 'secret'},
+            headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
+            data: params
+        }).then(response => {
+            console.log(response);
+            localStorage.setItem("token", response.data.access_token)
+        });
+        /*
         axios.post('http://localhost:8080/login', data, {
             headers: headers,
             /*auth:{
                 username: this.username,
                 password: this.password
-            }*/
+            }
         }).then(response => {
             console.log(JSON.stringify(user));
             state.user = user;
             localStorage.setItem('user', user);
+            localStorage.setItem('token', response.data.access_token);
             localStorage.username = user.username;
             console.log(user.username + "peale sättimist");
 
@@ -47,6 +63,7 @@ const mutations = {
             state.user = '';
             localStorage.removeItem('user');
         });
+        */
     },
 
     [AUTH_LOGOUT]: () => {
