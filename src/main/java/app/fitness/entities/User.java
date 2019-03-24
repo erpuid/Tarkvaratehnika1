@@ -14,7 +14,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
 
@@ -28,10 +28,4 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "role_id") }
     )
     private List<Role> roles;
-
-    public User(String username, String password, List<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-    }
 }

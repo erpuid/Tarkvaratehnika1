@@ -3,6 +3,7 @@ package app.fitness.services;
 import app.fitness.entities.Role;
 import app.fitness.entities.User;
 import app.fitness.entities.UserReg;
+import app.fitness.repositories.RoleRepository;
 import app.fitness.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,11 +15,16 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 
 @RestController
 public class UserService {
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private UserRepository repository;
@@ -57,18 +63,22 @@ public class UserService {
     @PostMapping("/register")
     public String register(@RequestBody UserReg userReg) {
         System.out.println(userReg.toString());
-        Role role = new Role();
-        role.setName("USER");
-        User user = new User(userReg.getUsername(),
-                passwordEncoder.encode(userReg.getPassword()),
-                Arrays.asList(userRole()));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Optional<Role> response = roleRepository.findById(1L);
+        Role role = null;
+        if (response.isPresent()) {
+            role = response.get();
+        }
+        User user = new User();
+        user.setUsername(userReg.getUsername());
+        user.setPassword(passwordEncoder.encode(userReg.getPassword()));
+        user.setRoles(Arrays.asList(role));
         if (user.getUsername() == null || !user.getUsername().matches("[A-Za-z0-9_]+")) {
             return "Enter valid username!";
         }
         if (repository.findByUsername(user.getUsername()) != null) {
             return "This username is already taken";
         }
+        System.out.println(user.toString());
         repository.save(user);
         return "Success!";
 

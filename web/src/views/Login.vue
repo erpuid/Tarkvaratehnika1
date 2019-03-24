@@ -18,7 +18,7 @@
         </tr>
         <tr>
         <td><label>Password: </label></td>
-        <td><input type="text" name="password" v-model="password" /></td>
+        <td><input type="text" name="regPassword" v-model="regPassword" /></td>
         </tr>
         <tr>
         <tr>
@@ -57,19 +57,6 @@
         },
         methods: {
             login() {
-                // if (this.username && this.password) {
-                //     return true;
-                // }
-                //
-                // this.errors = [];
-                //
-                // if (!this.username) {
-                //     this.errors.push('Username required.');
-                // }
-                // if (!this.password) {
-                //     this.errors.push('Password required.');
-                // }
-
                 const { username, password } = this;
                 this.$store.dispatch(AUTH_REQUEST, {username, password}).then(() => {
                         this.$router.push('/about');
@@ -77,16 +64,15 @@
                 )
             },
             register() {
-                if (this.password === this.confirmPass) {
+                if (this.regPassword === this.confirmPass) {
                     this.user.userName = this.regUsername;
-                    this.user.password =  this.password;
-                    const data = JSON.stringify({UserReg: this.user});
-                    console.log(data);
+                    this.user.password =  this.regPassword;
                     axios.post('http://localhost:8080/register', {
-                        data
+                        username: this.user.userName,
+                        password: this.user.password
                     }).then(response => {
                         console.log(response);
-                        this.errorMessage = response;
+                        this.errorMessage = response.data;
                     });
                 } else {
                     this.errorMessage = 'Passwords do not match!'
