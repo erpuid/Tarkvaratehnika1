@@ -649,7 +649,7 @@ section
 /*********************************
 6.1 Buttons
 *********************************/
-
+/* DO NOT INCLUDE 
 .buttons_container
 {
 	margin-top: 55px;
@@ -686,6 +686,7 @@ section
 {
 	background: #ff9908;
 }
+*/
 
 /*********************************
 6.2 Accordions
