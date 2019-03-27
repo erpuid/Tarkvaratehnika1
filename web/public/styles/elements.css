@@ -649,7 +649,7 @@ section
 /*********************************
 6.1 Buttons
 *********************************/
-/* DO NOT INCLUDE 
+/* DO NOT INCLUDE! IT KILLS
 .buttons_container
 {
 	margin-top: 55px;

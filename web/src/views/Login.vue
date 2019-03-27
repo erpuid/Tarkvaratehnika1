@@ -4,7 +4,7 @@
         <form id="login" v-on:submit.prevent="login">
             <input type='text' placeholder='username' v-model='username'>
             <input type='password' placeholder='password' v-model='password'>
-            <button class="button_2">
+            <button class="button">
                 Submit
             </button>
         </form>
@@ -26,7 +26,7 @@
         <td><input type="text" name="confirmPass" v-model="confirmPass" /></td>
         </tr>
         <tr>
-        <td><button class="button_2">
+        <td><button class="button">
             Submit
         </button> </td>
         </tr>
