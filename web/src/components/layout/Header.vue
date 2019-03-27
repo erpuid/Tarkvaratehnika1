@@ -19,6 +19,7 @@
                         <li><router-link to="/savetraining">Save Training</router-link></li>
                         <li><router-link to="/history">Workout History</router-link></li>
                         <li><router-link to="/createworkout">Create Workout</router-link></li>
+                        <li><router-link to="/calendar">Calendar</router-link></li>
                         <button v-on:click="logout">Log out</button>
                     </ul>
                 </nav>

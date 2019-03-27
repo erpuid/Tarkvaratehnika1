@@ -17,6 +17,7 @@
     import SaveTraining from './views/SaveTraining.vue';
     import WorkoutHistory from './views/WorkoutHistory.vue';
     import CreateWorkout from './views/CreateWorkout.vue';
+    import Calendar from './views/Calendar.vue';
 
     export default {
         name: 'app',
@@ -28,7 +29,8 @@
             Login,
             SaveTraining,
             WorkoutHistory,
-            CreateWorkout
+            CreateWorkout,
+            Calendar
         }
     }
 </script>

@@ -42,6 +42,11 @@ const router = new Router({
         path: '/createworkout',
         name: 'createworkout',
         component: () => import('./views/CreateWorkout.vue')
+    },
+    {
+        path: '/calendar',
+        name:'calendar',
+        component: () => import('./views/Calendar.vue')
     }
   ]
 });
