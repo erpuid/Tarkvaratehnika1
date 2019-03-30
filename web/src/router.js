@@ -29,11 +29,6 @@ const router = new Router({
         component: () => import('./views/Login.vue')
     },
     {
-        path: '/savetraining',
-        name: 'savetraining',
-        component: () => import('./views/SaveTraining.vue')
-    },
-    {
         path: '/history',
         name: 'workouthistory',
         component: () => import('./views/WorkoutHistory.vue')

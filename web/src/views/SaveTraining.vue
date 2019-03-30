@@ -64,7 +64,10 @@
             <table>
                 <tr>
                     <td><label>Date</label></td>
-                    <td><input type="date" name="date" v-model="date"/></td>
+                </tr>
+                <tr>
+                    <!--<td><input type="date" name="date" v-model="date" /></td>-->
+                    <td><p>{{changeDate}}</p></td>
                 </tr>
                 <div v-if="this.index < this.selectedWorkout.planExercises.length">
                 <tr>
@@ -113,11 +116,14 @@
     import axios from "axios";
     export default {
         name: "SaveTraining",
+        props: {
+            date: { type: String, default: undefined}
+        },
         data: function() {
             return {
+                selectedDate: '',
                 userName: '',
                 workoutName: '',
-                date: '',
                 exercise: {
                     exerciseName: '',
                     sets: '',
@@ -139,12 +145,12 @@
                     .post('http://localhost:8080/api/workouts?access_token='+localStorage.getItem('token'), {
                     userName: localStorage.username,
                     workoutName: this.selectedWorkout.workoutName,
-                    date: this.date,
+                    date: this.selectedDate,
                     exercises: this.exercises
                 })
                     .then(response => console.log(response));
                 this.exercises = [];
-                this.workoutName = this.date = '';
+                this.workoutName = this.selectedDate = '';
             },
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
@@ -174,6 +180,12 @@
                     this.index = 0;
                 }*/
             }
+        },
+        computed: {
+          changeDate() {
+              this.selectedDate = this.date;
+              return this.selectedDate;
+          }
         },
         created: function() {
             this.getAllData()

@@ -4,7 +4,7 @@
             <calendar-view
                     :events="events"
                     :show-date="showDate"
-                    :time-format-options="{hour: 'numeric', minute:'2-digit'}"
+                    :time-format-options="{hour: 'numeric', minute:'2-digit', year:'numeric', month:'numeric', day:'numeric'}"
                     :enable-drag-drop="false"
                     :disable-past="disablePast"
                     :disable-future="disableFuture"
@@ -42,6 +42,10 @@
             </div>
         </div>
 
+        <div class="saveTraining" v-if="this.calendarDate">
+            <SaveTraining :date="calendarDate" />
+        </div>
+
     </div>
 </template>
 
@@ -53,6 +57,7 @@
         CalendarMathMixin,
     } from "vue-simple-calendar"
     import axios from "axios";
+    import SaveTraining from "./SaveTraining.vue"
     require("vue-simple-calendar/static/css/default.css");
     require("vue-simple-calendar/static/css/holidays-us.css");
 
@@ -61,10 +66,12 @@
         components: {
             CalendarView,
             CalendarViewHeader,
+            SaveTraining
         },
         mixins: [CalendarMathMixin],
         data: function() {
             return {
+                calendarDate: "",
                 showDate: this.thisMonth(1),
                 message: "",
                 startingDayOfWeek: 1,
@@ -116,6 +123,8 @@
                 return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
             },
             onClickDay(d) {
+                this.calendarDate = `${new Date (d.getTime() - (d.getTimezoneOffset() * 60000 ))
+                    .toISOString().split("T")[0] }`;
                 this.message = `You clicked: ${d.toLocaleDateString()}`
             },
             onClickEvent(e) {
@@ -171,7 +180,7 @@
 </script>
 
 
-<style>
+<style scoped>
     #calendar {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         color: #2c3e50;
@@ -182,18 +191,24 @@
         margin-top: 144px;
     }
     .calendarView {
-        height: 67vh;
+        height: 70vh;
         width: 60vw;
         display: inline-block;
     }
     .selectedWorkout {
         background: #f0f0f0;
-        height: 37vh;
-        width: 20vw;
-        margin-right: 140px;
+        height: 35vh;
+        width: 25vw;
+        margin-right: 50px;
         overflow-y: auto;
         display: inline-block;
         float: right;
         padding: 10px;
+    }
+    .saveTraining {
+        background: #f0f0f0;
+        height: 35vh;
+        width: 25vw;
+        overflow-y: auto;
     }
 </style>
