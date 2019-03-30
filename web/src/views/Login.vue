@@ -1,14 +1,14 @@
 <template>
     <div class="login">
-        <h1>Login</h1>
+        <h3>Login</h3>
         <form id="login" v-on:submit.prevent="login">
-            <input type='text' placeholder='username' v-model='username'>
-            <input type='password' placeholder='password' v-model='password'>
-            <button class="button_2">
+            <input class="element" type='text' placeholder='username' v-model='username'>
+            <input class="element" type='password' placeholder='password' v-model='password'>
+            <button type="submit" class="submit">
                 Submit
             </button>
         </form>
-        <h1>If you don't have an account</h1>
+        <h3>If you don't have an account</h3>
         <h2> {{errorMessage}}</h2>
         <form id="register" v-on:submit.prevent="register">
         <table>
@@ -21,12 +21,11 @@
         <td><input type="text" name="regPassword" v-model="regPassword" /></td>
         </tr>
         <tr>
-        <tr>
         <td><label>Confirm Password: </label></td>
         <td><input type="text" name="confirmPass" v-model="confirmPass" /></td>
         </tr>
         <tr>
-        <td><button class="button_2">
+        <td><button type="submit" class="submit">
             Submit
         </button> </td>
         </tr>
@@ -83,27 +82,6 @@
 </script>
 
 <style scoped>
-    .login {
-        font-family: 'Oswald', sans-serif;
-    }
-
-    .submit {
-        font-weight: bold;
-        font-family: 'Oswald', sans-serif;
-        font-size: 16px;
-        height: 35px;
-        width: 70px;
-        padding-right: 5px;
-        padding-left: 5px;
-        background-color: #ccffcc;
-        border-color: #66ff66;
-    }
-
-    .submit:hover {
-        background-color: #66ff66;
-        border-color: #66ff66;
-    }
-
     * {
         margin-top: 10px;
     }

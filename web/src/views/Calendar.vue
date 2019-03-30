@@ -194,6 +194,8 @@
         height: 70vh;
         width: 60vw;
         display: inline-block;
+        float: left;
+        margin-right: 2ex;
     }
     .selectedWorkout {
         background: #f0f0f0;
@@ -207,7 +209,7 @@
     }
     .saveTraining {
         background: #f0f0f0;
-        height: 35vh;
+        height: 100%;
         width: 25vw;
         overflow-y: auto;
     }

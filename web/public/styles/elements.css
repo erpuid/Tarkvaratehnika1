@@ -40,14 +40,16 @@
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
+/*
 body
 {
 	font-family: 'Roboto', sans-serif;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: 400;
 	background: #FFFFFF;
-	color: #a5a5a5;
+	color: #696969;
 }
+*/
 div
 {
 	display: block;
@@ -133,7 +135,7 @@ h4{font-size: 18px;}
 h5{font-size: 14px;}
 h1, h2, h3, h4, h5, h6
 {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Oswald', sans-serif; /*'Roboto', sans-serif;*/
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
@@ -613,10 +615,12 @@ section
 5. Home
 *********************************/
 
+/*GENERAL BACKGROUND*/
 .home
 {
-	height: 335px;
+	background-color: #ff9908;
 }
+
 .home_container
 {
 	position: absolute;
@@ -649,6 +653,41 @@ section
 /*********************************
 6.1 Buttons
 *********************************/
+
+button.logout {
+	background-color: #e60000;
+	border-color: #FF0000;
+	font-family: "Arial", sans-serif;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+button.logout:hover {
+	background-color: #ff1a1a;
+	border-color: #ff1a1a;
+}
+
+.login {
+	font-family: 'Oswald', sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 70ex;
+
+	background-color: #fff4e6;
+	padding: 10px;
+	height: 100%;
+}
+
+button.submit {
+	font-weight: bold;
+	font-family: 'Oswald', sans-serif;
+	padding: 2px 5px;
+}
+
+.element {
+	margin-right: 10px;
+}
+
 /* DO NOT INCLUDE! IT KILLS
 .buttons_container
 {
@@ -1072,7 +1111,7 @@ section
 /*********************************
 7. Footer
 *********************************/
-
+/*
 .footer
 {
 	background: #0d0e15;
@@ -1172,3 +1211,4 @@ section
 {
 	color: #ff9908;
 }
+*/

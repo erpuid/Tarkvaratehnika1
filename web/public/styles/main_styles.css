@@ -41,11 +41,12 @@
 }
 body
 {
+	/*Affects: login text*/
 	font-family: 'Roboto', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 400;
 	background: #FFFFFF;
-	color: #a5a5a5;
+	color: #000000; /* E: #a5a5a5*/
 }
 div
 {
@@ -1138,4 +1139,9 @@ section
 .footer_list ul li a:hover
 {
 	color: #ff9908;
+}
+
+
+.cv-day.future {
+	background-color: #FFFFFF;
 }

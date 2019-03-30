@@ -17,7 +17,6 @@
                                         <div>Stop when</div>
                                         <div>you’re <span>done</span></div>
                                     </div>
-                                    <div class="button slide_button"><a href="#">Get Started</a></div>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +38,6 @@
                                         <div>Stop when</div>
                                         <div>you’re <span>done</span></div>
                                     </div>
-                                    <div class="button slide_button"><a href="#">Get Started</a></div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +59,6 @@
                                         <div>Stop when</div>
                                         <div>you’re <span>done</span></div>
                                     </div>
-                                    <div class="button slide_button"><a href="#">Get Started</a></div>
                                 </div>
                             </div>
                         </div>
