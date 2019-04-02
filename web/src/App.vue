@@ -14,7 +14,7 @@
     import Home from './views/Home.vue';
     import About from './views/About.vue';
     import Login from './views/Login.vue';
-    import WorkoutHistory from './views/WorkoutHistory.vue';
+    import WorkoutPlans from './views/WorkoutPlans.vue';
     import CreateWorkout from './views/CreateWorkout.vue';
     import Calendar from './views/Calendar.vue';
 
@@ -26,7 +26,7 @@
             Home,
             About,
             Login,
-            WorkoutHistory,
+            WorkoutPlans,
             CreateWorkout,
             Calendar
         }

@@ -29,9 +29,9 @@ const router = new Router({
         component: () => import('./views/Login.vue')
     },
     {
-        path: '/history',
-        name: 'workouthistory',
-        component: () => import('./views/WorkoutHistory.vue')
+        path: '/plans',
+        name: 'workoutplans',
+        component: () => import('./views/WorkoutPlans.vue')
     },
     {
         path: '/createworkout',

@@ -7,7 +7,7 @@
 
                 <!-- Logo -->
                 <div class="logo top_align">
-                    <a href="#"></a>
+                    <router-link to="/"></router-link>
                     <div>Your<span>Fitness</span></div>
                     <div>better life starts here</div>
                 </div>
@@ -16,7 +16,7 @@
                         <li><router-link to="/">Home</router-link></li>
                         <li><router-link to="/about">About</router-link></li>
                         <li><router-link to="/login">Login</router-link></li>
-                        <li><router-link to="/history">Workout History</router-link></li>
+                        <li><router-link to="/plans">Workout Plans</router-link></li>
                         <li><router-link to="/createworkout">Create Workout</router-link></li>
                         <li><router-link to="/calendar">Calendar</router-link></li>
                         <li><button class="logout" v-on:click="logout">Log out</button></li>
@@ -35,7 +35,7 @@
                         <li><router-link to="/about">About</router-link></li>
                         <li><router-link to="/login">Login</router-link></li>
                         <li><router-link to="/savetraining">Save Training</router-link></li>
-                        <li><router-link to="/history">Workout History</router-link></li>
+                        <li><router-link to="/plans">Workout Plans</router-link></li>
                         <li><router-link to="/createworkout">Create Workout</router-link></li>
                     </ul>
                 </nav>

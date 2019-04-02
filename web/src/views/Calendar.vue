@@ -43,7 +43,7 @@
         </div>
 
         <div class="saveTraining" v-if="this.calendarDate">
-            <SaveTraining :date="calendarDate" />
+            <SaveTraining :date="calendarDate" @workout-saved="refreshCalendar"/>
         </div>
 
     </div>
@@ -113,19 +113,19 @@
             },
         },
         mounted() {
-            this.newEventStartDate = this.isoYearMonthDay(this.today())
-            this.newEventEndDate = this.isoYearMonthDay(this.today())
-            this.getAllData()
+            this.newEventStartDate = this.isoYearMonthDay(this.today());
+            this.newEventEndDate = this.isoYearMonthDay(this.today());
+            this.getAllData();
         },
         methods: {
             thisMonth(d, h, m) {
-                const t = new Date()
-                return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
+                const t = new Date();
+                return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0);
             },
             onClickDay(d) {
                 this.calendarDate = `${new Date (d.getTime() - (d.getTimezoneOffset() * 60000 ))
                     .toISOString().split("T")[0] }`;
-                this.message = `You clicked: ${d.toLocaleDateString()}`
+                this.message = `You clicked: ${d.toLocaleDateString()}`;
             },
             onClickEvent(e) {
                 for (var i = 0; i < this.history.length; i++) {
@@ -133,19 +133,19 @@
                         this.selectedWorkout = this.history[i];
                     }
                 }
-                this.message = `You clicked: ${e.title}`
+                this.message = `You clicked: ${e.title}`;
             },
             setShowDate(d) {
-                this.message = `Changing calendar view to ${d.toLocaleDateString()}`
-                this.showDate = d
+                this.message = `Changing calendar view to ${d.toLocaleDateString()}`;
+                this.showDate = d;
             },
             onDrop(event, date) {
-                this.message = `You dropped ${event.id} on ${date.toLocaleDateString()}`
+                this.message = `You dropped ${event.id} on ${date.toLocaleDateString()}`;
                 // Determine the delta between the old start date and the date chosen,
                 // and apply that delta to both the start and end date to move the event.
-                const eLength = this.dayDiff(event.startDate, date)
-                event.originalEvent.startDate = this.addDays(event.startDate, eLength)
-                event.originalEvent.endDate = this.addDays(event.endDate, eLength)
+                const eLength = this.dayDiff(event.startDate, date);
+                event.originalEvent.startDate = this.addDays(event.startDate, eLength);
+                event.originalEvent.endDate = this.addDays(event.endDate, eLength);
             },
             getAllData: function() {
                 console.log(this.username);
@@ -174,6 +174,12 @@
                 } else {
                     this.showExercises.push(arg);
                 }
+            },
+            refreshCalendar: function() {
+                this.calendarDate = "";
+                this.events = [];
+                this.history = [];
+                this.getAllData();
             }
         }
     }
