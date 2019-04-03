@@ -100,6 +100,12 @@
 <style scoped>
     .workouthistory {
         font-family: 'Oswald', sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 70ex;
+        background-color: #fff4e6;
+        height: 100%;
+        text-align: center;
     }
 
     .submit {
