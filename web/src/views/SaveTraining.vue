@@ -127,10 +127,6 @@
                 this.exercise.sets = this.selectedWorkout.planExercises[this.index].sets;
                 this.exercise.repetitions = this.selectedWorkout.planExercises[this.index].repetitions;
                 this.exercise.weight = '';
-
-                /*if (this.index >= this.selectedWorkout.exercises.length - 1) {
-                    this.index = 0;
-                }*/
             }
         },
         computed: {
@@ -186,7 +182,7 @@
     }
 
     * {
-        margin: 5px;
+        /*margin: 5px;*/
     }
 
     ul {

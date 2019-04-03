@@ -4,6 +4,8 @@
             <table>
                 <tr>
                     <td><label>Workout plan name</label></td>
+                </tr>
+                <tr>
                     <td><input type="text" name="planName" v-model="planName"/></td>
                 </tr>
                 <tr>
@@ -16,6 +18,8 @@
             <table>
                 <tr>
                     <td><label>Workout name</label></td>
+                </tr>
+                <tr>
                     <td><input type="text" name="workoutName" v-model="workoutName"/></td>
                 </tr>
                 <tr>

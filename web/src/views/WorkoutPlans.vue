@@ -30,6 +30,7 @@
             <input v-if="this.searchType === 'planName'" type="text" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'workoutName'" type="text" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'exerciseName'" type="text" name="searchField" v-model="searchField"/>
+            <br>
             <input type="submit" class="submit" name="search" value="Search"/>
         </form>
     </div>
