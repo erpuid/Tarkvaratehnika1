@@ -25,7 +25,7 @@
             </calendar-view>
         </div>
 
-        <div class="selectedWorkout" v-if="this.selectedWorkout.id">
+        <div class="selectedWorkout" v-if="this.selectedWorkout.id && eventVisible">
             <span>Workout Name: {{this.selectedWorkout.workoutName}} </span>
             <br>
             <span>Date: {{this.selectedWorkout.date}}</span>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="saveTraining" v-if="this.calendarDate">
+        <div class="saveTraining" v-if="this.calendarDate && savingVisible">
             <SaveTraining :date="calendarDate" @workout-saved="refreshCalendar"/>
         </div>
 
@@ -71,6 +71,8 @@
         mixins: [CalendarMathMixin],
         data: function() {
             return {
+                savingVisible: false,
+                eventVisible: false,
                 calendarDate: "",
                 showDate: this.thisMonth(1),
                 message: "",
@@ -123,11 +125,15 @@
                 return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0);
             },
             onClickDay(d) {
+                this.eventVisible = false;
+                this.savingVisible = true;
                 this.calendarDate = `${new Date (d.getTime() - (d.getTimezoneOffset() * 60000 ))
                     .toISOString().split("T")[0] }`;
                 this.message = `You clicked: ${d.toLocaleDateString()}`;
             },
             onClickEvent(e) {
+                this.savingVisible = false;
+                this.eventVisible = true;
                 for (var i = 0; i < this.history.length; i++) {
                     if (this.history[i].id === e.id) {
                         this.selectedWorkout = this.history[i];
