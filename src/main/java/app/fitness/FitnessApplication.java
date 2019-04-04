@@ -50,17 +50,9 @@ public class FitnessApplication {
 
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository repository, UserService userService) throws Exception {
-
-        //if (repository.count()==0)
-        //    userService.save(new User("admin", "password", Arrays.asList(new Role("USER"), new Role("ADMIN"))));
         builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
     }
 
-    /**
-     * We return an istance of our CustomUserDetails.
-     * @param repository
-     * @return
-     */
     private UserDetailsService userDetailsService(final UserRepository repository) {
         return username -> new CustomUserDetails(repository.findByUsername(username));
     }
