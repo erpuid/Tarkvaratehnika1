@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="saveTraining" v-if="this.calendarDate && savingVisible">
+        <div class="selectedDay" v-if="this.calendarDate && savingVisible">
             <SaveTraining :date="calendarDate" @workout-saved="refreshCalendar"/>
         </div>
 
@@ -132,6 +132,7 @@
                 this.message = `You clicked: ${d.toLocaleDateString()}`;
             },
             onClickEvent(e) {
+                this.showExercises = [];
                 this.savingVisible = false;
                 this.eventVisible = true;
                 for (var i = 0; i < this.history.length; i++) {
@@ -211,18 +212,16 @@
     }
     .selectedWorkout {
         background: #f0f0f0;
-        height: 35vh;
+        height: 55vh;
         width: 25vw;
-        margin-right: 50px;
-        overflow-y: auto;
-        display: inline-block;
-        float: right;
+        overflow: auto;
         padding: 10px;
     }
-    .saveTraining {
+    .selectedDay {
         background: #f0f0f0;
-        height: 100%;
+        height: 55vh;
         width: 25vw;
-        overflow-y: auto;
+        overflow: auto;
+        padding: 10px;
     }
 </style>

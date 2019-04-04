@@ -30,6 +30,7 @@
             <input v-if="this.searchType === 'planName'" type="text" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'workoutName'" type="text" name="searchField" v-model="searchField"/>
             <input v-else-if="this.searchType === 'exerciseName'" type="text" name="searchField" v-model="searchField"/>
+            <br>
             <input type="submit" class="submit" name="search" value="Search"/>
         </form>
     </div>
@@ -99,6 +100,12 @@
 <style scoped>
     .workouthistory {
         font-family: 'Oswald', sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 70ex;
+        background-color: #fff4e6;
+        height: 100%;
+        text-align: center;
     }
 
     .submit {

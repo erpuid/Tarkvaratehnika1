@@ -17,8 +17,6 @@
 	6.4 Loaders
 	6.5 Milestones
 	6.6 Icon Boxes
-7. Footer
-
 
 ******************************/
 
@@ -688,44 +686,20 @@ button.submit {
 	margin-right: 10px;
 }
 
-/* DO NOT INCLUDE! IT KILLS
-.buttons_container
-{
-	margin-top: 55px;
+.about {
+	background-color: #fff4e6;
+	padding: 10px;
+	margin-top: 25px;
+	width: 100%;
 }
-.buttons_container > .button
-{
-	margin-bottom: 17px;
+
+.createWorkout {
+	font-family: 'Oswald', sans-serif;
+	background-color: #fff4e6;
+	width: 100%;
+	padding-left: 30px;
 }
-.buttons_container > .button:not(:last-child)
-{
-	margin-right: 17px;
-}
-.button_2
-{
-	background: #ff5408;
-}
-.button_2::before
-{
-	background: #ff9908;
-}
-.button_3
-{
-	background: #64677c;
-}
-.button_3::before
-{
-	background: #ff5408;
-}
-.button_4
-{
-	background: #000000;
-}
-.button_4::before
-{
-	background: #ff9908;
-}
-*/
+
 
 /*********************************
 6.2 Accordions
@@ -1108,107 +1082,5 @@ button.submit {
 	fill: #ff9908;
 }
 
-/*********************************
-7. Footer
-*********************************/
-/*
-.footer
-{
-	background: #0d0e15;
-}
-.footer_content
-{
-	padding-top: 80px;
-	padding-bottom: 25px;
-}
-.footer .logo
-{
-	display: inline-block;
-	position: relative;
-	left: auto;
-}
-.footer_text
-{
-	margin-top: 40px;
-}
-.footer_text p
-{
-	color: #64677c;
-}
-.social
-{
-	margin-top: 41px;
-}
-.social ul li
-{
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-	background: transparent;
-	text-align: center;
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
-}
-.social ul li:hover
-{
-	background: #ff9908;
-}
-.social ul li:not(:last-of-type)
-{
-	margin-right: 16px;
-}
-.social ul li a
-{
-	display: block;
-	height: 100%;
-}
-.social ul li a i
-{
-	color: #ffffff;
-	line-height: 32px;
-}
-.footer_bar
-{
-	
-}
-.footer_bar_content
-{
-	height: 53px;
-}
-.copyright
-{
-	font-size: 12px;
-	font-weight: 400;
-	color: #46495a;
-}
-.footer_column
-{
-	padding-top: 26px;
-}
-.footer_title h3
-{
-	font-size: 18px;
-	color: #ffffff;
-}
-.footer_list
-{
-	margin-top: 37px;
-}
-.footer_list ul li:not(:last-of-type)
-{
-	margin-bottom: 8px;
-}
-.footer_list ul li a
-{
-	font-size: 15px;
-	font-weight: 400;
-	color: #64677c;
-}
-.footer_list ul li a:hover
-{
-	color: #ff9908;
-}
-*/
+
+/* NEW CODE FOR ELEMENTS*/

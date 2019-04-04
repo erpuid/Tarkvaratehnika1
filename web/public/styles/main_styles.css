@@ -47,6 +47,7 @@ body
 	font-weight: 400;
 	background: #FFFFFF;
 	color: #000000; /* E: #a5a5a5*/
+	height: 100%;
 }
 div
 {
@@ -610,7 +611,7 @@ section
 
 .home
 {
-	height: 100vh;
+	height: 100%;
 }
 .home_slider_container
 {

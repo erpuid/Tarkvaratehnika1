@@ -41,6 +41,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;*/
+    height: 100%;
   }
 
   /*Notice: Possibly removed after general design is ready*/

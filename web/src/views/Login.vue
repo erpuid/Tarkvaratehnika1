@@ -11,18 +11,18 @@
         <h3>If you don't have an account</h3>
         <h2> {{errorMessage}}</h2>
         <form id="register" v-on:submit.prevent="register">
-        <table>
+        <table class="login_master">
         <tr>
         <td><label>Username: </label></td>
         <td><input type="text" name="username" v-model="regUsername" /></td>
         </tr>
         <tr>
         <td><label>Password: </label></td>
-        <td><input type="text" name="regPassword" v-model="regPassword" /></td>
+        <td><input type="password" name="regPassword" v-model="regPassword" /></td>
         </tr>
         <tr>
         <td><label>Confirm Password: </label></td>
-        <td><input type="text" name="confirmPass" v-model="confirmPass" /></td>
+        <td><input type="password" name="confirmPass" v-model="confirmPass" /></td>
         </tr>
         <tr>
         <td><button type="submit" class="submit">
