@@ -72,11 +72,12 @@ public class UserService {
         user.setUsername(userReg.getUsername());
         user.setPassword(passwordEncoder.encode(userReg.getPassword()));
         user.setRoles(Arrays.asList(role));
-        if (user.getUsername() == null || !user.getUsername().matches("[A-Za-z0-9_]+")) {
+        if (user.getUsername() == null || !user.getUsername().matches("[A-Za-z0-9_]+")
+                || user.getUsername().length() < 4) {
             return "Enter valid username!";
         }
         if (repository.findByUsername(user.getUsername()) != null) {
-            return "This username is already taken";
+            return "This username is already taken!";
         }
         System.out.println(user.toString());
         repository.save(user);

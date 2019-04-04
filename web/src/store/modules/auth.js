@@ -21,6 +21,10 @@ const actions = {
         })
     }
 };
+axios.interceptors.request.use(request => {
+    console.log('Starting Request', request);
+    return request
+});
 
 const mutations = {
     [AUTH_REQUEST]: (state, user) => {

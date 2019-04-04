@@ -20,14 +20,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    /**
-     * Setting up the endpointsconfigurer authentication manager.
-     * The AuthorizationServerEndpointsConfigurer defines the authorization and token endpoints and the token services.
-     *
-     * @param endpoints
-     * @throws Exception
-     */
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -42,12 +34,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new InMemoryTokenStore();
     }
 
-    /**
-     * Setting up the clients with a clientId, a clientSecret, a scope, the grant types and the authorities.
-     *
-     *  clients
-     * @throws Exception
-     */
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -58,14 +44,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .resourceIds("oauth2-resource").accessTokenValiditySeconds(5000).secret(passwordEncoder.encode("secret"));
     }
 
-/*
-    /**
-     * We here defines the security constraints on the token endpoint.
-     * We set it up to isAuthenticated, which returns true if the user is not anonymous
-     *
-     * @param security the AuthorizationServerSecurityConfigurer.
-     * @throws Exception
-     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 

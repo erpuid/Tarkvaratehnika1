@@ -29,9 +29,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login");
-        /*.authorizeRequests()
-                .antMatchers("/", "/register","/login").permitAll()
-                .antMatchers("/api/**").authenticated();*/
-
     }
 }

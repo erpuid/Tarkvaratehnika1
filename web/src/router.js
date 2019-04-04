@@ -47,7 +47,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/home', '/about'];
+    const publicPages = ['/login', '/home', '/about', '/'];
     const authRequired = !publicPages.includes(to.path);
     console.log("authRequire: " + authRequired);
     const loggedIn = store.getters.isAuthenticated;
