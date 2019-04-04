@@ -43,10 +43,6 @@ public class UserService {
         return role;
     }
 
-    public void save(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save(user);
-    }
 
     @GetMapping("/logout/{token}")
     public void logout(@PathVariable String token){

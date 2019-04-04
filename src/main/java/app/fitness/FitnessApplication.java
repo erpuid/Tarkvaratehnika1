@@ -1,9 +1,7 @@
 package app.fitness;
 
-import app.fitness.entities.Role;
-import app.fitness.entities.User;
 import app.fitness.repositories.UserRepository;
-import app.fitness.services.CustomUserDetails;
+import app.fitness.security.CustomUserDetails;
 import app.fitness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -13,13 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 

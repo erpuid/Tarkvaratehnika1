@@ -15,7 +15,7 @@
                     <ul class="d-flex flex-row align-items-center justify-content-start">
                         <li><router-link to="/">Home</router-link></li>
                         <li><router-link to="/about">About</router-link></li>
-                        <li v-if=""><router-link to="/login">Login</router-link></li>
+                        <li v-if="loggedIn"><router-link to="/login">Login</router-link></li>
                         <li v-if=""><router-link to="/plans">Workout Plans</router-link></li>
                         <li v-if=""><router-link to="/createworkout">Create Workout</router-link></li>
                         <li v-if=""><router-link to="/calendar">Calendar</router-link></li>

@@ -1,4 +1,4 @@
-package app.fitness.services;
+package app.fitness.security;
 
 
 import app.fitness.entities.Role;

@@ -1,8 +1,7 @@
 package app.fitness;
 
-import antlr.build.Tool;
-import app.fitness.entities.Exercise;
-import app.fitness.entities.Workout;
+
+import app.fitness.entities.*;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -40,11 +39,12 @@ public class util {
     }
 
 
-    static Workout createValidWorkout() {
+    static Workout createValidWorkout(String user, String name) {
         Workout workout = new Workout();
         workout.setDate("2019-04-03");
-        workout.setUserName("user2");
-        workout.setWorkoutName("Benchi päev");
+        workout.setUserName(user);
+        workout.setWorkoutName(name);
+        workout.setId(1L);
         Exercise exercise = new Exercise();
         exercise.setExerciseName("Bench");
         exercise.setRepetitions(6);
@@ -52,6 +52,18 @@ public class util {
         exercise.setWeight(100);
         workout.setExercises(Arrays.asList(exercise));
         return workout;
+    }
+
+    static WorkoutPlan createWorkoutPlan(String name) {
+        WorkoutPlan workoutPlan = new WorkoutPlan();
+        workoutPlan.setPlanName(name);
+        PlanWorkout planWO = new PlanWorkout();
+        planWO.setWorkoutName("Test plan workout");
+        PlanExercise planEx = new PlanExercise();
+        planEx.setExerciseName("Test plan ex");
+        planWO.setPlanExercises(Arrays.asList(planEx));
+        workoutPlan.setWorkouts(Arrays.asList(planWO));
+        return workoutPlan;
     }
 }
 

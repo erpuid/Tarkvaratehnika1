@@ -1,31 +1,18 @@
 package app.fitness;
 
 import app.fitness.entities.Workout;
-import app.fitness.security.AuthorizationServerConfig;
-import app.fitness.services.WorkoutService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.AssertionFailure;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -33,23 +20,17 @@ import java.util.List;
 import static app.fitness.util.createValidWorkout;
 import static app.fitness.util.obtainAccessToken;
 import static org.junit.Assert.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static sun.plugin2.util.PojoUtil.toJson;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
-@SpringBootTest()
+@SpringBootTest
 @AutoConfigureMockMvc
 public class SecurityTests {
-
-    @Autowired
-    private WebApplicationContext wac;
-
 
     @Autowired
     private MockMvc mockMvc;
@@ -90,6 +71,18 @@ public class SecurityTests {
                 .andExpect(status().isOk());
     }
 
+
+    @Test
+    public void UserHasNoAccessToAnotherUserWorkouts() throws Exception {
+        String accessToken = obtainAccessToken("user2", "user", mockMvc);
+        System.out.println(accessToken);
+        ResultActions result = mockMvc.perform(get("/api/workouts/user")
+                .param("access_token", accessToken))
+                .andExpect(status().isOk());
+        String response = result.andReturn().getResponse().getContentAsString();
+        assertEquals(response, "");
+    }
+
     @Test
     public void UserHasAccessToWorkoutPlans() throws Exception {
         String accessToken = obtainAccessToken("user", "user", mockMvc);
@@ -101,10 +94,11 @@ public class SecurityTests {
 
     @Test
     public void cantAccessWorkouts() throws Exception {
-        Workout workout = createValidWorkout();
+        Workout workout = createValidWorkout("user", "Test workout");
+        String json = new ObjectMapper().writeValueAsString(workout);
         mockMvc.perform(post("/api/workouts")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(workout)))
+                .content(json))
                 .andExpect(status().isUnauthorized());
     }
 

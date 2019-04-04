@@ -6,6 +6,8 @@ import app.fitness.entities.Workout;
 import app.fitness.repositories.ExerciseRepository;
 import app.fitness.repositories.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,7 @@ public class WorkoutService {
     private WorkoutRepository workoutRepository;
 
     @Autowired
-    private ExerciseRepository exerciseRepository;
+    private UserService userService;
 
     @GetMapping("api/workouts")
     public List<Workout> getAllWorkouts(){
@@ -27,19 +29,13 @@ public class WorkoutService {
     }
 
     @GetMapping("api/workouts/{username}")
-    public List<Workout> getWorkoutById(@PathVariable String username){
-        System.out.println(username);
-        return workoutRepository.findAllByUserName(username);
+    public List<Workout> getWorkoutByUsername(@PathVariable String username){
+        System.out.println("!!!: " + userService.getUsername());
+        if (userService.getUsername().equals(username)) {
+            return workoutRepository.findAllByUserName(username);
+        }
+        return null;
     }
-
-
-
-
-    @GetMapping("api/exercises")
-    public List<Exercise> getAllExercises(){
-        return exerciseRepository.findAll();
-    }
-
 
     @PostMapping("api/workouts")
     public Workout saveWorkout(@RequestBody Workout workout) {
@@ -49,11 +45,4 @@ public class WorkoutService {
         }
         return workoutRepository.save(workout);
     }
-
-
-    @GetMapping("api/exercises/{id}")
-    public List<Exercise> getExerciseById(Long id) {
-        return exerciseRepository.findAllByWorkoutId(id);
-    }
-
 }
