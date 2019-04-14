@@ -53,7 +53,7 @@
         methods: {
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))
+                    .get('/api/plan?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = this.allPlans = response.data;
                     })

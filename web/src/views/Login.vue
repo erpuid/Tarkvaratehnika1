@@ -66,7 +66,7 @@
                 if (this.regPassword === this.confirmPass) {
                     this.user.userName = this.regUsername;
                     this.user.password =  this.regPassword;
-                    axios.post('http://localhost:8080/register', {
+                    axios.post('/register', {
                         username: this.user.userName,
                         password: this.user.password
                     }).then(response => {
