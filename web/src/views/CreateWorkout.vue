@@ -106,7 +106,7 @@
         methods: {
             processForm: function() {
                 axios
-                    .post('/api/plan?access_token='+localStorage.getItem('token'), {
+                    .post('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'), {
                         planName: this.planName,
                         workouts: this.workouts
                     })

@@ -34,7 +34,7 @@ const mutations = {
         params.append('password',user.password);
         axios({
             method: 'post',
-            url: '/oauth/token',
+            url: 'http://localhost:8080/oauth/token',
             auth: {username: 'my-trusted-client', password: 'secret'},
             headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
             data: params
@@ -47,7 +47,7 @@ const mutations = {
     },
 
     [AUTH_LOGOUT]: () => {
-        axios.get('/logout/'+localStorage.getItem('token')).then(response => {
+        axios.get('http://localhost:8080/logout/'+localStorage.getItem('token')).then(response => {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
         });
