@@ -29,3 +29,29 @@ dependencies {
 
 
 }
+
+task hello {
+    doLast {
+        println 'Hello!'
+    }
+}
+
+task around {
+    dependsOn hello
+    doLast {
+        println 'Gradle is working'
+    }
+}
+
+task world {
+    dependsOn around
+    doLast {
+        println 'No its not'
+    }
+}
+
+task buildJar {
+    manifest {
+
+    }
+}

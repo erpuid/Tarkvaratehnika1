@@ -99,21 +99,6 @@
                 showExercises: []
             }
         },
-        computed: {
-            userLocale() {
-                return this.getDefaultBrowserLocale
-            },
-            dayNames() {
-                return this.getFormattedWeekdayNames(this.userLocale, "long", 0)
-            },
-            themeClasses() {
-                return {
-                    "theme-default": this.useDefaultTheme,
-                    "holiday-us-traditional": this.useHolidayTheme,
-                    "holiday-us-official": this.useHolidayTheme,
-                }
-            },
-        },
         mounted() {
             this.newEventStartDate = this.isoYearMonthDay(this.today());
             this.newEventEndDate = this.isoYearMonthDay(this.today());
