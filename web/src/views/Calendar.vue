@@ -13,7 +13,6 @@
                     :display-period-count="displayPeriodCount"
                     :starting-day-of-week="startingDayOfWeek"
                     :current-period-label="useTodayIcons ? 'icons' : ''"
-                    @drop-on-date="onDrop"
                     @click-date="onClickDay"
                     @click-event="onClickEvent"
                     class="theme-default holiday-us-traditional holiday-us-official">
@@ -30,8 +29,8 @@
             <br>
             <span>Date: {{this.selectedWorkout.date}}</span>
             <br>
-            <div v-for="exercise in this.selectedWorkout.exercises" style="margin-left: 2ex;" id="exercise">
-                <span @click="displayExerciseInfo(exercise.exerciseName)">Exercise: {{exercise.exerciseName}} </span>
+            <div v-for="exercise in this.selectedWorkout.exercises" class="exercise" @click="displayExerciseInfo(exercise.exerciseName)">
+                <span>Exercise: {{exercise.exerciseName}} </span>
                 <div v-if="showExercises.includes(exercise.exerciseName)">
                     <span>Sets: {{exercise.sets}} </span>
                     <br>
@@ -54,10 +53,10 @@
     import {
         CalendarView,
         CalendarViewHeader,
-        CalendarMathMixin,
+        CalendarMathMixin
     } from "vue-simple-calendar"
     import axios from "axios";
-    import SaveTraining from "./SaveTraining.vue"
+    import SaveTraining from "../components/SaveTraining.vue"
     require("vue-simple-calendar/static/css/default.css");
     require("vue-simple-calendar/static/css/holidays-us.css");
 
@@ -99,30 +98,18 @@
                 showExercises: []
             }
         },
-        computed: {
-            userLocale() {
-                return this.getDefaultBrowserLocale
-            },
-            dayNames() {
-                return this.getFormattedWeekdayNames(this.userLocale, "long", 0)
-            },
-            themeClasses() {
-                return {
-                    "theme-default": this.useDefaultTheme,
-                    "holiday-us-traditional": this.useHolidayTheme,
-                    "holiday-us-official": this.useHolidayTheme,
-                }
-            },
-        },
         mounted() {
-            this.newEventStartDate = this.isoYearMonthDay(this.today());
-            this.newEventEndDate = this.isoYearMonthDay(this.today());
+            this.newEventStartDate = this.newEventEndDate = this.isoYearMonthDay(this.today());
             this.getAllData();
         },
         methods: {
             thisMonth(d, h, m) {
                 const t = new Date();
                 return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0);
+            },
+            setShowDate(d) {
+                this.message = `Changing calendar view to ${d.toLocaleDateString()}`;
+                this.showDate = d;
             },
             onClickDay(d) {
                 this.eventVisible = false;
@@ -142,22 +129,8 @@
                 }
                 this.message = `You clicked: ${e.title}`;
             },
-            setShowDate(d) {
-                this.message = `Changing calendar view to ${d.toLocaleDateString()}`;
-                this.showDate = d;
-            },
-            onDrop(event, date) {
-                this.message = `You dropped ${event.id} on ${date.toLocaleDateString()}`;
-                // Determine the delta between the old start date and the date chosen,
-                // and apply that delta to both the start and end date to move the event.
-                const eLength = this.dayDiff(event.startDate, date);
-                event.originalEvent.startDate = this.addDays(event.startDate, eLength);
-                event.originalEvent.endDate = this.addDays(event.endDate, eLength);
-            },
             getAllData: function() {
-                console.log(this.username);
                 this.username = localStorage.username;
-                console.log(this.username);
                 axios
                     .get('http://localhost:8080/api/workouts/' + this.username + '?access_token=' + localStorage.getItem('token'))
                     .then(response => {
@@ -198,7 +171,7 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         color: #2c3e50;
         height: 67vh;
-        width: 90vw;
+        width: 95vw;
         margin-left: 20px;
         margin-right: 0;
         margin-top: 144px;
@@ -211,17 +184,31 @@
         margin-right: 2ex;
     }
     .selectedWorkout {
-        background: #f0f0f0;
+        background:  #f0f0f0;
         height: 55vh;
-        width: 25vw;
+        width: 30vw;
         overflow: auto;
         padding: 10px;
+        border-radius: 5px;
+        cursor: default;
     }
     .selectedDay {
         background: #f0f0f0;
         height: 55vh;
-        width: 25vw;
+        width: 30vw;
         overflow: auto;
         padding: 10px;
+        border-radius: 5px;
+        cursor: default;
+    }
+    .exercise {
+        background: #f4e6d4;
+        margin: 2px 2px 2px 2ex;
+        padding: 2px 2px 2px 6px;
+        border-radius: 5px;
+    }
+    .exercise:hover {
+        background: #ff9908;
+        cursor: pointer;
     }
 </style>

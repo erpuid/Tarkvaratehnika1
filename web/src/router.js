@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 import store from './store'
-import login from './views/Login'
+import Home from './views/Home.vue';
+import About from './views/About.vue';
+import Login from './views/Login.vue';
+import WorkoutPlans from './views/WorkoutPlans.vue';
+import CreateWorkout from './views/CreateWorkout.vue';
+import Calendar from './views/Calendar.vue';
 import auth from "./store/modules/auth";
 
 Vue.use(Router);
@@ -18,30 +22,27 @@ const router = new Router({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: About
     },
     {
         path: '/login',
         name: 'login',
-        component: () => import('./views/Login.vue')
+        component: Login
     },
     {
         path: '/plans',
         name: 'workoutplans',
-        component: () => import('./views/WorkoutPlans.vue')
+        component: WorkoutPlans
     },
     {
         path: '/createworkout',
         name: 'createworkout',
-        component: () => import('./views/CreateWorkout.vue')
+        component: CreateWorkout
     },
     {
         path: '/calendar',
         name:'calendar',
-        component: () => import('./views/Calendar.vue')
+        component: Calendar
     }
   ]
 });
@@ -49,10 +50,10 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login', '/home', '/about', '/'];
     const authRequired = !publicPages.includes(to.path);
-    console.log("authRequire: " + authRequired);
+    // console.log("authRequire: " + authRequired);
     const loggedIn = store.getters.isAuthenticated;
-    console.log("loggedIn: " + loggedIn);
-    console.log(localStorage.getItem('token'));
+    // console.log("loggedIn: " + loggedIn);
+    // console.log(localStorage.getItem('token'));
     if (authRequired && localStorage.getItem('token') === null) {
         return next('/login');
     }
