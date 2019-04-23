@@ -37,11 +37,11 @@
                     </tr>
                     <tr>
                         <td><label>Sets</label></td>
-                        <td><input type="number" name="exerciseSets" v-model="exercise.sets"/></td>
+                        <td><input type="number" name="exerciseSets" min="1" max="999" v-model="exercise.sets"/></td>
                     </tr>
                     <tr>
                         <td><label>Repetitions</label></td>
-                        <td><input type="number" name="exerciseRepetitions" v-model="exercise.repetitions"/></td>
+                        <td><input type="number" name="exerciseRepetitions" min="1" max="999" v-model="exercise.repetitions"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="submit" name="addExercise" value="Add"/></td>
@@ -100,7 +100,8 @@
                     workoutName: '',
                     planExercises: []
                 },
-                workouts: []
+                workouts: [],
+                errors: []
             }
         },
         methods: {
@@ -129,9 +130,23 @@
                 this.planWorkout.planExercises.splice(exercise, 1);
             },
             addExercise: function() {
-                this.planWorkout.planExercises.push(JSON.parse(JSON.stringify(this.exercise)));
-                this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = '';
-
+                this.validateForm();
+                if (this.errors.length === 0) {
+                    this.planWorkout.planExercises.push(JSON.parse(JSON.stringify(this.exercise)));
+                    this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = '';
+                }
+            },
+            validateForm: function() {
+                this.errors = [];
+                if (isNaN(this.exercise.sets) || isNaN(this.exercise.repetitions)) {
+                    this.errors.push("Only numbers allowed.")
+                }
+                if (this.exercise.sets < 1 || this.exercise.repetitions < 1) {
+                    this.errors.push("Values must be positive.")
+                }
+                if (this.exercise.sets > 999 || this.exercise.repetitions > 999) {
+                    this.errors.push("Values must be smaller than 999.")
+                }
             },
             addWorkout: function() {
                 this.planWorkout.workoutName = this.workoutName;
