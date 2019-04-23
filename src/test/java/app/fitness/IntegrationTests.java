@@ -1,14 +1,14 @@
 package app.fitness;
 
-import app.fitness.entities.PlanExercise;
-import app.fitness.entities.PlanWorkout;
+
 import app.fitness.entities.Workout;
 import app.fitness.entities.WorkoutPlan;
-import app.fitness.repositories.WorkoutRepository;
-import org.aspectj.weaver.tools.Trace;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,15 +17,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.testng.annotations.BeforeTest;
 
-import java.util.Arrays;
 
 import static app.fitness.util.createWorkoutPlan;
 import static app.fitness.util.obtainAccessToken;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,10 +34,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @WebAppConfiguration
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IntegrationTests {
 
     @Autowired
     private MockMvc mvc;
+
+    private static String token;
+
+
+    @Test
+    public void loginTest() throws Exception {
+        token = obtainAccessToken("user2", "user", mvc);
+        System.out.println("TOKEN: " + token);
+        assertNotNull(token);
+    }
+
 
     @Test
     public void WorkoutServiceGetByUserName() throws Exception {

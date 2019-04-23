@@ -15,12 +15,12 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-
-@RestController
+@Service
 public class UserService {
 
     @Autowired
@@ -36,29 +36,28 @@ public class UserService {
     @Autowired
     private TokenStore tokenStore;
 
-    @Bean
-    private Role userRole() {
-        Role role = new Role();
-        role.setName("USER");
-        return role;
+//    @Bean
+//    private Role userRole() {
+//        Role role = new Role();
+//        role.setName("USER");
+//        return role;
+//    }
+
+
+    public void logout(String token){
+        try {
+            tokenStore.removeAccessToken(tokenStore.readAccessToken(token));
+        } catch (NullPointerException e) {
+            System.out.println("Token not found");
+        }
     }
 
-
-    @GetMapping("/logout/{token}")
-    public void logout(@PathVariable String token){
-        System.out.println("Token" + token);
-        tokenStore.removeAccessToken(tokenStore.readAccessToken(token));
-    }
-
-    @GetMapping(value ="/getUsername")
     public String getUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
 
-    @PostMapping("/register")
     public String register(@RequestBody UserReg userReg) {
-        System.out.println(userReg.toString());
         Optional<Role> response = roleRepository.findById(1L);
         Role role = null;
         if (response.isPresent()) {
@@ -78,7 +77,5 @@ public class UserService {
         System.out.println(user.toString());
         repository.save(user);
         return "Success!";
-
     }
-
 }
