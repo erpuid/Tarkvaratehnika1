@@ -1,13 +1,18 @@
 <template>
     <div class="saveTraining">
         <div v-if="this.exercises.length === 0">
-        <select v-model="selectedPlan">
-            <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.planName}}</option>
-        </select>
-        <br>
-        <select v-model="selectedWorkout" @change="updateExercise" v-if="this.selectedPlan">
-            <option v-for="workout in this.selectedPlan.workouts" v-bind:value="workout">{{workout.workoutName}}</option>
-        </select>
+            <select v-model="selectedPlan">
+                <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.planName}}</option>
+            </select>
+            <br>
+            <select v-model="selectedWorkout" @change="updateExercise" v-if="this.selectedPlan">
+                <option v-for="workout in this.selectedPlan.workouts" v-bind:value="workout">{{workout.workoutName}}</option>
+            </select>
+        </div>
+
+        <div v-if="this.exercises.length">
+            <p>{{selectedPlan.planName}}</p>
+            <p>{{selectedWorkout.workoutName}}</p>
         </div>
 
         <form id="add-workout" class="workoutClass" @submit.prevent v-if="this.selectedWorkout">
@@ -47,9 +52,9 @@
         <span class="exerciseData">
             <ol>
                 <li v-for="exercise in exercises">
-                    <span>Name: {{exercise.exerciseName}},</span>
-                    <span>sets: {{exercise.sets}},</span>
-                    <span>repetitions: {{exercise.repetitions}},</span>
+                    <span>Name: {{exercise.exerciseName}} |</span>
+                    <span>sets: {{exercise.sets}} |</span>
+                    <span>repetitions: {{exercise.repetitions}} |</span>
                     <span>weight: {{exercise.weight}}</span>
                     <button v-on:click="removeExercise(exercises.indexOf(exercise))" class="remove">Remove</button>
                     <br>
@@ -95,11 +100,10 @@
                     date: this.selectedDate,
                     exercises: this.exercises
                 })
-                    .then(response => console.log(response));
+                    .then(response => this.$emit("workout-saved"));
                 this.exercises = [];
                 this.workoutName = this.selectedDate = '';
                 this.index = 0;
-                this.$emit("workout-saved");
             },
             addExercise: function() {
                 this.exercises.push(JSON.parse(JSON.stringify(this.exercise)));
@@ -148,6 +152,7 @@
 
     .exerciseData {
         display: inline-block;
+        margin: 5px;
     }
 
     .workoutClass {
@@ -181,11 +186,16 @@
         color: white;
     }
 
-    * {
-        /*margin: 5px;*/
-    }
-
     ul {
         text-align: center;
+    }
+
+    select {
+        width: 150px;
+        margin: 2px;
+        border: none;
+    }
+    p {
+        margin: 0;
     }
 </style>

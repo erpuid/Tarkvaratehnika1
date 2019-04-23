@@ -26,32 +26,4 @@ dependencies {
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.5.RELEASE'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '4.0.0.RELEASE'
-
-
-}
-
-task hello {
-    doLast {
-        println 'Hello!'
-    }
-}
-
-task around {
-    dependsOn hello
-    doLast {
-        println 'Gradle is working'
-    }
-}
-
-task world {
-    dependsOn around
-    doLast {
-        println 'No its not'
-    }
-}
-
-task buildJar {
-    manifest {
-
-    }
 }
