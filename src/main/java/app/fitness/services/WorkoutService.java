@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Service
-@RestController
 public class WorkoutService {
 
     @Autowired
@@ -23,13 +22,11 @@ public class WorkoutService {
     @Autowired
     private UserService userService;
 
-    @GetMapping("api/workouts")
     public List<Workout> getAllWorkouts(){
         return workoutRepository.findAll();
     }
 
-    @GetMapping("api/workouts/{username}")
-    public List<Workout> getWorkoutByUsername(@PathVariable String username){
+    public List<Workout> getWorkoutByUsername(String username){
         System.out.println("!!!: " + userService.getUsername());
         if (userService.getUsername().equals(username)) {
             return workoutRepository.findAllByUserName(username);
@@ -37,8 +34,7 @@ public class WorkoutService {
         return null;
     }
 
-    @PostMapping("api/workouts")
-    public Workout saveWorkout(@RequestBody Workout workout) {
+    public Workout saveWorkout(Workout workout) {
         System.out.println(workout.getUserName());
         for (Exercise ex: workout.getExercises()) {
             ex.setWorkout(workout);
