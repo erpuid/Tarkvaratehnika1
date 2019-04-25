@@ -24,7 +24,18 @@
             </calendar-view>
         </div>
 
-        <div class="selectedWorkout" v-if="this.selectedWorkout.id && eventVisible">
+        <div class="calendarBox">
+            <calendar-box :calendar-date="calendarDate"
+                          :saving-visible="savingVisible"
+                          :event-visible="eventVisible"
+                          :selected-workout="selectedWorkout"
+                          :show-exercises="showExercises"
+                          @refresh-calendar="refreshCalendar">
+
+            </calendar-box>
+        </div>
+
+        <!--<div class="selectedWorkout" v-if="this.selectedWorkout.id && eventVisible">
             <span>Workout Name: {{this.selectedWorkout.workoutName}} </span>
             <br>
             <span>Date: {{this.selectedWorkout.date}}</span>
@@ -43,7 +54,7 @@
 
         <div class="selectedDay" v-if="this.calendarDate && savingVisible">
             <SaveTraining :date="calendarDate" @workout-saved="refreshCalendar"/>
-        </div>
+        </div>-->
 
     </div>
 </template>
@@ -56,7 +67,8 @@
         CalendarMathMixin
     } from "vue-simple-calendar"
     import axios from "axios";
-    import SaveTraining from "../components/SaveTraining.vue"
+    import SaveTraining from "../components/SaveTraining.vue";
+    import CalendarBox from "../components/CalendarBox.vue";
     require("vue-simple-calendar/static/css/default.css");
     require("vue-simple-calendar/static/css/holidays-us.css");
 
@@ -65,7 +77,8 @@
         components: {
             CalendarView,
             CalendarViewHeader,
-            SaveTraining
+            SaveTraining,
+            CalendarBox
         },
         mixins: [CalendarMathMixin],
         data: function() {
@@ -145,16 +158,6 @@
                         }
                     });
             },
-            displayExerciseInfo: function(arg) {
-                if(this.showExercises.includes(arg)) {
-                    var index = this.showExercises.indexOf(arg);
-                    if (index > -1) {
-                        this.showExercises.splice(index, 1);
-                    }
-                } else {
-                    this.showExercises.push(arg);
-                }
-            },
             refreshCalendar: function() {
                 this.calendarDate = "";
                 this.events = [];
@@ -177,38 +180,15 @@
         margin-top: 144px;
     }
     .calendarView {
-        height: 70vh;
+        height: 55vh;
         width: 60vw;
         display: inline-block;
         float: left;
         margin-right: 2ex;
     }
-    .selectedWorkout {
-        background:  #f0f0f0;
-        height: 55vh;
-        width: 30vw;
-        overflow: auto;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: default;
-    }
-    .selectedDay {
-        background: #f0f0f0;
-        height: 55vh;
-        width: 30vw;
-        overflow: auto;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: default;
-    }
-    .exercise {
-        background: #f4e6d4;
-        margin: 2px 2px 2px 2ex;
-        padding: 2px 2px 2px 6px;
-        border-radius: 5px;
-    }
-    .exercise:hover {
-        background: #ff9908;
-        cursor: pointer;
+    .calendarBox {
+        float: right;
+        margin-right: 20%;
+        width: 200px;
     }
 </style>
