@@ -4,13 +4,15 @@
         <ul>
             <li v-for="workoutPlan in workoutPlans">
                 <h4>{{workoutPlan.planName}}</h4>
+                <h4>{{workoutPlan.difficulty}}</h4>
+                <button v-on:click="saveToFavourite(workoutPlan.id)">SAVE to favourite</button>
                 <div v-for="workout in workoutPlan.workouts">
                     <span>Workout Name: {{workout.workoutName}} </span>
-
                     <div v-for="exercise in workout.planExercises" style="margin-left: 2ex;" id="exercise">
                         <span>Exercise: {{exercise.exerciseName}} </span>
                         <span>Sets: {{exercise.sets}} </span>
                         <span>Repetitions: {{exercise.repetitions}} </span>
+                        <span>Description: {{exercise.description}}</span>
                     </div>
                     <br>
 
@@ -51,6 +53,10 @@
             }
         },
         methods: {
+            saveToFavourite : function(planId) {
+                console.log("PLAN ID: " + planId);
+                axios.post('http://localhost:8080/api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
+            },
             getAllData: function() {
                 axios
                     .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))

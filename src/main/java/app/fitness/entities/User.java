@@ -2,6 +2,8 @@ package app.fitness.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +22,7 @@ public class User {
 
     @JsonIgnore
     private String password;
-    //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(
             name = "users_roles",
@@ -28,4 +30,14 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "role_id") }
     )
     private List<Role> roles;
+
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "users_plans",
+            joinColumns = { @JoinColumn(name = "user_id")},
+            inverseJoinColumns = { @JoinColumn(name = "workoutplan_id")}
+    )
+    private List<WorkoutPlan> plans;
 }

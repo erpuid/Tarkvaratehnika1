@@ -78,4 +78,8 @@ public class UserService {
         repository.save(user);
         return "Success!";
     }
+
+    public User getUserByUserName(String userName) {
+        return repository.findByUsername(userName);
+    }
 }

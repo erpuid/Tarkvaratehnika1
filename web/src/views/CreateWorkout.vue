@@ -10,6 +10,12 @@
                         <td><input type="text" name="planName" v-model="planName"/></td>
                     </tr>
                     <tr>
+                        <td><label>Workout difficulty: BEGINNER, INTERMEDIATE, ADVANCED</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="difficulty" v-model="difficulty"/></td>
+                    </tr>
+                    <tr>
                         <td><input type="submit" class="submit" name="Submit" value="Submit"/></td>
                     </tr>
                 </table>
@@ -44,6 +50,10 @@
                         <td><input type="number" name="exerciseRepetitions" min="1" max="999" v-model="exercise.repetitions"/></td>
                     </tr>
                     <tr>
+                        <td><label>Description</label></td>
+                        <td><input type="text" name="description"  v-model="exercise.description"/></td>
+                    </tr>
+                    <tr>
                         <td><input type="submit" class="submit" name="addExercise" value="Add"/></td>
                     </tr>
                 </table>
@@ -56,6 +66,7 @@
                         <span>Name: {{exercise.exerciseName}} </span>
                         <span>sets: {{exercise.sets}} </span>
                         <span>repetitions: {{exercise.repetitions}} </span>
+                        <span>Description: {{exercise.description}}</span>
                         <button v-on:click="removeExercise(planWorkout.planExercises.indexOf(exercise))" class="remove">Remove</button>
                         <br>
                     </li>
@@ -91,10 +102,12 @@
                 workoutNameSelected: false,
                 planName: '',
                 workoutName: '',
+                difficulty: '',
                 exercise: {
                     exerciseName: '',
                     sets: '',
-                    repetitions: ''
+                    repetitions: '',
+                    description: ''
                 },
                 planWorkout: {
                     workoutName: '',
@@ -109,6 +122,7 @@
                 axios
                     .post('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'), {
                         planName: this.planName,
+                        difficulty: this.difficulty,
                         workouts: this.workouts
                     })
                     .then(response => console.log(response));

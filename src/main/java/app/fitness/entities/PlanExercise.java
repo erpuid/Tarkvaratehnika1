@@ -16,6 +16,8 @@ public class PlanExercise {
     private String exerciseName;
     private int sets;
     private int repetitions;
+    private String description;
+
 
     @JsonIgnore
     @ManyToOne

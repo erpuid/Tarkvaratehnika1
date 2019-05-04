@@ -1,13 +1,11 @@
 package app.fitness.controllers;
 
 
+import app.fitness.entities.Workout;
 import app.fitness.entities.WorkoutPlan;
 import app.fitness.services.WorkoutPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +25,17 @@ public class WorkoutPlanController {
     @PostMapping("api/plan")
     public WorkoutPlan saveWorkoutPlan(@RequestBody WorkoutPlan workoutPlan) {
         return service.saveWorkoutPlan(workoutPlan);
+    }
+
+    @GetMapping("api/plan/favourite")
+    public List<WorkoutPlan> getUserFavPlans() {
+        return service.getUsersSavedPlans();
+    }
+
+    @PostMapping("api/plan/favourite/{planId}")
+    public void saveOrDeleteFromFavs(@PathVariable Long planId) {
+        System.out.println("CONTROLLERIS planID: " + planId);
+        service.saveOrDelPlan(planId);
     }
 
 }
