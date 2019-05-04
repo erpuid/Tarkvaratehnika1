@@ -82,4 +82,8 @@ public class UserService {
     public User getUserByUserName(String userName) {
         return repository.findByUsername(userName);
     }
+
+    public void saveExisting(User user) {
+        repository.save(user);
+    }
 }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,4 +41,19 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "workoutplan_id")}
     )
     private List<WorkoutPlan> plans;
+
+    @Override
+    public String toString() {
+        List<String> planNames = new ArrayList<>();
+        for (WorkoutPlan plan: plans) {
+            planNames.add(plan.getPlanName());
+        }
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", plans=" + planNames +
+                '}';
+    }
 }

@@ -149,7 +149,7 @@
             },
             getWorkoutPlans: function() {
                 axios
-                    .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))
+                    .get('http://localhost:8080/api/plan/favourite?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = response.data;
                     })

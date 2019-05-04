@@ -15,10 +15,13 @@ public class WorkoutPlan {
     private Long id;
     private String planName;
     private WorkoutDifficulty difficulty;
+    @Lob
+    private String description;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "workoutPlan")
     private List<PlanWorkout> workouts;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "plans")
     private List<User> users;
 

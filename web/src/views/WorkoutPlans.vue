@@ -5,9 +5,12 @@
             <li v-for="workoutPlan in workoutPlans">
                 <h4>{{workoutPlan.planName}}</h4>
                 <h4>{{workoutPlan.difficulty}}</h4>
+                <span>{{workoutPlan.description}}</span>
+                <br>
                 <button v-on:click="saveToFavourite(workoutPlan.id)">SAVE to favourite</button>
                 <div v-for="workout in workoutPlan.workouts">
-                    <span>Workout Name: {{workout.workoutName}} </span>
+                    <span>Workout Name: {{workout.workoutName}} </span><br>
+                    <span>DESCRIPTION: {{workout.description}}</span>
                     <div v-for="exercise in workout.planExercises" style="margin-left: 2ex;" id="exercise">
                         <span>Exercise: {{exercise.exerciseName}} </span>
                         <span>Sets: {{exercise.sets}} </span>

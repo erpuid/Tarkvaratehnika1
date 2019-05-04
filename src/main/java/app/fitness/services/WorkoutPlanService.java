@@ -53,13 +53,14 @@ public class WorkoutPlanService {
     public void saveOrDelPlan(Long planId) {
         WorkoutPlan selected = planRepository.getOne(planId);
         String loggedIn = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loggedInUser = userService.getUserByUserName(loggedIn);
         boolean deleted = false;
         System.out.println("USERID SAVED: " + selected.getUsers());
         for (User user: selected.getUsers()) {
             System.out.println(user.getUsername() + "LoggedIn: " + loggedIn);
             if (user.getUsername().equals(loggedIn)) {
                 selected.getUsers().remove(user);
-                user.getPlans().remove(selected);
+                loggedInUser.getPlans().remove(selected);
                 deleted = true;
                 System.out.println("DELETED!!! plan");
                 break;
@@ -67,11 +68,12 @@ public class WorkoutPlanService {
         }
         if (!deleted) {
             System.out.println("SAVED!!! plan");
-            User user = userService.getUserByUserName(loggedIn);
-            selected.getUsers().add(user);
-            System.out.println("EROORI");
-            user.getPlans().add(selected);
+            selected.getUsers().add(loggedInUser);
+            loggedInUser.getPlans().add(selected);
         }
+        planRepository.save(selected);
+        userService.saveExisting(loggedInUser);
+
         System.out.println("Peale save: " + planRepository.getOne(planId).getUsers());
     }
 }

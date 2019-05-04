@@ -10,10 +10,16 @@
                         <td><input type="text" name="planName" v-model="planName"/></td>
                     </tr>
                     <tr>
-                        <td><label>Workout difficulty: BEGINNER, INTERMEDIATE, ADVANCED</label></td>
+                        <td><label>PLAN difficulty: BEGINNER, INTERMEDIATE, ADVANCED</label></td>
                     </tr>
                     <tr>
                         <td><input type="text" name="difficulty" v-model="difficulty"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Plan description</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="difficulty" v-model="planDescription"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="submit" name="Submit" value="Submit"/></td>
@@ -31,6 +37,12 @@
                     </tr>
                     <tr>
                         <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Plan description</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="difficulty" v-model="workoutDescription"/></td>
                     </tr>
                 </table>
                 <br>
@@ -101,7 +113,9 @@
                 planNameSelected: false,
                 workoutNameSelected: false,
                 planName: '',
+                planDescription: '',
                 workoutName: '',
+                workoutDescription: '',
                 difficulty: '',
                 exercise: {
                     exerciseName: '',
@@ -111,6 +125,7 @@
                 },
                 planWorkout: {
                     workoutName: '',
+                    description: '',
                     planExercises: []
                 },
                 workouts: [],
@@ -122,6 +137,7 @@
                 axios
                     .post('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'), {
                         planName: this.planName,
+                        description: this.planDescription,
                         difficulty: this.difficulty,
                         workouts: this.workouts
                     })
@@ -164,8 +180,9 @@
             },
             addWorkout: function() {
                 this.planWorkout.workoutName = this.workoutName;
+                this.planWorkout.description = this.workoutDescription;
                 this.workouts.push(this.planWorkout);
-                this.planWorkout = { workoutName: '', planExercises: [] };
+                this.planWorkout = { workoutName: '', planExercises: [], workoutDescription: '' };
                 this.workoutName = '';
                 this.workoutNameSelected = false;
             }
