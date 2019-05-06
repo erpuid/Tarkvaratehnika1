@@ -1,11 +1,10 @@
 <template>
     <!-- Home Slider -->
-    <div class="home_slider_container">
-        <div class="owl-carousel owl-theme home_slider">
+    <div class="home_slider_container carousel slide" data-ride="carousel">
+        <div class="owl-theme home_slider carousel-inner">
 
-            <!-- Slide -->
-            <div class="slide">
-                <div class="background_image" style="background-image:url(/images/index.jpg)"></div>
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="/images/index.jpg" alt="First slide">
                 <div class="slide_container">
                     <div class="container">
                         <div class="row">
@@ -24,9 +23,9 @@
                 </div>
             </div>
 
-            <!-- Slide -->
-            <div class="slide">
-                <div class="background_image" style="background-image:url(/images/plans.jpg)"></div>
+
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/plans.jpg" alt="second slide">
                 <div class="slide_container">
                     <div class="container">
                         <div class="row">
@@ -45,9 +44,9 @@
                 </div>
             </div>
 
-            <!-- Slide -->
-            <div class="slide">
-                <div class="background_image" style="background-image:url(/images/ropes.jpg)"></div>
+
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/ropes.jpg" alt="third slide">
                 <div class="slide_container">
                     <div class="container">
                         <div class="row">
