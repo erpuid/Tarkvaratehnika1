@@ -24,9 +24,8 @@
                             <span>Exercise: {{exercise.exerciseName}} </span>
                             <span>Sets: {{exercise.sets}} </span>
                             <span>Repetitions: {{exercise.repetitions}} </span>
-                            <h2>{{exercise.videoURL}}</h2>
                             <iframe width="420" height="315"
-                                    src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0"
+                                    :src="exercise.videoURL"
                             >
                             </iframe>
                         </div>
@@ -60,6 +59,30 @@
             saveToFavourite : function(planId) {
                 console.log("PLAN ID: " + planId);
                 axios.post('http://localhost:8080/api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
+                if (this.favouritesIds.includes(planId)) {
+                    let index = this.favouritesIds.indexOf(planId);
+                    if (index > -1) {
+                        this.favouritesIds.splice(index, 1);
+                        let plan;
+                        for (var i = 0; i < this.favourites.length; i++) {
+                            if (this.favourites[i].id === planId) {
+                                plan = this.favourites[i];
+                            }
+                        }
+                        let planIndex = this.favourites.indexOf(plan);
+                        if (planIndex > -1) {
+                            this.favourites.splice(index, 1)
+                        }
+
+                    }
+                } else {
+                    this.favouritesIds.push(planId);
+                    for (var i = 0; i < this.allPlans.length; i++) {
+                        if (this.allPlans[i].id === planId) {
+                            this.favourites.push(this.allPlans[i]);
+                        }
+                    }
+                }
             },
             getAllData: function() {
                 axios

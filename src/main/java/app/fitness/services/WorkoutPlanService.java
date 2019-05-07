@@ -73,7 +73,5 @@ public class WorkoutPlanService {
         }
         planRepository.save(selected);
         userService.saveExisting(loggedInUser);
-
-        System.out.println("Peale save: " + planRepository.getOne(planId).getUsers());
     }
 }
