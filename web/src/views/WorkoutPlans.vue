@@ -24,8 +24,10 @@
                             <span>Exercise: {{exercise.exerciseName}} </span>
                             <span>Sets: {{exercise.sets}} </span>
                             <span>Repetitions: {{exercise.repetitions}} </span>
+                            <h2>{{exercise.videoURL}}</h2>
                             <iframe width="420" height="315"
-                                    src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0">
+                                    src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0"
+                            >
                             </iframe>
                         </div>
                         <br>
@@ -73,6 +75,7 @@
                             this.favouritesIds.push(this.favourites[i].id);
                         }
                     });
+                console.log(this.workoutPlans.pl)
             },
             workoutSearch: function() {
                 this.workoutPlans = [];

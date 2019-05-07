@@ -15,8 +15,6 @@ public class PlanWorkout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String workoutName;
-    @Lob
-    private String description;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "planWorkout")
     private List<app.fitness.entities.PlanExercise> planExercises;

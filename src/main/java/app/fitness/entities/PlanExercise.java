@@ -16,8 +16,7 @@ public class PlanExercise {
     private String exerciseName;
     private int sets;
     private int repetitions;
-    @Lob
-    private String description;
+    private String videoURL;
 
 
     @JsonIgnore

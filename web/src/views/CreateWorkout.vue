@@ -38,12 +38,6 @@
                     <tr>
                         <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
                     </tr>
-                    <tr>
-                        <td><label>Plan description</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="difficulty" v-model="workoutDescription"/></td>
-                    </tr>
                 </table>
                 <br>
             </form>
@@ -62,8 +56,8 @@
                         <td><input type="number" name="exerciseRepetitions" min="1" max="999" v-model="exercise.repetitions"/></td>
                     </tr>
                     <tr>
-                        <td><label>Description</label></td>
-                        <td><input type="text" name="description"  v-model="exercise.description"/></td>
+                        <td><label>Video</label></td>
+                        <td><input type="text" name="description"  v-model="exercise.videoURL"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="submit" name="addExercise" value="Add"/></td>
@@ -115,13 +109,12 @@
                 planName: '',
                 planDescription: '',
                 workoutName: '',
-                workoutDescription: '',
                 difficulty: '',
                 exercise: {
                     exerciseName: '',
                     sets: '',
                     repetitions: '',
-                    description: ''
+                    videoURL: ''
                 },
                 planWorkout: {
                     workoutName: '',
@@ -163,7 +156,7 @@
                 this.validateForm();
                 if (this.errors.length === 0) {
                     this.planWorkout.planExercises.push(JSON.parse(JSON.stringify(this.exercise)));
-                    this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = '';
+                    this.exercise.exerciseName = this.exercise.sets = this.exercise.repetitions = this.exercise.videoURL = '';
                 }
             },
             validateForm: function() {
@@ -180,9 +173,8 @@
             },
             addWorkout: function() {
                 this.planWorkout.workoutName = this.workoutName;
-                this.planWorkout.description = this.workoutDescription;
                 this.workouts.push(this.planWorkout);
-                this.planWorkout = { workoutName: '', planExercises: [], workoutDescription: '' };
+                this.planWorkout = { workoutName: '', planExercises: [] };
                 this.workoutName = '';
                 this.workoutNameSelected = false;
             }
