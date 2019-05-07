@@ -1,9 +1,9 @@
 <template>
     <div class="calendarBox">
         <div class="selectedWorkout" v-if="selectedWorkout.id && eventVisible">
-            <span>Workout Name: {{selectedWorkout.workoutName}} </span>
-            <br>
             <span>Date: {{selectedWorkout.date}}</span>
+            <br>
+            <span>Workout Name: {{selectedWorkout.workoutName}} </span>
             <br>
             <div v-for="exercise in selectedWorkout.exercises" class="exercise" @click="displayExerciseInfo(exercise.exerciseName)">
                 <span>Exercise: {{exercise.exerciseName}} </span>
@@ -58,6 +58,9 @@
 </script>
 
 <style scoped>
+    .calendarBox {
+        font-family: 'Oswald', sans-serif;
+    }
     .selectedWorkout {
         background:  #f0f0f0;
         height: 55vh;

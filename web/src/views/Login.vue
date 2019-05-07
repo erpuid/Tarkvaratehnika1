@@ -80,10 +80,3 @@
         }
     }
 </script>
-
-<style scoped>
-    * {
-        margin-top: 10px;
-    }
-
-</style>

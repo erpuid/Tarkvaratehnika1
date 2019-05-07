@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Header />
+    <Header id="header"/>
     <div class="home">
       <router-view/>
     </div>
-    <Footer/>
+    <Footer id="footer"/>
   </div>
 </template>
 
@@ -24,17 +24,20 @@
 
 <style>
   #app {
-    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;*/
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
-  /*Notice: Possibly removed after general design is ready*/
   .home {
-    margin-top: 124px;
+    flex: 1;
+  }
+
+  #header {
+    height: 124px;
+  }
+  #footer {
+    height: 53px;
   }
 
 </style>

@@ -177,7 +177,7 @@
         width: 95vw;
         margin-left: 20px;
         margin-right: 0;
-        margin-top: 144px;
+        margin-top: 20px;
     }
     .calendarView {
         height: 55vh;

@@ -1,43 +1,39 @@
 <template>
     <div class="workouthistory">
         <h1>Workout plans</h1>
+
+        <div class="filterButtons">
+            <button class="filterButton" @click="filterDifficulty('all')">Show all</button>
+            <button class="filterButton" @click="filterDifficulty('beginner')">Beginner</button>
+            <button class="filterButton" @click="filterDifficulty('intermediate')">Intermediate</button>
+            <button class="filterButton" @click="filterDifficulty('advanced')">Advanced</button>
+            <button class="filterButton" @click="filterDifficulty('favourites')">Favourites</button>
+        </div>
+
         <ul>
             <li v-for="workoutPlan in workoutPlans">
-                <h4>{{workoutPlan.planName}}</h4>
-                <h4>{{workoutPlan.difficulty}}</h4>
-                <span>{{workoutPlan.description}}</span>
-                <br>
-                <button v-on:click="saveToFavourite(workoutPlan.id)">SAVE to favourite</button>
-                <div v-for="workout in workoutPlan.workouts">
-                    <span>Workout Name: {{workout.workoutName}} </span><br>
-                    <span>DESCRIPTION: {{workout.description}}</span>
-                    <div v-for="exercise in workout.planExercises" style="margin-left: 2ex;" id="exercise">
-                        <span>Exercise: {{exercise.exerciseName}} </span>
-                        <span>Sets: {{exercise.sets}} </span>
-                        <span>Repetitions: {{exercise.repetitions}} </span>
-                        <span>Description: {{exercise.description}}</span>
-                    </div>
+                <h4 class="workoutPlan" @click="displayPlanInfo(workoutPlan.id)">{{workoutPlan.planName}} - {{workoutPlan.difficulty}}</h4>
+                <div v-if="showPlans.includes(workoutPlan.id)">
+                    <span>{{workoutPlan.description}}</span>
                     <br>
+                    <button class="favouriteButton" @click="saveToFavourite(workoutPlan.id)" v-if="!favouritesIds.includes(workoutPlan.id)">SAVE to favourites</button>
+                    <button class="favouriteButton" @click="saveToFavourite(workoutPlan.id)" v-if="favouritesIds.includes(workoutPlan.id)">REMOVE from favourites</button>
+                    <div v-for="workout in workoutPlan.workouts">
+                        <span>Workout Name: {{workout.workoutName}} </span><br>
+                        <div v-for="exercise in workout.planExercises" style="margin-left: 2ex;" id="exercise">
+                            <span>Exercise: {{exercise.exerciseName}} </span>
+                            <span>Sets: {{exercise.sets}} </span>
+                            <span>Repetitions: {{exercise.repetitions}} </span>
+                            <iframe width="420" height="315"
+                                    src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0">
+                            </iframe>
+                        </div>
+                        <br>
 
+                    </div>
                 </div>
             </li>
         </ul>
-
-        <form id="workout-search" @submit.prevent="workoutSearch">
-            <label>Search by:</label>
-            <br>
-            <input type="radio" name="searchType" value="planName" v-model="searchType"/>Workout Plan Name
-            <br>
-            <input type="radio" name="searchType" value="workoutName" v-model="searchType"/>Workout Name
-            <br>
-            <input type="radio" name="searchType" value="exerciseName" v-model="searchType"/>Exercise Name
-            <br>
-            <input v-if="this.searchType === 'planName'" type="text" name="searchField" v-model="searchField"/>
-            <input v-else-if="this.searchType === 'workoutName'" type="text" name="searchField" v-model="searchField"/>
-            <input v-else-if="this.searchType === 'exerciseName'" type="text" name="searchField" v-model="searchField"/>
-            <br>
-            <input type="submit" class="submit" name="search" value="Search"/>
-        </form>
     </div>
 </template>
 
@@ -52,7 +48,10 @@
                 searchField: '',
                 username: '',
                 workoutPlans: [],
-                allPlans: []
+                allPlans: [],
+                showPlans: [],
+                favourites: [],
+                favouritesIds: []
             }
         },
         methods: {
@@ -65,7 +64,15 @@
                     .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = this.allPlans = response.data;
-                    })
+                    });
+                axios
+                    .get('http://localhost:8080/api/plan/favourite?access_token='+localStorage.getItem('token'))
+                    .then(response => {
+                        this.favourites = response.data;
+                        for (var i = 0; i < this.favourites.length; i++) {
+                            this.favouritesIds.push(this.favourites[i].id);
+                        }
+                    });
             },
             workoutSearch: function() {
                 this.workoutPlans = [];
@@ -98,6 +105,43 @@
                         }
                     }
                 }
+            },
+            filterDifficulty: function(value) {
+                this.workoutPlans = [];
+                this.showPlans = [];
+                if (value === "all") {
+                    this.workoutPlans = this.allPlans;
+                } else if (value === "beginner") {
+                    for (var i = 0; i < this.allPlans.length; i++) {
+                        if (this.allPlans[i].difficulty === "BEGINNER") {
+                            this.workoutPlans.push(this.allPlans[i]);
+                        }
+                    }
+                } else if (value === "intermediate") {
+                    for (var i = 0; i < this.allPlans.length; i++) {
+                        if (this.allPlans[i].difficulty === "INTERMEDIATE") {
+                            this.workoutPlans.push(this.allPlans[i]);
+                        }
+                    }
+                } else if (value === "advanced") {
+                    for (var i = 0; i < this.allPlans.length; i++) {
+                        if (this.allPlans[i].difficulty === "ADVANCED") {
+                            this.workoutPlans.push(this.allPlans[i]);
+                        }
+                    }
+                } else if (value === "favourites") {
+                    this.workoutPlans = this.favourites;
+                }
+            },
+            displayPlanInfo: function(arg) {
+                if(this.showPlans.includes(arg)) {
+                    var index = this.showPlans.indexOf(arg);
+                    if (index > -1) {
+                        this.showPlans.splice(index, 1);
+                    }
+                } else {
+                    this.showPlans.push(arg);
+                }
             }
         },
         mounted() {
@@ -115,19 +159,29 @@
         background-color: #fff4e6;
         height: 100%;
         text-align: center;
-    }
+        padding: 0 10px 0 10px;
 
-    .submit {
-        font-weight: bold;
-        font-family: 'Oswald', sans-serif;
-        font-size: 16px;
-        padding: 5px;
-        background-color: #ccffcc;
-        border-color: #66ff66;
     }
-
-    .submit:hover {
-        background-color: #66ff66;
-        border-color: #66ff66;
+    .workoutPlan {
+        background: #f4e6d4;
+        margin: 4px 10px 4px 10px;
+        padding: 2px 0 2px 0;
+        border-radius: 5px;
+    }
+    .workoutPlan:hover {
+        background: #ff9908;
+        cursor: pointer;
+    }
+    .filterButtons {
+        margin-bottom: 20px;
+    }
+    .filterButton {
+        cursor: pointer;
+        padding: 1px 4px 1px 4px;
+        margin-right: 10px;
+    }
+    .favouriteButton {
+        cursor: pointer;
+        padding: 2px;
     }
 </style>

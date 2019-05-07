@@ -15,7 +15,7 @@
                     <ul class="d-flex flex-row align-items-center justify-content-start">
                         <li><router-link to="/">Home</router-link></li>
                         <li><router-link to="/about">About</router-link></li>
-                        <li v-if="loggedIn"><router-link to="/login">Login</router-link></li>
+                        <li v-if=""><router-link to="/login">Login</router-link></li>
                         <li v-if=""><router-link to="/plans">Workout Plans</router-link></li>
                         <li v-if=""><router-link to="/createworkout">Create Workout</router-link></li>
                         <li v-if=""><router-link to="/calendar">Calendar</router-link></li>
@@ -24,23 +24,6 @@
                 </nav>
             </div>
         </header>
-
-        <!-- Menu -->
-
-        <div class="menu">
-            <div class="menu">
-                <nav class="menu_nav">
-                    <ul class="main" style="font-weight: bold">
-                        <li><router-link to="/">Home</router-link></li>
-                        <li><router-link to="/about">About</router-link></li>
-                        <li><router-link to="/login">Login</router-link></li>
-                        <li><router-link to="/savetraining">Save Training</router-link></li>
-                        <li><router-link to="/plans">Workout Plans</router-link></li>
-                        <li><router-link to="/createworkout">Create Workout</router-link></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -52,7 +35,7 @@
         name: 'logout',
         data: function () {
             return {
-                loggedIn: ''
+                loggedIn: false
             };
         },
         methods: {
@@ -60,7 +43,8 @@
                 this.$store.dispatch(AUTH_LOGOUT)
                     .then(() => {
                         this.$router.push('/login')
-                    })
+                    });
+                this.loggedIn = false;
             },
             tokenInfo: function () {
                 this.token = this.loggedIn;
@@ -75,6 +59,4 @@
         },
     }
 </script>
-
-
 

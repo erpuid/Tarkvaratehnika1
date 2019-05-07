@@ -1,6 +1,8 @@
 <template>
     <div class="saveTraining">
         <div v-if="this.exercises.length === 0">
+            <label>Date: {{changeDate}}</label>
+            <br>
             <select v-model="selectedPlan">
                 <option v-for="workoutPlan in workoutPlans" v-bind:value="workoutPlan">{{workoutPlan.planName}}</option>
             </select>
@@ -17,12 +19,6 @@
 
         <form id="add-workout" class="workoutClass" @submit.prevent v-if="this.selectedWorkout">
             <table>
-                <tr>
-                    <td><label>Date</label></td>
-                </tr>
-                <tr>
-                    <td><p>{{changeDate}}</p></td>
-                </tr>
                 <div v-if="this.index < this.selectedWorkout.planExercises.length">
                     <tr>
                         <td><label>{{this.selectedWorkout.planExercises[this.index].exerciseName}}</label></td>
@@ -53,10 +49,10 @@
         <span class="exerciseData">
             <ol>
                 <li v-for="exercise in exercises">
-                    <span>Name: {{exercise.exerciseName}} |</span>
-                    <span>sets: {{exercise.sets}} |</span>
-                    <span>repetitions: {{exercise.repetitions}} |</span>
-                    <span>weight: {{exercise.weight}}</span>
+                    <span>Name: {{exercise.exerciseName}} | </span>
+                    <span>sets: {{exercise.sets}} | </span>
+                    <span>repetitions: {{exercise.repetitions}}</span>
+                    <span v-if="exercise.weight"> | weight: {{exercise.weight}}</span>
                     <button v-on:click="removeExercise(exercises.indexOf(exercise))" class="remove">Remove</button>
                     <br>
                 </li>
