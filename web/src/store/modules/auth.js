@@ -1,5 +1,6 @@
 import {AUTH_LOGOUT, AUTH_REQUEST} from "../constants";
 import axios from "axios";
+import store from "../index";
 
 const state = { token: localStorage.getItem('token') || '' };
 
@@ -8,10 +9,29 @@ const getters = {
 };
 
 const actions = {
-    [AUTH_REQUEST]: ({commit, dispatch}, user) => {
+    authRequest: ({commit, dispatch}, user) => {
         return new Promise((resolve, reject) => {
-            commit(AUTH_REQUEST, user);
-            resolve()
+            const params = new URLSearchParams();
+            params.append('grant_type', 'password');
+            params.append('username', user.username);
+            params.append('password',user.password);
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/oauth/token',
+                auth: {username: 'my-trusted-client', password: 'secret'},
+                headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
+                data: params
+            }).then(response => {
+                // console.log(response.data.access_token);
+                // console.log(response.data);
+                localStorage.setItem('token', response.data.access_token);
+                localStorage.setItem('username', user.username);
+                resolve(response);
+            }).catch(err => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                reject(err);
+            });
         })
     },
     [AUTH_LOGOUT]: ({commit, dispatch}) => {
@@ -27,25 +47,6 @@ axios.interceptors.request.use(request => {
 });
 
 const mutations = {
-    [AUTH_REQUEST]: (state, user) => {
-        const params = new URLSearchParams();
-        params.append('grant_type', 'password');
-        params.append('username', user.username);
-        params.append('password',user.password);
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/oauth/token',
-            auth: {username: 'my-trusted-client', password: 'secret'},
-            headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
-            data: params
-        }).then(response => {
-            console.log(response.data.access_token);
-            console.log(response.data);
-            localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('username', user.username);
-        });
-    },
-
     [AUTH_LOGOUT]: () => {
         axios.get('http://localhost:8080/logout/'+localStorage.getItem('token')).then(response => {
             localStorage.removeItem('token');

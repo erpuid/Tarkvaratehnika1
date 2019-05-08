@@ -15,10 +15,11 @@
                     <ul class="d-flex flex-row align-items-center justify-content-start">
                         <li><router-link to="/">Home</router-link></li>
                         <li><router-link to="/about">About</router-link></li>
-                        <li><router-link to="/plans">Workout Plans</router-link></li>
-                        <li><router-link to="/createworkout">Create Workout</router-link></li>
-                        <li><router-link to="/calendar">Calendar</router-link></li>
-                        <li><button class="logout" @click="logout">Log out</button></li>
+                        <li v-if="!loggedIn"><router-link to="/login">Login</router-link></li>
+                        <li v-if="loggedIn"><router-link to="/plans">Workout Plans</router-link></li>
+                        <li v-if="loggedIn"><router-link to="/createworkout">Create Workout</router-link></li>
+                        <li v-if="loggedIn"><router-link to="/calendar">Calendar</router-link></li>
+                        <li v-if="loggedIn"><button class="logout" @click="logout">Log out</button></li>
                     </ul>
                 </nav>
             </div>
@@ -28,13 +29,17 @@
 
 <script>
     import {AUTH_LOGOUT} from "../../store/constants";
+    import login from "../../views/Login.vue"
 
     export default {
         name: 'logout',
         data: function () {
             return {
-                loggedIn: this.isAuth
+                loggedIn: false,
             }
+        },
+        components: {
+            login
         },
         methods: {
             logout: function () {
@@ -43,17 +48,13 @@
                         this.$router.push('/login')
                     });
                 this.loggedIn = false;
-            },
-            tokenInfo: function () {
-                this.token = this.loggedIn;
-                this.loggedIn = this.isAuth();
-            },
-            isAuth: function() {
-                return this.$store.getters.isAuthenticated;
             }
         },
-        mounted() {
-            this.tokenInfo();
+        created() {
+            this.loggedIn = this.$store.getters.isAuthenticated;
+            this.$bus.$on('logged', () => {
+                this.loggedIn = true;
+            });
         }
     }
 </script>
