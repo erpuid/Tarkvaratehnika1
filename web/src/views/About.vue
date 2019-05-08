@@ -9,8 +9,9 @@
 					<div class="intro_content">
 						<div class="section_title"><h1>About YOUR<span>fitness</span></h1></div>
 						<div class="intro_text">
-							<p>YourFitness is a page which lets you add workouts and keep track of them. It is possible to view history of your workouts and see them in a calendar. YourFitness is free of charge and can always be freely used</p>
-						</div>
+							<p>YourFitness is a page which lets you add workouts and keep track of them. Our mission is to motivate and support people in achieving better life through exercise.
+                                It is possible to view history of your workouts and see them in a calendar. YourFitness is free of charge and can always be freely used.</p>
+                        </div>
 					</div>
 				</div>
 
