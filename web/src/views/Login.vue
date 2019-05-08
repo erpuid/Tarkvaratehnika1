@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import {AUTH_REQUEST} from "../store/constants";
+    import {AUTH_REQUEST, BASE_URL} from "../store/constants";
     import axios from "axios";
 
     export default {
@@ -75,7 +75,7 @@
                 if (this.regPassword === this.confirmPass) {
                     this.user.userName = this.regUsername;
                     this.user.password =  this.regPassword;
-                    axios.post('http://localhost:8080/register', {
+                    axios.post(BASE_URL + 'register', {
                         username: this.user.userName,
                         password: this.user.password
                     }).then(response => {

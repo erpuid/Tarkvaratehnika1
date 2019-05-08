@@ -110,6 +110,7 @@
 
 <script>
     import axios from "axios";
+    import {BASE_URL} from "../store/constants";
     export default {
         name: "CreateWorkout",
         data: function() {
@@ -138,7 +139,7 @@
         methods: {
             processForm: function() {
                 axios
-                    .post('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'), {
+                    .post(BASE_URL + 'api/plan?access_token='+localStorage.getItem('token'), {
                         planName: this.planName,
                         description: this.planDescription,
                         difficulty: this.difficulty,

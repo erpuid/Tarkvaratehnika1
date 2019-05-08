@@ -63,6 +63,7 @@
 
 <script>
     import axios from "axios";
+    import {BASE_URL} from "../store/constants";
     export default {
         name: "SaveTraining",
         props: {
@@ -92,7 +93,7 @@
         methods: {
             processForm: function() {
                 axios
-                    .post('http://localhost:8080/api/workouts?access_token='+localStorage.getItem('token'), {
+                    .post(BASE_URL + 'api/workouts?access_token='+localStorage.getItem('token'), {
                     userName: localStorage.username,
                     workoutName: this.selectedWorkout.workoutName,
                     date: this.selectedDate,
@@ -148,7 +149,7 @@
             },
             getWorkoutPlans: function() {
                 axios
-                    .get('http://localhost:8080/api/plan/favourite?access_token='+localStorage.getItem('token'))
+                    .get(BASE_URL + 'api/plan/favourite?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = response.data;
                     })

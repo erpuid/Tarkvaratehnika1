@@ -28,7 +28,7 @@
                             <span class="workout">Sets: {{exercise.sets}}</span>
                             <span class="workout">Repetitions: {{exercise.repetitions}}</span>
                             <div class="clickableText workoutVideo" @click="displayVideos(exercise.videoURL)">View instructional video</div>
-                            <iframe width="420" height="315" :src="exercise.videoURL" v-if="visibleVideos.includes(exercise.videoURL)">
+                            <iframe class="videoBox" width="420" height="315" :src="exercise.videoURL" v-if="visibleVideos.includes(exercise.videoURL)">
                             </iframe>
                         </div>
                         <br>
@@ -41,6 +41,7 @@
 
 <script>
     import axios from "axios";
+    import {BASE_URL} from "../store/constants";
 
     export default {
         name: "WorkoutHistory",
@@ -61,7 +62,7 @@
             saveToFavourite : function(planId) {
                 let i;
                 //console.log("PLAN ID: " + planId);
-                axios.post('http://localhost:8080/api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
+                axios.post(BASE_URL + 'api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
                 if (this.favouritesIds.includes(planId)) {
                     let index = this.favouritesIds.indexOf(planId);
                     if (index > -1) {
@@ -89,12 +90,12 @@
             },
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))
+                    .get(BASE_URL + 'api/plan?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = this.allPlans = response.data;
                     });
                 axios
-                    .get('http://localhost:8080/api/plan/favourite?access_token='+localStorage.getItem('token'))
+                    .get(BASE_URL + 'api/plan/favourite?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.favourites = response.data;
                         for (var i = 0; i < this.favourites.length; i++) {
@@ -196,6 +197,7 @@
 
     .exerciseContainer {
         margin-top: 20px;
+        justify-content: center;
     }
 
     .workout {
@@ -225,5 +227,9 @@
     .pageName {
         clear: both;
         float: left;
+    }
+
+    .videoBox {
+
     }
 </style>

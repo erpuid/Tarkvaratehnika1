@@ -70,6 +70,7 @@
     import axios from "axios";
     import SaveTraining from "../components/SaveTraining.vue";
     import CalendarBox from "../components/CalendarBox.vue";
+    import {BASE_URL} from "../store/constants";
     require("vue-simple-calendar/static/css/default.css");
     require("vue-simple-calendar/static/css/holidays-us.css");
 
@@ -146,7 +147,7 @@
             getAllData: function() {
                 this.username = localStorage.username;
                 axios
-                    .get('http://localhost:8080/api/workouts/' + this.username + '?access_token=' + localStorage.getItem('token'))
+                    .get(BASE_URL + 'api/workouts/' + this.username + '?access_token=' + localStorage.getItem('token'))
                     .then(response => {
                         this.history = response.data;
                         for (var i = 0; i < this.history.length; i++) {
