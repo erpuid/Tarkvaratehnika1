@@ -12,7 +12,7 @@
 
         <ul>
             <li v-for="workoutPlan in workoutPlans">
-                <h4 class="workoutPlan" @click="displayPlanInfo(workoutPlan.id)">{{workoutPlan.planName}} - {{workoutPlan.difficulty}}</h4>
+                <h4 class="clickableText" @click="displayPlanInfo(workoutPlan.id)">{{workoutPlan.planName}} - {{workoutPlan.difficulty}}</h4>
                 <div v-if="showPlans.includes(workoutPlan.id)">
                     <span>{{workoutPlan.description}}</span>
                     <br>
@@ -24,13 +24,11 @@
                             <span>Exercise: {{exercise.exerciseName}} </span>
                             <span>Sets: {{exercise.sets}} </span>
                             <span>Repetitions: {{exercise.repetitions}} </span>
-                            <iframe width="420" height="315"
-                                    :src="exercise.videoURL"
-                            >
+                            <div class="clickableText" @click="displayVideos(exercise.videoURL)">View instructional video</div>
+                            <iframe width="420" height="315" :src="exercise.videoURL" v-if="visibleVideos.includes(exercise.videoURL)">
                             </iframe>
                         </div>
                         <br>
-
                     </div>
                 </div>
             </li>
@@ -52,7 +50,8 @@
                 allPlans: [],
                 showPlans: [],
                 favourites: [],
-                favouritesIds: []
+                favouritesIds: [],
+                visibleVideos: []
             }
         },
         methods: {
@@ -100,38 +99,6 @@
                     });
                 console.log(this.workoutPlans.pl)
             },
-            workoutSearch: function() {
-                this.workoutPlans = [];
-                if (this.searchField === "") {
-                    this.workoutPlans = this.allPlans;
-                } else if (this.searchType === "planName") {
-                    for (var i = 0; i < this.allPlans.length; i++) {
-                        if (this.allPlans[i].planName === this.searchField) {
-                            this.workoutPlans.push(this.allPlans[i]);
-                        }
-                    }
-                } else if (this.searchType === "workoutName") {
-                    for (var i = 0; i < this.allPlans.length; i++) {
-                        for (var j = 0; j < this.allPlans[i].workouts.length; j++) {
-                            if (this.allPlans[i].workouts[j].workoutName === this.searchField) {
-                                this.workoutPlans.push(this.allPlans[i]);
-                                break;
-                            }
-                        }
-                    }
-                } else if (this.searchType === "exerciseName") {
-                    for (var i = 0; i < this.allPlans.length; i++) {
-                        for (var j = 0; j < this.allPlans[i].workouts.length; j++) {
-                            for (var k = 0; k < this.allPlans[i].workouts[j].planExercises.length; k++) {
-                                if (this.allPlans[i].workouts[j].planExercises[k].exerciseName === this.searchField) {
-                                    this.workoutPlans.push(this.allPlans[i]);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            },
             filterDifficulty: function(value) {
                 this.workoutPlans = [];
                 this.showPlans = [];
@@ -168,6 +135,16 @@
                 } else {
                     this.showPlans.push(arg);
                 }
+            },
+            displayVideos: function(arg) {
+                if(this.visibleVideos.includes(arg)) {
+                    var index = this.visibleVideos.indexOf(arg);
+                    if (index > -1) {
+                        this.visibleVideos.splice(index, 1);
+                    }
+                } else {
+                    this.visibleVideos.push(arg);
+                }
             }
         },
         mounted() {
@@ -188,13 +165,13 @@
         padding: 0 10px 0 10px;
 
     }
-    .workoutPlan {
+    .clickableText {
         background: #f4e6d4;
         margin: 4px 10px 4px 10px;
         padding: 2px 0 2px 0;
         border-radius: 5px;
     }
-    .workoutPlan:hover {
+    .clickableText:hover {
         background: #ff9908;
         cursor: pointer;
     }

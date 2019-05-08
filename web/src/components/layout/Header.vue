@@ -19,7 +19,7 @@
                         <li v-if=""><router-link to="/plans">Workout Plans</router-link></li>
                         <li v-if=""><router-link to="/createworkout">Create Workout</router-link></li>
                         <li v-if=""><router-link to="/calendar">Calendar</router-link></li>
-                        <li v-if=""><button class="logout" v-on:click="logout">Log out</button></li>
+                        <li v-if=""><button class="logout" @click="logout">Log out</button></li>
                     </ul>
                 </nav>
             </div>
@@ -30,13 +30,12 @@
 <script>
     import {AUTH_LOGOUT} from "../../store/constants";
 
-
     export default {
         name: 'logout',
         data: function () {
             return {
-                loggedIn: false
-            };
+                loggedIn: this.isAuth
+            }
         },
         methods: {
             logout: function () {
@@ -51,12 +50,12 @@
                 this.loggedIn = this.isAuth();
             },
             isAuth: function() {
-                return this.$store.getters.isAuthenticated();
-            },
-            mounted: function () {
-                this.tokenInfo()
+                return this.$store.getters.isAuthenticated;
             }
         },
+        mounted() {
+            this.tokenInfo();
+        }
     }
 </script>
 

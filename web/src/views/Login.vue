@@ -3,33 +3,38 @@
         <h3>Login</h3>
         <form id="login" v-on:submit.prevent="login">
             <input class="element" type='text' placeholder='username' v-model='username'>
+            <br>
             <input class="element" type='password' placeholder='password' v-model='password'>
-            <button type="submit" class="submit">
-                Submit
-            </button>
+            <br>
+            <button type="submit" class="submit">Submit</button>
         </form>
-        <h3>If you don't have an account</h3>
-        <h2> {{errorMessage}}</h2>
+
         <form id="register" v-on:submit.prevent="register">
-        <table class="login_master">
-        <tr>
-        <td><label>Username: </label></td>
-        <td><input type="text" name="username" v-model="regUsername" /></td>
-        </tr>
-        <tr>
-        <td><label>Password: </label></td>
-        <td><input type="password" name="regPassword" v-model="regPassword" /></td>
-        </tr>
-        <tr>
-        <td><label>Confirm Password: </label></td>
-        <td><input type="password" name="confirmPass" v-model="confirmPass" /></td>
-        </tr>
-        <tr>
-        <td><button type="submit" class="submit">
-            Submit
-        </button> </td>
-        </tr>
-        </table>
+            <h3>If you don't have an account</h3>
+            <h2> {{errorMessage}}</h2>
+            <table class="login_master">
+                <tr>
+                    <td><label>Username</label></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="username" v-model="regUsername" /></td>
+                </tr>
+                <tr>
+                    <td><label>Password</label></td>
+                </tr>
+                <tr>
+                    <td><input type="password" name="regPassword" v-model="regPassword" /></td>
+                </tr>
+                <tr>
+                    <td><label>Confirm Password</label></td>
+                </tr>
+                <tr>
+                    <td><input type="password" name="confirmPass" v-model="confirmPass" /></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="submit">Submit</button></td>
+                </tr>
+            </table>
         </form>
     </div>
 </template>
@@ -80,3 +85,24 @@
         }
     }
 </script>
+
+<style scoped>
+    .login {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+    }
+    #register {
+        margin-top: 50px;
+
+    }
+    input {
+        text-align: center;
+        margin: 0 0 5px 0;
+    }
+    .login_master {
+        text-align: center;
+        display: inline-block;
+    }
+</style>

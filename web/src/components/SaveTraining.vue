@@ -29,11 +29,11 @@
                     </tr>
                     <tr>
                         <td><label>Repetitions</label></td>
-                        <td><input type="number" name="exerciseRepetitions" v-model="exercise.repetitions"/></td>
+                        <td><input type="number" name="exerciseRepetitions" min="1" max="999" v-model="exercise.repetitions"/></td>
                     </tr>
                     <tr>
                         <td><label>Weight</label></td>
-                        <td><input type="number" name="exerciseWeight" v-model="exercise.weight"/></td>
+                        <td><input type="number" name="exerciseWeight"  min="0" max="999"v-model="exercise.weight"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="submit" name="addExercise" value="Add" @click="addExercise"/></td>
@@ -105,14 +105,17 @@
             },
             validateForm: function() {
                 this.errors = [];
-                if (isNaN(this.exercise.sets) || isNaN(this.exercise.repetitions)) {
+                if (isNaN(this.exercise.sets) || isNaN(this.exercise.repetitions) || isNaN(this.exercise.weight)) {
                     this.errors.push("Only numbers allowed.")
                 }
                 if (this.exercise.sets < 1 || this.exercise.repetitions < 1) {
                     this.errors.push("Values must be positive.")
                 }
-                if (this.exercise.sets > 999 || this.exercise.repetitions > 999) {
+                if (this.exercise.sets > 999 || this.exercise.repetitions > 999 || this.exercise.weight > 999) {
                     this.errors.push("Values must be smaller than 999.")
+                }
+                if (this.exercise.weight < 0) {
+                    this.errors.push("Weight must be 0 or higher.")
                 }
             },
             addExercise: function() {

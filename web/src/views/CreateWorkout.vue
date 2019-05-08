@@ -1,100 +1,109 @@
 <template>
-    <div class="create">
-        <div class="createWorkout">
-            <form id="workout-plan" @submit.prevent="savePlanName" v-if="!planNameSelected">
-                <table>
-                    <tr>
-                        <td><label>Workout plan name</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="planName" v-model="planName"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>PLAN difficulty: BEGINNER, INTERMEDIATE, ADVANCED</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="difficulty" v-model="difficulty"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>Plan description</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="difficulty" v-model="planDescription"/></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" class="submit" name="Submit" value="Submit"/></td>
-                    </tr>
-                </table>
-                <br>
-            </form>
-            <form id="training-form" method="post" @submit.prevent="saveWorkoutName" v-if="planNameSelected && !workoutNameSelected">
-                <table>
-                    <tr>
-                        <td><label>Workout name</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="workoutName" v-model="workoutName"/></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
-                    </tr>
-                </table>
-                <br>
-            </form>
-            <form id="add-workout" class="workoutClass" @submit.prevent="addExercise" v-if="workoutNameSelected === true">
-                <table>
-                    <tr>
-                        <td><label>Add exercise</label></td>
-                        <td><input type="text" name="exerciseName" v-model="exercise.exerciseName"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>Sets</label></td>
-                        <td><input type="number" name="exerciseSets" min="1" max="999" v-model="exercise.sets"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>Repetitions</label></td>
-                        <td><input type="number" name="exerciseRepetitions" min="1" max="999" v-model="exercise.repetitions"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>Video</label></td>
-                        <td><input type="text" name="description"  v-model="exercise.videoURL"/></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" class="submit" name="addExercise" value="Add"/></td>
-                    </tr>
-                </table>
-                <br>
-            </form>
-
-            <span class="exerciseData">
-                <ol>
-                    <li v-for="exercise in planWorkout.planExercises">
-                        <span>Name: {{exercise.exerciseName}} </span>
-                        <span>sets: {{exercise.sets}} </span>
-                        <span>repetitions: {{exercise.repetitions}} </span>
-                        <span>Description: {{exercise.description}}</span>
-                        <button v-on:click="removeExercise(planWorkout.planExercises.indexOf(exercise))" class="remove">Remove</button>
-                        <br>
-                    </li>
-                </ol>
-            </span>
-
-            <form @submit.prevent="addWorkout" v-if="planWorkout.planExercises.length">
-                <input type="submit" class="submit" name="addWorkout" value="Add Workout"/>
-            </form>
-
-            <span v-if="workouts.length">
-                <h4>Added workouts</h4>
-                <ol>
-                    <li v-for="workout in workouts">
-                        <span>Workout name: {{workout.workoutName}}</span>
-                    </li>
-                </ol>
-            </span>
-            <form @submit.prevent="processForm" v-if="workouts.length">
-                <input type="submit" class="submit" name="submitPlan" value="Submit plan"/>
-            </form>
+    <div class="createWorkout">
+        <div v-if="planNameSelected">
+            <h3>{{planName}}</h3>
+            <p>Difficulty: {{difficulty}}</p>
+            <p>Description: {{planDescription}}</p>
+            <p v-if="workoutNameSelected">Workout Name: {{workoutName}}</p>
         </div>
+        <form id="workout-plan" @submit.prevent="savePlanName" v-if="!planNameSelected">
+            <table>
+                <tr>
+                    <td><label for="planName">Workout plan name</label></td>
+                </tr>
+                <tr>
+                    <td><input id="planName" type="text" name="planName" v-model="planName" required="required"/></td>
+                </tr>
+                <tr>
+                    <td><label for="difficulty">PLAN difficulty:</label></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="difficulty" v-model="difficulty" required="required" >
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="description">Plan description</label></td>
+                </tr>
+                <tr>
+                    <td><textarea id="description" rows="4" cols="40" v-model="planDescription" required="required"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="Submit" value="Submit"/></td>
+                </tr>
+            </table>
+            <br>
+        </form>
+        <form id="training-form" method="post" @submit.prevent="saveWorkoutName" v-if="planNameSelected && !workoutNameSelected">
+            <table>
+                <tr>
+                    <td><label>Workout name</label></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="workoutName" v-model="workoutName" required="required"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="Submit" value="Submit workout"/></td>
+                </tr>
+            </table>
+            <br>
+        </form>
+        <form id="add-workout" class="workoutClass" @submit.prevent="addExercise" v-if="workoutNameSelected === true">
+            <table>
+                <tr>
+                    <td><label>Add exercise</label></td>
+                    <td><input type="text" name="exerciseName" required="required" v-model="exercise.exerciseName"/></td>
+                </tr>
+                <tr>
+                    <td><label>Sets</label></td>
+                    <td><input type="number" name="exerciseSets" min="1" max="999" required="required" v-model="exercise.sets"/></td>
+                </tr>
+                <tr>
+                    <td><label>Repetitions</label></td>
+                    <td><input type="number" name="exerciseRepetitions" min="1" max="999" required="required" v-model="exercise.repetitions"/></td>
+                </tr>
+                <tr>
+                    <td><label>Video url</label></td>
+                    <td><input type="text" name="description"  v-model="exercise.videoURL"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="submit" name="addExercise" value="Add"/></td>
+                </tr>
+            </table>
+            <br>
+        </form>
+
+        <span class="exerciseData">
+            <ol>
+                <li v-for="exercise in planWorkout.planExercises">
+                    <span>Name: {{exercise.exerciseName}} </span>
+                    <span>sets: {{exercise.sets}} </span>
+                    <span>repetitions: {{exercise.repetitions}} </span>
+                    <button v-on:click="removeExercise(planWorkout.planExercises.indexOf(exercise))" class="remove">Remove</button>
+                    <br>
+                </li>
+            </ol>
+        </span>
+
+        <form @submit.prevent="addWorkout" v-if="planWorkout.planExercises.length">
+            <input type="submit" class="submit" name="addWorkout" value="Add Workout"/>
+        </form>
+
+        <span v-if="workouts.length">
+            <h4>Added workouts</h4>
+            <ol>
+                <li v-for="workout in workouts">
+                    <span>Workout name: {{workout.workoutName}}</span>
+                </li>
+            </ol>
+        </span>
+        <form @submit.prevent="processForm" v-if="workouts.length">
+            <input type="submit" class="submit" name="submitPlan" value="Submit plan"/>
+        </form>
     </div>
 </template>
 
@@ -140,7 +149,7 @@
                 this.workouts = [];
             },
             savePlanName: function() {
-                if (this.planName !== '') {
+                if (this.planName !== '' && this.difficulty !== '' && this.planDescription !== '') {
                     this.planNameSelected = true;
                 }
             },
