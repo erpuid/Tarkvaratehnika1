@@ -1,6 +1,7 @@
 <template>
     <div class="workouthistory">
-        <h1>Workout plans</h1>
+        <h1 class="pageName">Workout plans</h1>
+        <div class="clearfix"></div>
 
         <div class="filterButtons">
             <button class="filterButton" @click="filterDifficulty('all')">Show all</button>
@@ -11,20 +12,22 @@
         </div>
 
         <ul>
-            <li v-for="workoutPlan in workoutPlans">
+            <li v-for="workoutPlan in workoutPlans" v-bind:key="workoutPlan">
                 <h4 class="clickableText" @click="displayPlanInfo(workoutPlan.id)">{{workoutPlan.planName}} - {{workoutPlan.difficulty}}</h4>
-                <div v-if="showPlans.includes(workoutPlan.id)">
-                    <span>{{workoutPlan.description}}</span>
-                    <br>
+                <div class="workoutContainer" v-if="showPlans.includes(workoutPlan.id)">
+                    <div class="favouriteContainer">
                     <button class="favouriteButton" @click="saveToFavourite(workoutPlan.id)" v-if="!favouritesIds.includes(workoutPlan.id)">SAVE to favourites</button>
                     <button class="favouriteButton" @click="saveToFavourite(workoutPlan.id)" v-if="favouritesIds.includes(workoutPlan.id)">REMOVE from favourites</button>
-                    <div v-for="workout in workoutPlan.workouts">
+                    </div>
+                    <div class="workoutDescription">{{workoutPlan.description}}</div>
+                    <div v-for="workout in workoutPlan.workouts" v-bind:key="workout">
+                        <hr>
                         <span>Workout Name: {{workout.workoutName}} </span><br>
-                        <div v-for="exercise in workout.planExercises" style="margin-left: 2ex;" id="exercise">
-                            <span>Exercise: {{exercise.exerciseName}} </span>
-                            <span>Sets: {{exercise.sets}} </span>
-                            <span>Repetitions: {{exercise.repetitions}} </span>
-                            <div class="clickableText" @click="displayVideos(exercise.videoURL)">View instructional video</div>
+                        <div class="exerciseContainer" v-for="exercise in workout.planExercises" v-bind:key="exercise" style="margin-left: 2ex;" id="exercise">
+                            <span>Exercise: {{exercise.exerciseName}}</span>
+                            <span class="workout">Sets: {{exercise.sets}}</span>
+                            <span class="workout">Repetitions: {{exercise.repetitions}}</span>
+                            <div class="clickableText workoutVideo" @click="displayVideos(exercise.videoURL)">View instructional video</div>
                             <iframe width="420" height="315" :src="exercise.videoURL" v-if="visibleVideos.includes(exercise.videoURL)">
                             </iframe>
                         </div>
@@ -56,14 +59,15 @@
         },
         methods: {
             saveToFavourite : function(planId) {
-                console.log("PLAN ID: " + planId);
+                let i;
+                //console.log("PLAN ID: " + planId);
                 axios.post('http://localhost:8080/api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
                 if (this.favouritesIds.includes(planId)) {
                     let index = this.favouritesIds.indexOf(planId);
                     if (index > -1) {
                         this.favouritesIds.splice(index, 1);
                         let plan;
-                        for (var i = 0; i < this.favourites.length; i++) {
+                        for (i = 0; i < this.favourites.length; i++) {
                             if (this.favourites[i].id === planId) {
                                 plan = this.favourites[i];
                             }
@@ -76,7 +80,7 @@
                     }
                 } else {
                     this.favouritesIds.push(planId);
-                    for (var i = 0; i < this.allPlans.length; i++) {
+                    for (i = 0; i < this.allPlans.length; i++) {
                         if (this.allPlans[i].id === planId) {
                             this.favourites.push(this.allPlans[i]);
                         }
@@ -97,27 +101,28 @@
                             this.favouritesIds.push(this.favourites[i].id);
                         }
                     });
-                console.log(this.workoutPlans.pl)
+                //console.log(this.workoutPlans.pl)
             },
             filterDifficulty: function(value) {
+                let i;
                 this.workoutPlans = [];
                 this.showPlans = [];
                 if (value === "all") {
                     this.workoutPlans = this.allPlans;
                 } else if (value === "beginner") {
-                    for (var i = 0; i < this.allPlans.length; i++) {
+                    for (i = 0; i < this.allPlans.length; i++) {
                         if (this.allPlans[i].difficulty === "BEGINNER") {
                             this.workoutPlans.push(this.allPlans[i]);
                         }
                     }
                 } else if (value === "intermediate") {
-                    for (var i = 0; i < this.allPlans.length; i++) {
+                    for (i = 0; i < this.allPlans.length; i++) {
                         if (this.allPlans[i].difficulty === "INTERMEDIATE") {
                             this.workoutPlans.push(this.allPlans[i]);
                         }
                     }
                 } else if (value === "advanced") {
-                    for (var i = 0; i < this.allPlans.length; i++) {
+                    for (i = 0; i < this.allPlans.length; i++) {
                         if (this.allPlans[i].difficulty === "ADVANCED") {
                             this.workoutPlans.push(this.allPlans[i]);
                         }
@@ -152,39 +157,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .workouthistory {
-        font-family: 'Oswald', sans-serif;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 70ex;
-        background-color: #fff4e6;
-        height: 100%;
-        text-align: center;
-        padding: 0 10px 0 10px;
-
-    }
-    .clickableText {
-        background: #f4e6d4;
-        margin: 4px 10px 4px 10px;
-        padding: 2px 0 2px 0;
-        border-radius: 5px;
-    }
-    .clickableText:hover {
-        background: #ff9908;
-        cursor: pointer;
-    }
-    .filterButtons {
-        margin-bottom: 20px;
-    }
-    .filterButton {
-        cursor: pointer;
-        padding: 1px 4px 1px 4px;
-        margin-right: 10px;
-    }
-    .favouriteButton {
-        cursor: pointer;
-        padding: 2px;
-    }
-</style>

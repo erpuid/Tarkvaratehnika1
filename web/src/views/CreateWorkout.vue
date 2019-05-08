@@ -1,5 +1,6 @@
 <template>
-    <div class="createWorkout">
+    <div class="createWorkout container">
+        <h2>Create workout</h2>
         <div v-if="planNameSelected">
             <h3>{{planName}}</h3>
             <p>Difficulty: {{difficulty}}</p>
@@ -79,7 +80,7 @@
 
         <span class="exerciseData">
             <ol>
-                <li v-for="exercise in planWorkout.planExercises">
+                <li v-for="exercise in planWorkout.planExercises" v-bind:key="exercise">
                     <span>Name: {{exercise.exerciseName}} </span>
                     <span>sets: {{exercise.sets}} </span>
                     <span>repetitions: {{exercise.repetitions}} </span>
@@ -96,7 +97,7 @@
         <span v-if="workouts.length">
             <h4>Added workouts</h4>
             <ol>
-                <li v-for="workout in workouts">
+                <li v-for="workout in workouts" v-bind:key="workout">
                     <span>Workout name: {{workout.workoutName}}</span>
                 </li>
             </ol>
