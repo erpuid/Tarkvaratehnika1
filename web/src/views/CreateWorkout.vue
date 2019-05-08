@@ -1,5 +1,6 @@
 <template>
-    <div class="createWorkout">
+    <div class="createWorkout container">
+        <h2>Create workout</h2>
         <div v-if="planNameSelected">
             <h3>{{planName}}</h3>
             <p>Difficulty: {{difficulty}}</p>

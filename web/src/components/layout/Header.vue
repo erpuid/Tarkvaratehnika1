@@ -15,11 +15,10 @@
                     <ul class="d-flex flex-row align-items-center justify-content-start">
                         <li><router-link to="/">Home</router-link></li>
                         <li><router-link to="/about">About</router-link></li>
-                        <li v-if=""><router-link to="/login">Login</router-link></li>
-                        <li v-if=""><router-link to="/plans">Workout Plans</router-link></li>
-                        <li v-if=""><router-link to="/createworkout">Create Workout</router-link></li>
-                        <li v-if=""><router-link to="/calendar">Calendar</router-link></li>
-                        <li v-if=""><button class="logout" @click="logout">Log out</button></li>
+                        <li><router-link to="/plans">Workout Plans</router-link></li>
+                        <li><router-link to="/createworkout">Create Workout</router-link></li>
+                        <li><router-link to="/calendar">Calendar</router-link></li>
+                        <li><button class="logout" @click="logout">Log out</button></li>
                     </ul>
                 </nav>
             </div>

@@ -1,5 +1,6 @@
 <template>
     <div id="calendar">
+        <h2>Workout calendar</h2>
         <div class="calendarView">
             <calendar-view
                     :events="events"
