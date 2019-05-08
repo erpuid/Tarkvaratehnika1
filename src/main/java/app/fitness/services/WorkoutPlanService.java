@@ -28,12 +28,10 @@ public class WorkoutPlanService {
     public WorkoutPlan saveWorkoutPlan(@RequestBody WorkoutPlan workoutPlan) {
         for (PlanWorkout planWorkout:workoutPlan.getWorkouts()) {
             planWorkout.setWorkoutPlan(workoutPlan);
-            System.out.println(planWorkout.getPlanExercises());
             for (PlanExercise exercise:planWorkout.getPlanExercises()) {
                 exercise.setPlanWorkout(planWorkout);
             }
         }
-        System.out.println("DIFFICULTY: " + workoutPlan.getDifficulty());
         return planRepository.save(workoutPlan);
     }
 
@@ -55,19 +53,15 @@ public class WorkoutPlanService {
         String loggedIn = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = userService.getUserByUserName(loggedIn);
         boolean deleted = false;
-        System.out.println("USERID SAVED: " + selected.getUsers());
         for (User user: selected.getUsers()) {
-            System.out.println(user.getUsername() + "LoggedIn: " + loggedIn);
             if (user.getUsername().equals(loggedIn)) {
                 selected.getUsers().remove(user);
                 loggedInUser.getPlans().remove(selected);
                 deleted = true;
-                System.out.println("DELETED!!! plan");
                 break;
             }
         }
         if (!deleted) {
-            System.out.println("SAVED!!! plan");
             selected.getUsers().add(loggedInUser);
             loggedInUser.getPlans().add(selected);
         }

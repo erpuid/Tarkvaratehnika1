@@ -36,13 +36,6 @@ public class UserService {
     @Autowired
     private TokenStore tokenStore;
 
-//    @Bean
-//    private Role userRole() {
-//        Role role = new Role();
-//        role.setName("USER");
-//        return role;
-//    }
-
 
     public void logout(String token){
         try {
@@ -74,7 +67,6 @@ public class UserService {
         if (repository.findByUsername(user.getUsername()) != null) {
             return "This username is already taken!";
         }
-        System.out.println(user.toString());
         repository.save(user);
         return "Success!";
     }
