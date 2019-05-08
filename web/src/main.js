@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import EventBus from './EventBus'
+
+Vue.prototype.$bus = EventBus
 
 axios.defaults.withCredentials = true;
 

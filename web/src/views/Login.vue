@@ -1,6 +1,7 @@
 <template>
     <div class="login">
         <h3>Login</h3>
+        <p>{{loginError}}</p>
         <form id="login" v-on:submit.prevent="login">
             <input class="element" type='text' placeholder='username' v-model='username'>
             <br>
@@ -11,7 +12,7 @@
 
         <form id="register" v-on:submit.prevent="register">
             <h3>If you don't have an account</h3>
-            <h2> {{errorMessage}}</h2>
+            <p>{{errorMessage}}</p>
             <table class="login_master">
                 <tr>
                     <td><label>Username</label></td>
@@ -56,16 +57,19 @@
                 user: {
                     userName: '',
                     password: '',
-                }
+                },
+                loginError: ''
             }
         },
         methods: {
             login() {
                 const { username, password } = this;
-                this.$store.dispatch(AUTH_REQUEST, {username, password}).then(() => {
-                        this.$router.push('/about');
-                    }
-                )
+                this.$store.dispatch("authRequest", {username, password}).then(response => {
+                    this.$bus.$emit('logged', 'User logged');
+                    this.$router.push('/');
+                }).catch(err => {
+                    this.loginError = 'Try again!';
+                });
             },
             register() {
                 if (this.regPassword === this.confirmPass) {
