@@ -1,24 +1,18 @@
 package app.fitness.controllers;
 
 
-import app.fitness.entities.PlanExercise;
-import app.fitness.entities.PlanWorkout;
-import app.fitness.entities.Workout;
 import app.fitness.entities.WorkoutPlan;
 import app.fitness.repositories.PlanExerciseRepository;
 import app.fitness.services.WorkoutPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class WorkoutPlanController {
 
 
-    @Autowired
-    private PlanExerciseRepository planExerciseRepository;
 
     @Autowired
     private WorkoutPlanService service;
@@ -40,7 +34,6 @@ public class WorkoutPlanController {
 
     @PostMapping("api/plan/favourite/{planId}")
     public void saveOrDeleteFromFavs(@PathVariable Long planId) {
-        System.out.println("CONTROLLERIS planID: " + planId);
         service.saveOrDelPlan(planId);
     }
 

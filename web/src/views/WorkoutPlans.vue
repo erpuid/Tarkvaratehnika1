@@ -28,7 +28,7 @@
                             <span class="workout">Sets: {{exercise.sets}}</span>
                             <span class="workout">Repetitions: {{exercise.repetitions}}</span>
                             <div class="clickableText workoutVideo" @click="displayVideos(exercise.videoURL)">View instructional video</div>
-                            <iframe width="420" height="315" :src="exercise.videoURL" v-if="visibleVideos.includes(exercise.videoURL)">
+                            <iframe class="videoBox" width="420" height="315" :src="exercise.videoURL" v-if="visibleVideos.includes(exercise.videoURL)">
                             </iframe>
                         </div>
                         <br>
@@ -41,6 +41,7 @@
 
 <script>
     import axios from "axios";
+    import {BASE_URL} from "../store/constants";
 
     export default {
         name: "WorkoutHistory",
@@ -61,7 +62,7 @@
             saveToFavourite : function(planId) {
                 let i;
                 //console.log("PLAN ID: " + planId);
-                axios.post('http://localhost:8080/api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
+                axios.post(BASE_URL + 'api/plan/favourite/' + planId + '?access_token=' + localStorage.getItem('token'));
                 if (this.favouritesIds.includes(planId)) {
                     let index = this.favouritesIds.indexOf(planId);
                     if (index > -1) {
@@ -89,12 +90,12 @@
             },
             getAllData: function() {
                 axios
-                    .get('http://localhost:8080/api/plan?access_token='+localStorage.getItem('token'))
+                    .get(BASE_URL + 'api/plan?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.workoutPlans = this.allPlans = response.data;
                     });
                 axios
-                    .get('http://localhost:8080/api/plan/favourite?access_token='+localStorage.getItem('token'))
+                    .get(BASE_URL + 'api/plan/favourite?access_token='+localStorage.getItem('token'))
                     .then(response => {
                         this.favourites = response.data;
                         for (var i = 0; i < this.favourites.length; i++) {
@@ -157,3 +158,78 @@
         }
     }
 </script>
+
+<style scoped>
+    .workouthistory {
+        font-family: 'Oswald', sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 70ex;
+        background-color: #fff4e6;
+        height: 100%;
+        text-align: center;
+        padding: 0 10px 0 10px;
+
+    }
+    .clickableText {
+        background: #f4e6d4;
+
+        padding: 2px 0 2px 0;
+        border-radius: 5px;
+    }
+    .clickableText:hover {
+        background: #ff9908;
+        cursor: pointer;
+    }
+
+    .workoutContainer {
+        text-align: left;
+    }
+
+    .filterButtons {
+        margin-bottom: 20px;
+    }
+    .filterButton {
+        cursor: pointer;
+        padding: 1px 4px 1px 4px;
+        margin-right: 10px;
+    }
+
+    .exerciseContainer {
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    .workout {
+        margin-left: 10px;
+    }
+
+    .workoutVideo {
+        text-align: center;
+        margin-top: 4px;
+    }
+
+    .favouriteContainer {
+        text-align: center;
+    }
+
+    .favouriteButton {
+        margin-left: auto;
+        float: right;
+        cursor: pointer;
+        padding: 2px;
+    }
+
+    .workoutDescription {
+        max-width: 450px;
+    }
+
+    .pageName {
+        clear: both;
+        float: left;
+    }
+
+    .videoBox {
+
+    }
+</style>

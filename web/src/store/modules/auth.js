@@ -1,4 +1,4 @@
-import {AUTH_LOGOUT, AUTH_REQUEST} from "../constants";
+import {AUTH_LOGOUT, AUTH_REQUEST, BASE_URL} from "../constants";
 import axios from "axios";
 import store from "../index";
 
@@ -17,7 +17,7 @@ const actions = {
             params.append('password',user.password);
             axios({
                 method: 'post',
-                url: 'http://localhost:8080/oauth/token',
+                url: BASE_URL + 'oauth/token',
                 auth: {username: 'my-trusted-client', password: 'secret'},
                 headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
                 data: params
